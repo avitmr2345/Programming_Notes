@@ -1,0 +1,118 @@
+Some commands to check information about Ubuntu and your Computer -
+uname -o
+uname -m (it shows your computer architecture)
+lsb_release -a
+
+Redirection -
+0,1,2 are std i/p , std o/p and std error.
+To redirect the output - ls > list.txt
+To redirect the error - cp dfdsafs ~ 2> error.txt
+To redirect the input - cat < list.txt
+
+xargs converts the standard input into command line arguments and helps in piping with command who don't accept standard input
+
+Brace expansion -
+touch file{1..100}_{A..Z}
+touch file{1..100}_{A..Z}/file{1..5} (it just create files in every folder).
+
+Locate -
+locate command is used to locate the files on the system and if you created new files you firstly have to update the database to make it work.
+locate file1.txt
+sudo updatedb
+
+Find - 
+find command will list all the files and the directories inside where this command is used.
+find -maxdepth 2 -type f/d (this will list all the files inside and below this upto 2 folders).
+find /etc -iname "file.txt" (i is for case insensitive).
+find . -type f -size +100k -size -5M | wc -l (it just count the files and show the number).
+find . -type f -size -100k -o -size +5M | wc -l (o option is for or).
+sudo find / -type f -size +100k -size -5M -exec cp {} ~ \; (it simply find the files and the exec command is used to perform 
+some action on the search result. {} means we simply copy every file we found to the destination.)
+
+Sort -
+sort words.txt (use r for reverse)
+sort -n numbers.txt (sort numerically)
+sort -u numbers.txt (sort uniquely which means it removes duplicacy).
+ls -l /etc | head -n 20 | sort -k 5n (k sort the tabular data and you need a keydef which means how and what to sort (5n)).
+
+Tee -
+ls /usr/bin | tee ls.txt | grep zip
+
+Grep -
+grep command searches through files and standard output.
+grep -c e filename (c is for count the instances)
+grep -cv e filename (v find the text which don't have e in them (basically invert)).
+grep -i "e" file1 file2 (grep can also search content in multiple files)
+
+Archiving and Compression (Backup) -
+Tarball are containers to store files in for compression.
+tar -cvf ourarchive.tar file[1-3].txt (c is for creating the archive, v is verbose which means talk to us what's going on, and f is to give tar
+command files.)
+
+To check the content of the tar (tarball) file -
+tar -tf ourarchive.tar (t is test label which basically lets you check the content and f is for passing file to tar)
+tar -xvf ourarchive.tar (it extract the content of the archive)
+
+gzip ourarchive.tar (it compress the tar file)
+gunzip ourarchive.tar.gz
+bzip2 ourarchive.tar 
+bunzip ourarchive.tar.bz2 (it is best for large files bcz it compress the file in less size).
+zip ourarchive.zip files...
+unzip ourarchive.zip 
+
+In one step- 
+tar -cvzf ourarchive.tar.gz file[1-3].txt (z option is for gzip compression)
+tar -xvzf ourarchive.tar.gz
+tar -cvjf ourarchive.tar.bz2 file[1-3].txt (j is for bzip2)
+tar -xvjf ourarchive.tar.bz2
+
+Bash Script -
+Create a file with .sh to identify script. First line should be the interpreter we want to use (#!/usr/bin/bash)
+
+You can run scripts from anywhere by doing these steps (basically making your own command)-
+Create a folder on home called bin and store all scripts there , then make those file executable and then add the path of the bin folder.
+chmod +x file (it make the file executable)
+vim .bashrc (add PATH="$PATH:$HOME/bin" to end of that file)
+
+Scheduled Automation using Cron -
+Crontab is used when we have to do some specific tasks at some intervals of time.
+crontab -e
+Crontab is broken in rows and have 6 columns in which first 5 are scheduling information and last column in command to run.
+*/15 means to run every 15 minutes.
+If you want to run a bash script you provide the path (bash ~/bin/backup)
+
+Modifying and Installing from Source Code -
+Firstly download the package from gnu.org and then extract -
+tar -xJf package_name (J is for the xzip extraction)
+
+Add a line in ls.c file and then we have to download the GNU C compiler (sudo apt-get install gcc) and then configure the gcc compiler and to
+create a makefile(used for installation of this new software package) by giving a command -
+bash configure
+
+Download the make package and run it -
+make (it compiles the files that are not compiled and modified and convert into machine code ) 
+
+Last step is to install this machine code in required places of our path-
+sudo make install (it install all the software that comes inside the package).
+
+APT (Advanced Packaging Tool)
+Cache is just a place to store files locally so that you get performance benefits later(Ex- Some website across the world)
+Cache is located in var/lib/apt/lists.
+apt-cache search docx (we are telling apt package manager to look inside the cache for any packages you give it )
+apt-cache show docx2txt
+sudo apt-get update (it update the cache available from the repositories)
+sudo apt-get upgrade (it upgrade all the softwares)
+sudo apt-get install package_name
+sudo apt-get purge package_name (it uninstall the package and its configuration files)
+sudo apt-get autoremove (it removes the dangling dependies which are not in use)
+
+Archives are stored in /var/cache/apt/archives. It have the compressed package archives that are installed on the system.
+sudo apt-get clean/autoclean (clean deletes all and autoclean deletes which are not accessible packages.)
+
+Downloading Source Code -
+Steps:-
+sudo vim /etc/apt/sources.list(Package manager uses this config file to determine which repo & which package file is download)
+Then update the cache after changing that file.
+sudo apt-get install dpkg-dev
+
+sudo apt-get source package_name

@@ -1,0 +1,35 @@
+                                                                 Chapter 1
+
+int, tuple, string are immutable and list is mutable which means its data items can be changed. 
+                                              
+object reference = value (x = 400) # x is obj reference and 400 is object.
+
+The = operator binds the object reference and the object.
+
+Python uses dynamic typing, which means that an object reference can be rebound to refer to a different object (which
+may be of a different data type) at any time.
+
+Tuple can be created by () and list created with [].
+
+"String" [0] - It gives S. # brackets can be used to access an item from a sequence (eg string, list etc.)
+
+The dot (“access attribute”) operator is used to access an object’s attributes.
+
+Logical operations -
+Identity operator (is)-The purpose of the identity operator is to see whether two object references refer to the same
+object, or to see whether an object is None. If we want to compare object values we should use a comparison operator
+instead.
+
+Comparison operators - <, <= , >, >=, !=, == These operators compares the object values.
+
+Membership operator (in)- For data types that are sequences or collections such as strings, lists, and tuples, we 
+can test for membership using the in operator, and for nonmembership using the not in operator.For lists and tuples,
+the in operator uses a linear search which can be slow for very large collections (tens of thousands of items or 
+more). On the other hand, in is very fast when used on a dictionary or a set.
+
+★A traceback (sometimes called a backtrace) is a list of all the calls made from the point where the
+unhandled exception occurred back to the top of the call stack.
+
+Logical operators - Python provides three logical operators: and, or, and not. Both and and or use short-circuit 
+logic and return the operand that determined the result—they do not return a Boolean (unless they actually have 
+Boolean operands).
