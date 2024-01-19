@@ -1,0 +1,623 @@
+                                                           PYTHON
+jupyter.org/try  - Jupyter Notebook 
+
+int, tuple, string are immutable and list is mutable which means its data items can be changed. 
+                                              
+object reference = value (x = 400) # x is obj reference and 400 is object.
+
+The = operator binds the object reference and the object.
+
+Python uses dynamic typing, which means that an object reference can be rebound to refer to a different object (which
+may be of a different data type) at any time.
+
+"String" [0] - It gives S. # brackets can be used to access an item from a sequence (eg string, list etc.)
+
+The dot (“access attribute”) operator is used to access an object’s attributes.
+
+Logical operations -
+Identity operator (is)-The purpose of the identity operator is to see whether two object references refer to the same
+object, or to see whether an object is None. If we want to compare object values we should use a comparison operator
+instead.
+
+Comparison operators - <, <= , >, >=, !=, == These operators compares the object values.
+
+Membership operator (in)- For data types that are sequences or collections such as strings, lists, and tuples, we 
+can test for membership using the in operator, and for nonmembership using the not in operator.For lists and tuples,
+the in operator uses a linear search which can be slow for very large collections (tens of thousands of items or 
+more). On the other hand, in is very fast when used on a dictionary or a set.
+
+★A traceback (sometimes called a backtrace) is a list of all the calls made from the point where the
+unhandled exception occurred back to the top of the call stack.
+
+Logical operators - Python provides three logical operators: and, or, and not. Both and and or use short-circuit 
+logic and return the operand that determined the result—they do not return a Boolean (unless they actually have 
+Boolean operands).
+
+>> Indexing is used to get a single element in a string.
+
+Character:     H  e   l   l   o
+Index:         0  1   2   3   4
+Reverse Index: 0 -4  -3  -2  -1
+
+Slicing is used to grab a subsection of multiple characters of a string. [start:stop:step]
+variable = "asdfghjkl"              variable[1:6:2]
+variable[::-1]			#reverses the string.
+
+>> String properties and methods:
+
+Immutability:
+Strings are immutable means they can't change using item assingnment.
+name = "sam"
+name[0] = 'p' #error
+
+Concatenation:
+"Hello " + name  -> Hello sam
+name * 5  -> samsamsamsamsam # Multiple string concatenation
+
+Methods:
+x = "Hello"
+
+x.upper()
+x.lower()
+x.split(e) and many more.
+
+>> Print formatting with strings:
+  
+   print("Hello " + name)
+   There are multiple ways to format strings for printing variable in them and it is known as string interpolation.
+
+1. Format method:
+   print('This is a string {}'.format('INSERTED'))
+   This is a string INSERTED
+
+   print('The {2} {1} {0}'.format('fox', 'brown', 'quick'))
+   The quick brown fox
+
+   print('The {q} {b} {f}'.format(f='fox', b='brown', q='quick'))
+   The quick brown fox
+
+   Float formatting-
+   result = 100/777
+   print('The result was {r:1.3f}'.format(r=result)) # {value:width.precision f}
+   The result was 0.129
+
+2. f-strings (formatted strings literals):
+   name = "Avish"  age = 20
+   print(f'{name} is {age} years old.')
+   Avish is 20 years old.
+   print(f"He said his name is {name!r}") --> He said his name is "Avish" #to get the string representation.
+   
+   num = 23.45678
+   print(f"My 10 character, four decimal number is:{num:{10}.{6}}") 
+
+3. using % operator:
+   print(' Adding %s text here.' %'some')
+   print(' Adding %s text here and %s here.' %('some','more'))
+   print(' Adding %r text here.' %'some')  --> Adding 'some' text here # %r delivers the string representation,including escape characters and
+   quote marks.
+
+>> Lists:
+   Lists are ordered sequence that can hold a variety of object types.
+   Lists are mutable and also supports indexing and slicing.
+   
+   mylist = ['one' , 'two' , 'three' ]
+   mylist[0] = 'ONE'
+   ['ONE', 'two' , 'three' ]
+
+   mylist.append('four')
+   ['ONE', 'two' , 'three' ,'four']
+
+   mylist.pop(0)
+   ['two' , 'three' , 'four']
+   
+   mylist = ['a', 'b', 'z', 'e', 'u']
+   numls = [3,5,56,6,63]
+   mylist.sort() #sort is an in place method which means it don't return anything and change the list.
+   numls.reverse() #it is also in place method.
+
+>> Dictionaries:
+   Dictionaries are unordered mappings for storing objects. They have key-value pair. These pair are used to grab objects without knowing index
+   location.
+   Dictionaries can't be sorted.
+
+   dict = {'k1':323, 'k2':[0,1,3] , 'k3':{'insideKey':123} }
+   dict['k2'][2] # to access the key of a dictionary.
+   dict['k4'] = 3020 #adding a new key-value pair in a dictionary.
+
+   dict.keys() #it gives all the keys in dictionary.
+   dict.values() # it gives all the values.
+   dict.items() # it shows key value pair in a dictionary.
+
+>> Tuples:
+   Tuples are same as list except it is immutable.
+   t = ('String', 233)
+
+>> Sets:
+   Sets are unordered collection of unique elements.
+   myset = set()
+   myset.add(1)
+   myset.add(2)
+
+   Set is useful if you want to find unique elements in a list.
+   mylist = [1,1,3,3,2,2,2,2,2,1,1]
+   set(mylist) #it shows unique elements which are 1,2,3
+
+>> Booleans are operators that allows you to convey True of False statements.
+
+>> I/O with basic files:
+   myfile = open('myfile.txt') #opens the file
+   myfile.read() #it returns a single string of the content of the file.
+   myfile.seek(0)#it is used to set the cursor in the beginnig of the file to read the output again.
+   myfile.readlines()#it shows a list where each element represents a line.
+   myfile.close()
+
+   Alternate- (it don't need to require to close the file)
+   with open('myfile.txt') as my_file:
+       contents = my_file.read()
+   with open('asdfghjkl.txt', mode='w') as file:
+       file.write('I created this file!')
+
+>> Comparison operators:                   Logical operators:
+   < , > , ==, >=, <=, !=                  and , or , not
+
+>> If, elif, else statements:
+
+   if condition:
+       code
+   elif condition:
+       code
+   else:
+       code
+
+>> For Loop:
+   for variable in iterable: # variable is just a placeholder for every single item in the iterable.
+       print(variable)
+
+   String-
+       for letter in 'Hello World':
+           print(letter)
+   List-                                #same for tuple
+       for item in mylist:
+		 print(item)
+   Dictionary- d = {'k1':1, 'k2':2, 'k3':3}  
+	  for key,value in d.items():              # use tuple unpacking
+	      print(value)
+
+   Tuple unpacking:
+   mylist = [(1,2),(3,4),(5,6),(7,8)]
+   for a,b in mylist:    #we get access to individual item in mylist
+       print(a)
+       print(b)
+
+   Range generator-                     #generators return information rather than storing it in the memory.
+   for num in range(1,10):                
+	  print(num)
+
+   Enumerate- Keeping track of how many loops you've gone through is so common, that enumerate was created so you don't need to worry about
+   creating and updating this index_count or loop_count variable   #it takes an iterable obj and return index counter and element at that
+   index.
+
+   for index,letter in enumerate(word):    #word = 'abcde'
+	  print(letter)
+
+   Zip-				    #zip combine two lists upto matching elements in both lists.
+   for item in zip(list1,list2):    #if list1 and list2 have 6 and 4 elements then only 4 pair are generated by zip.
+       print(item)
+
+   In operator-
+   2 in [1,2,3] --> True
+
+>> While Loop:
+     while some_boolean_condition:
+		print('Hi')
+
+>> input('Enter') #it accepts things as a string
+
+>> List Comprehension: It is a unique way to quickly create a list.
+   mylist = [num**2 for num in range(0,5)]
+   --> [0,1,4,9,16]
+
+   mylist = list(range(0,21))
+>> Dictionary Comprehension:
+   mydict = {x:x**2 for x in range(10)}
+
+
+						******************Functions*******************
+
+Formally, a function is a useful device that groups together a set of statements so they can be run more than once.On a more fundamental level, functions allow us to not have to repeatedly write the same code again and again.
+	def function_name():
+		'''docstring
+		   ignored by compiler
+		'''
+		code
+
+>> Returning tuples for unpacking-
+
+     def employee_check(work_hours):        #work_hours = [('Abby',100),('Billy',400),('Cassie',800)]
+    
+     # Set some max value to intially beat, like zero hours
+     current_max = 0
+     # Set some empty value before the loop
+     employee_of_month = ''
+    
+     for employee,hours in work_hours:
+         if hours > current_max: 
+            current_max = hours
+            employee_of_month = employee
+         else:
+            pass
+    
+     # Notice the indentation here
+     return (employee_of_month,current_max)
+
+	name,hours = employee_check(work_hours)  #tuple unpacking with a function call
+
+>> *args and **kwargs- 	#arbitary number of arguments and keyword arguments. args return tuples and kwargs return dictionary
+    def myfunc(*args):	 #*args means whatever this parameter is user can pass as many they want and it will be treated as a tuple inside func.
+	return sum(args) * 0.05
+    myfunc(1,3,5,35) --> Args
+	
+   def func(**kwargs): 			func('k1':1, 'k2':35) --> Kwargs
+
+   def function(*args, **kwargs):	function(1,2,3,'k1':1, 'k2':35) #combination 
+
+
+>> Lambda Expressions- These are a way to quickly create anonymous functions, basically one time use function.
+   lambda num: num ** 2
+ > Map function- The map function allows you to "map" a function to an iterable object. That is to say you can quickly call the same function
+   to every item in an iterable, such as a list.
+   map(function,iterable)	--> list(map(lambda num: num**2,mylist))
+ > Filter funtion- The filter function returns an iterator yielding those items of iterable for which function(item) is true. Meaning you need
+   to filter by a function that returns either True or False. Then passing that into filter (along with your iterable) and you will get back
+   only the results that would return True when passed to the function. 
+   filter(check_even, nums)    or    filter(lambda num: num%2 == 0, nums)
+>> Scope of variables:
+   It follows LEGB rule. It search for the variable in local then enclosing func then global part.
+   L = Local variable, E = Enclosing function, G = Global variable, B = Built-in
+
+	   				*******************Object Oriented Programming*******************
+
+>> Object oriented programming allowes the programmers to create their own objects that have methods and attributes.
+
+ > class - It is basically a blueprint that defines the nature of a future object
+ > instance - An instance is a specific object created from a particular class
+ > init method - It going to be called upon whenever you create an instance of the class. This method is used to initialize the attributes of
+   an object.
+ > self keyword - It connects this method to the instance of the class/object, and it allows us to refer to itself and then we can pass on any
+   attributes that we want the user to define
+ > attributes - An attribute is a characteristic of an object
+ > class object atttibute - These are same for any instance of a class
+ > method - Method is an function that's defined inside a class and perform some operation with the object
+
+ > class Dog():
+	species = 'mammal'   #class object attribute
+
+	def __init__(self,breed,name,spots):
+		self.name = name
+		self.breed = breed
+		self.spots = spots
+	def bark(self,number):    #self is used to connect with the actual object
+		print('Woof!! My name is {} and the number is {}'.format(self.name,number))
+
+    my_dog = Dog(breed='RotWeiler',name='Bruno',spots= False)    #creating an instance of the class
+    my_dog.breed    my_dog.bark(10)  #calling an attribute and method
+
+>> Inheritance: It's a way to form new classes using classes that have been already defined.
+
+	class Animal():
+		def __init__(self):
+			print('Animal Created.')
+		def who_am_i(self):
+			print('I am an animal.')
+	class Dog(Animal):				#we are inheriting the base class Animal and Dog is now derived class.
+		def __init__(self):
+			Animal.__init__(self)
+			print('Dog Created.')
+		def who_am_i(self):			#method overriding 
+			print('I am a dog.')
+		def bark(self):
+			print('Woof')
+   # Functions can take in different arguments, methods belong to the objects they act on.
+>> Polymorphism: It refers to the way in which different object classes can share the same method name, and then those methods can be called
+   from the same place even though a variety of different objects might be passed in.
+>> Special Methods: Finally let's go over special methods. Classes in Python can implement certain operations with special method names.
+   These methods are not actually called directly but by Python specific language syntax.
+
+	class Book():
+    		def __init__(self, title, author, pages):
+        		print("A book is created")
+        		self.title = title
+	     		self.author = author
+        		self.pages = pages
+
+	     	def __str__(self):
+        		return "Title: %s, author: %s, pages: %s" %(self.title, self.author, self.pages)
+
+	     	def __len__(self):
+      			return self.pages
+
+		def __del__(self):
+      	     		print("A book is destroyed")
+
+>  book = Book("Python Rocks!", "Jose Portilla", 159)
+
+# Special Methods
+print(book)			#print asks for the string representation of the argument passed inside the paranthesis.
+print(len(book))
+del book
+						*******************************************
+
+>> Module and Packages:
+   Modules are just .py scripts that you call in another .py script and Packages are collection of modules.
+   Package folder must have a __init__.py file to distinct this folder from a normal folder.
+   from MyMainPackage import scriptName
+   from MyMainPackage.Subpackage import scriptName
+>> PyPi is a repository for open source third party Python packages and we use pip install to download these packages from internet.
+>> __name__ == '__main__' (It is used to check if the python file is run directly or being imported.)
+
+>> Error and exception handling:
+   try: This is the block of code to be attempted (may lead to an error)
+   except: Block of code will execute in case there is an error in try block
+   else: It will run if there was no error in the try block.
+   finally: A final block of code to be executed, regardless of an error. #It will always run.
+
+	def ask():
+    		while True:
+        	      try:
+	                  num = int(input('Enter a number:'))
+                   	  print(f'The squared number is: {num**2}')
+	              except:
+			  print('Please enter in a format of integer.')
+		          continue
+        	      else:
+		          break
+        	      finally:
+                          print('Done')
+	ask()
+
+>> Testing tools:
+   pylint- This is a library that looks at your code and reports back possible issues.Ex-
+   pylint filename
+
+   unittest- This built-in-library will allow to test your own programs and check you are getting desired outputs.
+>> Decorators:
+ > Assigning a function to a variable-
+
+	def hello(name='Jose'):
+	     return 'Hello'
+
+	greet = hello   #we are just passing a function object to the greet variable
+        del hello   	 #Even though we deleted the name hello, the name greet still points to our original function object. 
+
+	print(greet())
+> Functions within functions-
+
+	def hello(name='Jose'):
+ 	    print('The hello() function has been executed')
+   
+	    def greet():    #The scope of these functions is only inside the hello function and we can't call them outside the function.
+            	return '\t This is inside the greet() function'
+            print(greet())
+> Returning functions-
+
+	def hello(name='Jose'):
+    
+         def greet():
+             return '\t This is inside the greet() function'
+    
+         def welcome():
+             return "\t This is inside the welcome() function"
+    
+         if name == 'Jose':
+             return greet
+         else:
+             return welcome
+	x = hello()	#Here we are executing the hello function and returning the greet function in variable x.
+	print(x())
+> Function as argument-
+
+	def hello():
+    	    return 'Hi Jose!'
+
+     	def other(func):
+     		print('Other code would go here')
+     		print(func())
+
+	other(hello)
+> Decorators can be thought of as functions which modify the functionality of another function.Syntax-
+	@decorator_name
+	def func():
+	    code
+
+	Example-
+	def new_decorator(func):
+
+		def wrap_func():
+			print("Code would be here, before executing the func")
+
+			func()
+
+			print("Code here will execute after the func()")
+
+     		return wrap_func
+
+	@new_decorator
+	def func_needs_decorator():
+	    print("This function is in need of a Decorator")
+
+	func_needs_decorator()
+>> Generators: Generator functions allow us to write a function that can send back a value and then later resume to pick up where it left off. This type of function is a generator in Python, allowing us to generate a sequence of values over time. The main difference in syntax will be the use of a yield statement.
+
+	def gencubes(n):
+     		for num in range(n):
+			yield num**3
+
+	for x in gencubes(10):
+	     print(x)
+>> Advanced Python Modules:
+>  Collections Module: The collections module is a built-in module that implements specialized container data types providing alternatives
+   to Python’s general purpose built-in containers. We've already gone over the basics: dict, list, set, and tuple.
+
+	Counter-
+	from collections import Counter
+	lst = [1,2,2,2,2,3,3,3,1,2,1,12,3,2,32,1,21,1,223,1]
+	Counter(lst)
+
+	Output- Counter({1: 6, 2: 6, 3: 4, 12: 1, 21: 1, 32: 1, 223: 1})
+
+	defaultdict-
+	from collections import defaultdict
+	d = defaultdict(lambda: 0)
+	d['one']
+
+	Output- 0
+
+	namedtuple-
+	from collections import namedtuple
+	Dog = namedtuple('Dog',['age','breed','name'])  #namedtuple(typename, field names)
+	sam = Dog(age=2,breed='Lab',name='Sammy')
+	sam.breed
+
+	Output- Lab
+> Opening and Reading Files:
+  os package is used to perform some commands of linux in python script and shutil is used to perform various functions to the files like
+  move and remove.Ex-
+  os.getcwd(), os.listdir(), os.unlink(path)|rmdir(path)|walk(file) #unlink remove files and walk gives folder, subfolders and files names.
+  shutil.move(src,dest), shutil.rmtree(path) #use send2trash module to send the files to trash bin bcz rmtree remove all the files inside a folder and it isn't reversible.
+> Python Debugger-
+  import pdb
+  pdb.set_trace()
+> Regular Expressions (regex) allows us to search for general patterns in text data.
+	import re
+	pattern = 'phone'
+	text = 'One phone and two phone.'
+	re.search(pattern,text)
+	re.findall(pattern,text)
+	for match in re.finditer(pattern,text):	#it gives all the matches and the indexes where they are found.
+		print(match)	
+
+	Identifiers:
+	Character		Description		Example Pattern Code		Exammple Match
+	\d			A digit		           file_\d\d			file_25
+	\w			Alphanumeric		   \w-\w\w\w			A-b_1
+	\s			Whitespace		   a\sb\sc			a b c
+	\D			A non digit		   \D\D\D			ABC
+	\W			Non-alphanumeric	   \W\W\W\W\W			*-+=)
+	\S			Non-whitespace	   	   \S\S\S\S			Yoyo
+
+	Quantifiers:
+	+		Occurs one or more times	Version \w-\w+		Version A-b1_1
+	{3}		Occurs exactly 3 times		\D{3}			abc
+	{2,4}		Occurs 2 to 4 times		\d{2,4}			123
+	{3,}		Occurs 3 or more		\w{3,}			anycharacters
+	\*		Occurs zero or more times	A\*B\*C*		AAACC
+	?		Once or none			plurals?		plural
+
+	Example-
+	phone = re.search(r'\d\d\d-\d\d\d-\d\d\d\d',"My telephone number is 408-555-1234")
+
+	r'mypattern' (use of r is not mandatory)
+	placing the r in front of the string allows python to understand that the \ in the pattern string are not meant to be escape slashes.
+
+	Starts with and Ends with:
+	re.findall(r'^\d','1 is the loneliest number.')
+
+	re.findall(r'\d$','This ends with a number 2')
+
+	Exclusion:
+	phrase = "there are 3 numbers 34 inside 5 this sentence."
+	re.findall(r'[^\d]',phrase) # 's[de]' used to check if follwed by d or e.
+>	Timing your Python code: The timeit module takes in two strings, a statement (stmt) and a setup. It then runs the setup code and runs 	the stmt code some n number of times and reports back average length of time it took.Ex-
+	import timeit
+	setup = '''
+	def func_one(n):
+	    return [str(num) for num in range(n)]
+	'''
+	stmt = 'func_one(100)'
+
+	timeit.timeit(stmt,setup,number=100000)
+>	Zipping and Unzipping:
+	import shutil
+	directory_to_zip='C:\\Users\\Marcial\\Pierian-Data-Courses\\Complete-Python-3-Bootcamp\\12-Advanced Python Modules'
+	output_filename = 'example'
+	shutil.make_archive(output_filename,'zip',directory_to_zip)
+	shutil.unpack_archive(directory_to_unzip,dir_for_result,'zip')
+>>	Web Scraping: It is a general term for techniques involving automating the gathering of data from a website. Prerequisites-
+	pip install requests
+	pip install lxml
+	pip install bs4
+
+	import requests
+	res = requests.get("http://www.example.com")
+	res.text
+
+	import bs4
+	soup = bs4.BeautifulSoup(res.text,"lxml")
+	soup
+	title_tag = soup.select('title')[0].getText() # access title , .class to access class and #id to access id
+	
+	Downloading an image-
+	image_link = requests.get('https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Deep_Blue.jpg/220px-Deep_Blue.jpg')
+	f = open('my_new_file_name.jpg','wb') #wb is used for writing binary file
+	f.write(image_link.content)
+	f.close()
+>>	Working with Images:
+	pip install pillow 
+
+	from PIL import Image
+	mac = Image.open('example.jpg')
+	mac.show() # to show the image
+
+	Crop Image- mac.crop(x,y,w,h) #x and y are top left coordinates. w and h are height and width coordinates.
+	mac.crop((0,0,100,100))
+
+	Copying and pasting-
+	computer = mac.crop((x,y,w,h))
+	mac.paste(im=computer,box=(0,0))
+
+	mac = mac.resize((width, height)) # for permanent change of image.
+	mac.rotate(90) or mac.rotate(90, expand = True)
+
+	Transparency- We can add an alpha value (RGBA stands for RED,Green,Blue, Alpha) where values can go from 0 to 255. If Alpha is 0 the 	image is completely transparent, if it is 255 then its completely opaque.
+	
+	red = Image.open('red_color.jpg')
+	blue = Image.open('blue_color.png')
+	red.putalpha(128)
+	blue.paste(red,box=(0,0),mask=red)
+	blue.save("purple.png")
+>>	Working with csv files: CSV stands for Commas Seperated variables and is a very common output for spreadsheet programs. A .csv file only
+	contains raw data from the spreadsheet.
+
+	Reading csv file-
+	import csv
+	data = open('example.csv',encoding="utf-8")
+	csv_data = csv.reader(data)
+	data_lines = list(csv_data)
+
+	Writing csv file-
+	file_to_output = open('to_save_file.csv','w',newline='') # newline controls how universal newlines works
+	csv_writer = csv.writer(file_to_output,delimiter=',')
+	csv_writer.writerow(['a','b','c'])
+	csv_writer.writerows([['1','2','3'],['4','5','6']])
+	file_to_output.close()
+>>	Working with PDF files:
+	pip install PyPDF2
+
+	Reading PDF-
+	import PyPDF2
+	f = open('Working_Business_Proposal.pdf','rb')
+	pdf_reader = PyPDF2.PdfFileReader(f)
+	pdf_reader.numPages
+	page_one = pdf_reader.getPage(0)
+	page_one_text = page_one.extractText()
+	f.close()
+
+	Adding to PDFs- We can not write to PDFs using Python because of the differences between the single string type of Python, and the 	variety of fonts, placements, and other parameters that a PDF could have. What we can do is copy pages and append pages to the end.
+	f = open('Working_Business_Proposal.pdf','rb')
+	pdf_reader = PyPDF2.PdfFileReader(f)
+	first_page = pdf_reader.getPage(0)
+	pdf_writer = PyPDF2.PdfFileWriter()
+	pdf_writer.addPage(first_page)
+	pdf_output = open("Some_New_Doc.pdf","wb")
+	pdf_writer.write(pdf_output)
+	f.close()

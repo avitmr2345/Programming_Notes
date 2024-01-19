@@ -1,0 +1,301 @@
+Resources - file:///C:/Users/Avish%20Chaudhary/Downloads/[GigaCourse.Com]%20Udemy%20-%20The%20Complete%202022%20Web%20Development%20Bootcamp/
+01%20-%20Front-End%20Web%20Development/37242778-Web-Dev-Resources.pdf
+
+								CSS
+Combining Selectors -
+Multiple selectors - h1, p {}
+Chile selector - div > p {} (Select the child of div which is p)
+Heirarchical selectors - li a {} (Selects the child anchor tags which are inside parent tag list)
+Combined selectors - h1#title {} (Select the h1 with the id title)
+Adjacent sibling - h3 + ul (Select all the unordered list immediately after the h3)
+
+
+CSS Box Model -
+Height & Width - Specify the HTML tags height and width.
+Padding - It is the space between the occupied tag space and the border.
+Border - It is the border of the HTML tag.
+Margin - It is to give extra space on the HTML page without changing any property or size of the HTML tags.
+
+
+CSS Display Property -
+Block elements are those elements which takes an entire line and block other elements to occur right next to it.
+Eg - p,heading tag, list, div tag and form tag.
+Inline display elements are those elements which only takes up as much space they needs to fit the height and width. We can't specify width in
+this. Eg - span, anchor tag.
+Inline-block elements are those elements in which we can specify width as well as use them inline.
+Eg - image tag.
+None has the effect as if the element never existed.
+To change the view effect we use display property:
+display: inline / inline-block / block / none;
+To hide the content and maintain its position we use:
+visibility: hidden;
+
+
+CSS Positioning -
+Static, Relative, Absolute, Fixed.
+Static is just the HTML original flow or default position.
+Relative positioning is the position relative to default position.
+				or
+Relative positioning means that you're adding a margin relative to where the element should have been.
+Coordinates of relative position are like margin property. Top gives space from the top etc.
+img {
+    position: relative;
+    left: 20px; // it means give 20px space between image left edge and where the left edge used to be.
+}
+Absolute position means that you're adding a margin relative to its parent element. It breaks the flow of the HTML page like it never existed at
+that position. Position relative to nearest positioned ancestor or top left corner of webpage if no positioned ancestor present.
+div {
+	position: relative;
+}
+img {
+	position: absolute;
+	right: 30px;
+}
+Fixed position fix the element.If you scroll it remain at the same position.
+
+
+CSS Z-Index - The z-index CSS property sets the z-order of a positioned element and its descendants or flex items. Overlapping elements with
+a larger z-index cover those with a smaller one. It only works if your elements are positioned.
+z-index : 0/1/-1; (-1 is for bottom, 0 is the default z-index and 1 is on top)
+
+
+CSS Media Query Breakpoints - Media queries are useful when you want to modify your site or app depending on a device's general type (such as
+print vs. screen) or specific characteristics and parameters (such as screen resolution or browser viewport width).
+Syntax - @media breakpoint { feature }
+
+
+CSS Sizing -
+Static font size which is in px remain constant even if the we change the font size on the page.
+Dynamic font size(eg. em, 20%) gets inherited and added on top of whatever it got from its parent.(In body 2em and in h1 5.625em will add h1
+font size on top of 2em body size.) 
+font-size: 1em = 16px , 16 px = 100%;
+Use rem (root em) for ignoring all parent setting for the font size and set it relative to root/<html> tag.
+
+
+CSS Float and Clear -
+Float is used to wrapping text around a certain element and don't use it for positioning.
+float: left; (It just move the content to go on left and the next tag will wrap to right.)
+Clear property is used to clear the side specified and prevent it from wrapping anything.
+clear: left;
+
+								Flexbox
+Flexbox is used to design the layout of the webpage in 1D and you should not use float and clear to design the layout of webpage.
+You should put all the elements in a box or div that you want to display in a certain layout.
+Flexbox have a default row direction which is called main axis and column is the cross axis. We can change the direction of the flexbox to vertical and the height columns become the main axis and horizontal becomes the cross axis.
+.container {
+	display: flex; (inline-flex can also be used)
+	gap: 10px;
+	flex-direction: column;
+}
+flex-basis: 100px;  Child(update the main axis in width or height according to the direction of flexbox and default basis is auto) 
+order: 10;  Child(default is 0 and the maximum is set to the end)
+flex-wrap: wrap| wrap-reverse;  Parent(nowrap is default and the content does not come to next line if row become full)
+justify-content: flex-start| flex-end| center;  Parent(it defines the alignment on the main axis)
+align-items: flex-start| flex-end| center;  Parent(it defines the alignment on the cross axis)
+align-content: center;  Parent(it only works when flex-wrap is set to wrap)
+
+Flex Sizing-
+The order of priority is - min-width/max-width > flex-basis > width > content width
+flex-grow: 1; (it is enabled and increase according to the window)
+flex-shrink: 0 (it is disabled)
+Shortcut to use these- flex: 1 1 0; (grow, shrink, flex-basis) or flex: 1;
+
+								Grid
+Grid is used to design the layout of the webpage in 2D(rows and columns) and can also overlap one item on another by grid placement.
+.container{
+	display: grid;
+	grid-template-rows: 1fr 1fr;	(it splits the rows in two equal partition)
+	grid-template-column: 1fr 2fr;	(it splits the column into 1:2 fraction which means if one is 100px then second is 200px)
+		or
+	grid-template: 1fr 1fr / 1fr 2fr;
+
+	grid-template: 100px auto / 200px auto; (sets first row height 100px, second row is fix to content and set first column width 200px, 							 second column to fit the 100% width of the browser)
+	grid-template: 100px 200px / 200px minmax(400px, 800px);
+	grid-template-rows: repeat(2, 100px);
+	grid-auto-rows: 300px; (if we add more rows out of the grid they get 300px height and column match the prior column width)
+	grid-auto-column: 200px; 
+	grid-column: span 2; (it takes 2 cells space for an item and it contains grid-column-start and grid-column-end to specify start & end)
+	grid-row: span 2; (it takes 2 cells space for an item and it contains grid-row-start and grid-row-end to specify start & end)
+	grid-area: 2 / 1 / 3 / 3 (row-s, col-s, row-e, col-e)
+}
+
+								Bootstrap
+Wireframing means just a rough idea or template of your website.
+Mock up is the high fidelity representation of your app or website.
+
+Navigation bar - It is used to jump to a certain part of a page when you click the navigation button.
+
+Grid layout - A row has 12 columns and you can specify class with columns and specify the behaviour according to device with md,lg,sm.
+
+Containers - These are used to align your content within a given device or viewport. Eg- container-fluid
+
+Carousel - A slideshow component for cycling through elements like images or slides of text.
+
+Cards - Bootstrap’s cards provide a flexible and extensible content container with multiple variants and options.
+
+								JavaScript
+alert("message");
+prompt("message");
+var varName = "string";
+varName.slice(0,2);
+
+function funName(argumentName) {
+	if(x === 2)
+	return argumentName * 2;
+};
+
+var arr = [1,3];
+for (letter of arr){
+	console.log(letter);
+}
+arr.forEach(alert);
+Some properties - arr.includes(1) , arr.push();
+
+JS object -
+var obj = {a:"str", b:23, c:[1,3,5], d:{new: "str"}}
+for (key in obj){
+	console.log(key);
+	console.log(obj[key]);
+}
+
+var x = Math.random();  //random generates number from 0 to 0.9999.
+x * Number till you want random numbers (Math.floor(x.random * 6)) + 1;
+
+debugger; (shift+enter used to move to next line in console and on next line provide the provide that you want to debug.)
+
+								DOM
+Document Object Model catalogs the webpage into individual objects that we can select and manipulate & is used to make the website interactive. Browser convert HTML into DOM which associate the elements in tree structure.
+document.firstElementChild.lastElementChild.style.color = "red";
+document.getElementsByTagName("li")[2].style.color = "pink";
+document.getElementsByClassName("btn")[0].style.color = "pink";
+document.getElementById("title").style.color = "pink";
+document.querySelector("h1").innerHTML = "<em>GoodBye</em>";	//gets only first match found
+document.querySelector("h1").textContent = "GoodBye";
+document.querySelector("button").classList.add/remove/toggle("new"); (toggle apply class if not applied and if applied it removes the class)
+document.querySelector("img").setAttribute("src", "newImg.png");
+document.querySelector("img").getAttribute("src");
+
+							    Advanced DOM
+addEventListener() method attaches an event handler to the specified element.
+(this) is basically the identity of the button that targeted the event listener. Ex - this.style.color = "blue";
+Ex- target.addEventListener(event type, js function (){} );
+
+document.querySelector("button").addEventListener("click",function (){} ); //second argument is anonymous function.
+								or
+document.querySelector("button").addEventListener("click", handleClick ); //handleClick is a function but we don't specify as handleClick ()
+because it will call the function when the script add event listner to the button.
+
+Higher order functions are functions that can take other functions as input and the function that is passed in as argument is called callback
+function. Callback function is not called by us but it is called by the object that experienced the click.
+Ex - document.addEventListener("click",function(event) {    //event parameter let us tap into the event that triggered the event listener.
+	console.log("Click registered.");
+};
+
+Objects - 
+var houseKeeper1 = {
+    name: "Roy",
+    age: 19,
+    experience: true,
+    languages: ["English", "French"]
+}
+Constructor function -
+function BellBoy (name, age, experience, languages) {		//constructor function should have first letter uppercase.
+	this.name = name;		//this object .name is equal to name which was given as input when we contsructed the object.
+	this.age = age;
+	this.experience = experience;
+	this.languaes = languages;
+	this.moveSuitcase = function() {
+		alert("Ok");
+	}
+}
+Initializing objects from constructor function -
+var bellboy1 = new BellBoy("Jim", 20, true, ["English", "French"]);
+
+								jQuery
+It is a JavaScript library or a large single .js file that has many pre-built methods and objects. It is used to interact with the DOM and 
+making HTTP requests(AJAX). It provides same functions of JS but the syntax is shorter & that'll prevent faster code writing and our fingers from breaking :) and put the jQuery script tag before the JS tag which should be before closing of body tag.
+
+var x = $('li') // It selects all the li tags in the DOM.
+var newCSS = {
+	color: 'red',
+	background: 'blue'
+}
+x.css(newCSS)		//providing the object to the css method.
+x.eq(0).css('color','orange')	//changing properties by index using the eq method.
+$('h1').css('color','red');		//it sets the property
+console.log($('h1').css('color'));	//it gets the property
+$("h1").addClass/removeClass/hasClass("big-title margin-50");	//it add, remove these classes and check if h1 has these classes.
+$("h1").html/text("Bye");
+$("img").attr("src"); and $("a").attr("href","www.google.com");
+			or
+$('input').eq(1).attr('type','checkbox')	//it is used to change the attribute of a tag.
+$('input').eq(0).val('new value')	//it is used to change the value of a tag.
+$("h1").click(function() {		//it adds the event listener i.e. click to the h1
+	$("h1").css("color","purple");
+});
+$(document).keydown(function(event){	//it adds the event listener to entire document
+	console.log(event.key);
+});
+$(document).on("mouseover", function(){		//use this more flexible event listener syntax
+	$('h1').css('color','purple');
+});
+$("h1").before/after/prepend/append("<button>New</button>");	//it add the html tag before and after the selected tag while prepend and append add the html before the original content and after the content in the selected tag.
+$("button").remove();	//removes all the buttons inside our web page.
+
+								Node JS
+Node JS was made to basically liberate Javascript from the browser & allow programmers to use JavaScript to interact with computer directly. It is asynchronous event driven JS runtime environment and designed to build scalable network applications.
+
+https://nodejs.org/api/		//Documentation of Node JS to use the native node modules
+https://www.npmjs.com/
+Node REPL(read eval print loop) is an environment where user inputs are read and evaluated, and then result are returned to user in console.
+To use the NPM modules we must create the npm environment by entering the command - npm init.
+Native node modules are the kind of your starting tools set. NPM is a place which collects modules that people have built for Node and it is created by GitHub.
+npm i package. npm install is used to install all dependencies of a project if you copied the backend code of the project.
+We can get hold of packages in our code by CJS(common js) or by ESM(ECMAsript modules) and to use ESM we need to specify type: "module" in our package.json file. Node is now enabled to use ESM.
+
+								Express
+Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile
+applications.
+
+Create an Express server-
+Create dir, index.js, initialize npm, install express package, write server application in index.js, start server.
+import express from "express";
+const app = express();
+app.listen(3000, function() or () => {		// This tells it to listen on a specific port for any HTTP requests that get sent to our server.
+    console.log("Server is running at port 3000.");
+});
+
+HTTP requests-
+GET requests resource from the server, POST sends resource to the server, PUT updates the current resource or creates it on the server with the client providing a complete & updated copy of resource, PATCH is used to updates part of an existing resource with only only the parts that need to be updated, DELETE removes a resource.
+app.get('/', (req, res) => {		// First parameter specifies the route that we are going to respond to which means when we get a request
+	res.send("<h1>Hello</h1>");	from a browser that is targeting this route ('/' the home route) then we respond with this callback.
+});
+
+Middlewares-
+When a request comes to a server and before it get processed by the route handlers(GET,POST etc.), the middleware work with the request before they get processed and reach their final destination. It can be used for pre-processing, logging the requests, authentication and handling any errors.
+body-parser is a middleware that look at the request bodies before your handlers actually access them and it belongs to pre-processing category.
+morgan is used to log the requests that come in your server and it belongs to logging middleware category. Code is in Express folder.
+
+								 EJS
+Embedded JS is templating language that can inject what the user put inside the input tag and put in the .ejs file to give dynamacity to the website like the user put his name and we can greet him like "Hello Avish".
+We use res.render(file.ejs, {js object}); to inject the data. Refresh memory by seeing the EJS tags online.Static files are stored in public folder and res.render is relative to views folder.
+Partials is used to reduce the repeated code like header and footer for a website that have various page with same header & footer.
+
+								 API
+An Application Programming Interface is a set of rules and protocols that define how different software can interact with each other and bridges the communication between different pieces of software.
+Endpoint is a specific URL or route that we can send a request to in order to access a particular resource or perform a specific action or we can say it is the destination where your API request is sent to interact with the server.
+Path & Query Parameters - You can use API path and parameters in order to narrow down on a specific piece of data you want from an external server. QP are for filtering and searching while PP are for identifying a resource by some specific parameter.
+Authentication - Verifying the identity of a user, process, or device, often as a prerequisite to allowing access to resources in an 
+information system.
+Eg. of Endpoint, Path and Parameters - 
+https://v2.jokeapi.dev/joke/Programming?blacklistFlags=religious,political 	(BaseUrl/Endpoint/PathParameter/QueryParameter)
+Programming is the Path.
+Query Parameters and goes after the ?.
+
+JSON stands for JavaScript Object Notation is a way to format data for transporting over the internet and in a efficient way.
+const jsonData = JSON.stringify(JS object);	//used to perform serialization when sending a json across internet.
+const data = JSON.parse(jsonData);
+
+Making get request with Node https module with the external server -
+const https = require("https");
+https.get("https://xyz", function(){});

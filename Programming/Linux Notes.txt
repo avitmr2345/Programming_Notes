@@ -1,0 +1,852 @@
+*Watch these if you use these in future(Network Bonding, New Network utilities, FTP in linux, SCP, rsync, Creating local repo from DVD, Rollback updates, DNS, SSH Keys access remote server without password, Containers, Kickstart, 185-200 )
+Some commands to check information about Ubuntu and your Computer -
+uname -o
+uname -m and -r(it shows your computer architecture and kernel )
+lsb_release -a
+stat file/dir (it gives all the info about the file or dir)
+
+>> Unix vs Linux
+Unix was created to provide multi-user, multi-processor, and multi-level(hierarchical) file system, among its many forward-looking features.
+Linux was derived from Unix and is open source which means anyone can change the source code & add features according to their use.
+
+>> Shell
+It is like a container which provide interface between users and kernel/OS. Windows GUI is a shell, Linux sh, bash etc is a shell, Linux KDE GUI is a shell. Application talk to the shell, shell talks to kernel, kernel tells hardware what to do. To find your shell-
+echo $0
+cat /etc/shells (shows available/installed shells in Linux)
+cat /etc/passwd
+Types-
+Gnome and KDE are graphical environment or GUI of Linux and you can install them while installing Linux.
+sh is a CLI
+bash is also a CLI with more features than sh.
+csh and tcsh are used if you are proficient in C and C++ programming
+ksh is compatible with sh and bash.
+
+>> Kernel
+It is a program that provide interface between hardware and software. It takes command from the shell and talk to the hardware. Shell and Kernel form operating system. All OS have this program.
+
+>> passwd username to change password of account. ip addr for IP address. sudo passwd root to create a root account. hostnamectl set-hostname newhostname (/etc/hostname have the hostname).
+
+>> Linux file system
+/boot 		Contains files that is used by boot loader.
+/root		Root user home directory. It is not same as /.
+/dev		System devices like mouse, keyboard, disk, speakers, flashdrives etc.
+/etc		Configuration files.
+/usr/bin	Everyday user commands are stored in this.
+/usr/sbin	System/Filesystem commands are stored in this.
+/opt		Optional add on application are stored in this.
+/proc		Running processes are present in this and they go away when the system shut down.
+/usr/lib	C programming library files needed by the commands and apps. strace -e open (command_name) to check the lib files used by it.
+/tmp		Temporary files.
+/home		User directory.
+/var		System logs.
+/run		System daemons that start very early(eg. systemd & udev) to store temporary runtime files like PID files.
+/mnt		To mount external filesystem.
+/media		For cdrom mounts.
+
+>> Linux file types
+-		Regular file
+d		Directory
+l		Link
+c		Special file or device file (eg. Mouse, keyboard)
+s		Socket
+p		Named pipe
+b		Block device
+
+>> Root
+There are 3 type of root which is the root account which have all the access to do things like the administrator account in window, root
+directory(/) which is the first directory of linux and root home directory which is the home directory for the root user.
+
+>> Terminal control keys and terminal commands
+ctrl u erase everything you've typed on the command line
+ctrl c is to stop/kill a command
+ctrl z suspend a command
+ctrl d is for exiting from an interactive program (signals end of data)
+exit is used to exit out of shell, terminal or a user session
+script command stores terminal activity in a log file that can be named by a user, but if not provided the default filename typescript is used and when you want to finish the script just type exit.
+script record.log
+
+>> Create files and directories and removing
+touch file1 file2
+cp file1 file3
+vi file4
+mkdir newdir1 newdir2
+rm -rf newdir or rm -r newdir
+rm -f file4 or rm file4
+
+>> Copying directories
+cp -R newdir1 newdir2/newdir3 (newdir3 is the new name of the newdir1 when copied) and -R is for recursive which means it is not a file we are copying basically it is a directory and include all its subdirectories when copying.
+
+>> Find and Locate
+find command will list all the files and the directories inside where this command is used.
+find / -name "filename"
+find -maxdepth 2 -type f/d (this will list all the files inside and below this upto 2 folders).
+find /etc -iname "file.txt" (i is for case insensitive).
+find . -type f -size +100k -size -5M | wc -l (it just count the files and show the number).
+find . -type f -size -100k -o -size +5M | wc -l (o option is for or).
+sudo find / -type f -size +100k -size -5M -exec cp {} ~ \; (it simply find the files and the exec command is used to perform some action on the search result. {} means we simply copy every file we found to the destination.)
+locate filename
+locate uses a prebuilt database, which should be regularly updated, while find iterates over a filesystem to locate files. You must update the
+database if finding the new files that are created with updatedb command. Locate is faster than find.
+
+>> Wildcards
+A wildcard is a character that can be used as a substitute for any of a class of characters in a search.
+*  represents zero or more characters
+?  represents single character
+[] represents a range of characters. Eg. ls -l *[cd]* means list those which have c or d in it.
+\  escape character
+^  represents beginning of line
+$  represents end of line
+
+>> Brace expansion
+touch file{1..100}_{A..Z}
+touch file{1..100}_{A..Z}/file{1..5} (it just create files in every folder).
+
+>> Soft and Hard links
+inode is a pointer or number of a file on hard disk to access the file because computer don't remember name of the files it just assigns a 
+number to the file inside the hard disk. (ls -li)
+Soft link - Link will be removed if file is removed or renamed.
+We can't create soft or hard link within the same dir with same name. That's why we'll create links in /tmp dir.
+ln -s /home/avishtmr/somefile (ln -s filepath, where s is for soft link)
+Hard link - Deleting, renaming or moving the original file will not affect the hard link.
+ln /home/avishtmr/somefile
+
+>> File permissions
+r	read
+w	write
+x	executable = running a program
+Each permission (rwx) can be controlled on three levels-
+u	user/owner
+g	group
+o	other/public
+Numbers for permission types(same as binary numbers)
+0	No permission
+1	Execute
+2	Write
+3	Write+Execute
+4	Read
+5	Read+Execute
+6	Read+Write
+7	Read+Write+Execute
+Changing the permissions using letters and numerical values
+chmod u-rw filename (removes the read write permission of user)
+chmod a-r filename (removes read permission from user, group and other)
+chmod g+rw filename (add read write permission to the group)
+chmod 764 filename (7 is for user, 6 is for group, 4 is for other)
+
+There are 3 additional permissions in Linux-
+setuid: bit tells Linux to run a program with the effective user id of the owner instead of the executor. Eg. passwd command
+setgid: bit tells Linux to run a program with the effective group id of the owner instead of the executor. This bit is present for only files which have executable permissions. Eg. locate or wall command.
+sticky bit: a bit set on files/dir that allows only the owner or root to delete those files.
+Note: These bits work on c programming executables not on bash shell scripts.
+chmod u+s xyz.sh(program) (to assign special permissions at user level)
+chmod g+s xyz.sh (to assign special permissions at the group level)
+chmod u-s xyz.sh && chmod g-s xyz.sh (to remove special permissions at user or group level)
+chmod +t file/dir (to assign sticky bit)
+find / -perm /6000 -type f (to find all executables in Linux with setuid and setgid permissions)
+
+>> File ownership
+There are 2 owners of a file or directory i.e. user and group. Needs to be a superuser or root.
+chown root file/dir (it change the ownership of the file)
+chgrp root file/dir (it change the group ownership of the file)
+chown root:root file/dir (both upper command in single command)
+chgrp -R root file/dir (-R option changes all the subdirectory or files contained inside the dir to root)
+
+>> Access Control List
+ACL provides an additional, more flexible permission mechanism for file system. Like you want to give read write permission to a user which is not part of the group, ACL help us to do this trick. ACL forbids to delete the file even though we have the write access to it. When we assign ACL + symbol is shown in the file permission.
+To add permission for user
+setfacl -m u:username:rwx /absolutePathToFile
+To add permission for group
+setfacl -m g:groupname:rw /absolutePathToFile
+To allow all files or subdir to inherit ACL entries
+setfacl -m u:username:r -R /absolutePathToDir
+To remove a specific entry (for a specific user)
+setfacl -x u:username /absolutePathToFile
+To remove all entries (for all users)
+setfacl -b /absolutePathToFile
+To get the info about the file
+getfacl /absolutePathToFile
+
+>> Help commands 
+whatis command, command --help and man command
+
+>> Adding text to files
+Three simple ways are - vi, redirect command output and echo
+vi filename
+ls -l > filename
+echo "Hey" > filename or echo "Avish" >> filename
+
+>> Input and Output Redirection
+0,1,2 are std i/p , std o/p and std error.
+To redirect the output - ls > list.txt
+To redirect the error - cp dfdsafs ~ 2> error.txt
+To redirect the input - cat < list.txt
+
+>> Tee command
+It is used to store and view the output at the same time.
+echo "Avish" | tee filename or echo "Vishu" | tee file1 file2
+echo "avi" | tee -a file1
+
+>> Pipes
+A pipe is used by the shell to connect the output of one command directly to the input of another command.
+ls -ltr | more (more let us read page by page and hit space for next page)
+
+>> File display commands
+cat filename (give the whole file in a single run)
+more filename (give single page at a time)
+less filename (give single page at a time and also additional feature like move one line up and down with k,j or up arrow, down arrow)
+head -2 filename (give the first two lines)
+tail -2 filename (give the last two lines)
+
+>> Filters/Text processors command
+cut allows you to cut parts of lines from specified files or piped data and print the result to std output. It can be used to cut parts of a line by delimiter, byte position and character.
+cut -c1 filename		List first character of each line
+cut -c1,2,4 filename		List first, second and fourth character
+cut -c1-3 filename		List first through third character
+cut -c1-3,6-8 filename		List first through third and sixth through eighth character
+cut -b1-3 filename		List by byte size
+cut -d: -f 6 /etc/passwd	List first 6th column seperated by :
+cut -d: -f 6-7 /etc/passwd	List first 6th and 7th column seperated by :
+ls -l | cut -c2-4		Only print user permission of file/dir
+
+awk is a utility designed for data extraction. Most of the time it is used to extract fields from a file or from an output.
+awk '{print $1}' file					List first field from a file
+ls -l | awk '{print $1,$3}'				List 1 and 3rd field of ls -l output
+ls -l | awk '{print $NF}'				Last field of the output
+awk '/Jerry/ {print}' file				Search for a specific word
+awk -F: '{print $1}' /etc/passwd			Output only 1st field of /etc/passwd where : is the delimiter
+echo "hello tom" | awk '{$2="Avish"; print $0}'		Replace 2nd field to Avish. $0 means whatever it finds print it now
+cat file | awk '{$2="Avish"; print $0}'			Replace 2nd field or column with Avish
+awk 'length($0) > 15' file				Get lines that have more than 15 byte size
+ls -l | awk '{if($9 == "seinfeld") print $0;}'		Get the field matching seinfeld
+ls -l | awk '{print NF}'				Number of fields
+
+grep stands for global regular expression print. It processes text line by line and prints any lines which match a specific pattern. grep command searches through files and standard output.
+grep -c e filename (c is for count the instances)
+grep -cv e filename (v find the text which don't have e in them (basically invert)).
+grep -i "e" file1 file2 (grep can also search content in multiple files)
+grep keyword file
+grep -ci keyword file (it gives the match count and ignore case senstivity)
+grep -n keyword file (it display the matched lines and their line numbers)
+grep -v keyword file (display everthing except the keyword)
+grep keyword file | awk '{print $1}'
+ls -l | grep Desktop
+egrep -i "keyword1|keyword2" file (search for 2 keywords)
+
+sort and uniq
+sort words.txt (use r for reverse)
+sort -n numbers.txt (sort numerically)
+sort -u numbers.txt (sort uniquely which means it removes duplicacy).
+sort -k2 file (sort by field number)
+sort file | uniq (always sort first before using uniq their line numbers)
+sort file | uniq -c or -d (sort first then uniq and list count, d shows duplicate lines)
+ls -l /etc | head -n 20 | sort -k 5n (k sort the tabular data and you need a keydef which means how and what to sort 5n)
+
+wc reads either std input or a list of files and generates newline count, word count, byte count.
+wc file (option l for lines, w for words and c for bytes)
+ls -l | wc -l
+grep keyword file | wc -l
+
+>> Compare files
+diff file1 file2 (line by line)
+cmp file1 file2 (byte by byte)
+
+>> Archiving and Compression
+Tarball are containers to store files in for compression.
+tar -cvf ourarchive.tar file[1-3].txt (c is for creating the archive, v is verbose which means talk to us what's going on, and f is to give tar
+command files.)
+
+To check the content of the tar (tarball) file -
+tar -tf ourarchive.tar (t is test label which basically lets you check the content and f is for passing file to tar)
+tar -xvf ourarchive.tar (it extract the content of the archive)
+
+gzip ourarchive.tar (it compress the tar file)
+gunzip ourarchive.tar.gz
+bzip2 ourarchive.tar 
+bunzip ourarchive.tar.bz2 (it is best for large files bcz it compress the file in less size).
+zip ourarchive.zip files...
+unzip ourarchive.zip 
+
+In one step- 
+tar -cvzf ourarchive.tar.gz file[1-3].txt (z option is for gzip compression)
+tar -xvzf ourarchive.tar.gz
+tar -cvjf ourarchive.tar.bz2 file[1-3].txt (j is for bzip2)
+tar -xvjf ourarchive.tar.bz2
+
+>> Truncate file size
+It is used to shring or extend the size of a file to the specified size.
+truncate -s 40 filename
+
+>> Combining and splitting files
+cat file1 file2 file3 > file4
+split -l 2 source destination
+
+>> vi editor
+h,j,k,l					Move cursor left,down,up,right
+:q					Close file
+:q!					Close file, don't save changes
+:w					Save changes to file 
+:wq or :x or ZZ				Save changes and close file
+x					Delete character at cursor
+i					Insert at cursor
+I					Insert at beginning of line
+a					Append at/after cursor
+A					Append at end of line
+escape or ctrl+[			Exit insert mode 
+dw					Delete word
+d$ or D					Delete to end of line
+w					Next word
+$					Go to end of text on current line
+^					Go to beginning of text on current line
+0					Go to beginning of current line
+2w					Go two words forward 
+3e					Go to end of third word ahead
+d2w					Delete two words
+dd					Delete entire line
+2dd					Delete two lines
+u					Undo last change
+U					Undo changes on entire line
+ctrl+r					Redo changes
+p					Paste after cursor
+P					Paste before cursor
+r					Replace character under cursor 
+cw					Change word
+c$ or C					Change to end of line
+c2w					Change two words
+50G or :50				Go to line 50
+G					Go to last line in file
+gg					Go to first line in file
+/waldo					Search for "waldo"
+n					Go to next search result
+N					Go to previous search result
+?carmen					Search backwards for "carmen"
+ctrl+o					Jump to previous location (jump back)
+ctrl+i					Jump to next location (jump forward)
+%					Go to matching parentheses or brackets
+:%s/bad/good				Replace bad with good in current line
+:%s/hi/bye/g				Replace hi with bye in entire file
+:%s/x/y/gc				Replace x with y in entire file, prompt for changes 
+:!ls					Run shell command ls
+v					Open visual mode
+vw					Visual select word
+vwd or vwx				Visual select word, then delete word
+:w play.rb				Save current file as "play.rb"
+:r hat.rb				Read in file "hat.rb" 
+o					Open new line below
+O					Open new line above
+e					Go to end of word
+2e					Go to end of next word
+R					Enter replace mode
+yw					Yank word
+vwy					Visual select word, then yank
+y$					Yank to end of current line
+set ignorecase or set ic		Change search settings to ignore case
+set noignorecase or set noic		Change search settings to use case
+:e sun.rb				Open file "sun.rb"
+:help w					Get help for "w" command 
+
+>> sed command
+It provides features like replace a string in a file with newstring, find and delete a line, remove empty line, remove the first or n lines in a file, replace tabs with spaces and much more.
+sed 's/Kenny/Lenny/g' filename (replace Kenny with Lenny in entire file , add -i to save changes in file. s for substitue and g for global)
+sed 's/Kenny/d' filename (find Kenny and remove that line, '/^$/d' remove empty lines)
+sed '1,2d' file (remove the first and second line)
+sed -n 12,18p file (gives only line 12 to 18)
+sed 12,18d file (give everything except line 12 to 18)
+sed G file (adds empty line after a line in entire file)
+sed '8!s/Kenny/Lenny/g' file (replace every Kenny except eighth line Kenny)
+
+>> User account management
+useradd spiderman (it also creates the group of same name i.e. spiderman)
+groupadd superheroes
+userdel spiderman
+groupdel superheroes
+usermod -G superheroes spiderman (it add the group spiderman to the group superheroes)
+In a single command -g is for group name, -s is for specifying the shell, -c is to specify the user description -
+useradd -g spiderman -s /bin/bash -c "Marvel Character" -m -d /home/spiderman(home directory) spiderman(username)
+
+When we create a user their information are stored in three files-
+/etc/passwd file contains the information about a user.
+username:password:userid:groupid:user_description:home_dir:shell_used_by_the_user
+/etc/group/ file is for groups information.
+groupname:password:groupid or groupname:password:groupid:another_group_added_to_group(if any)
+/etc/shadow file is strictly for the passwords of the users we create, and have parameters like password length restiriction, password aging etc 
+
+To create home automatically when you create a new user add CREATE_HOME   yes in /etc/login.defs.
+
+>> Password Aging
+You can use chage command for changing the aging for per user or you can modify the /etc/login.defs file if you want to change the parameters for every new user you create.
+chage -d lastpasschange -m mindays -M maxdays -W warndays -I inactive -E expiry username
+
+>> Switch users and sudo command
+su - username
+sudo command allows to perform superuser commands
+visudo enables us to edit the /etc/sudoers which is a configuration file that allows user to add or remove the rights to certain command
+usermod -G sudo username (you can also use it with -a)
+
+>> Monitor users
+who command show how many users are logged in, their terminal id etc.
+last command show all the details of every user that have been logged in since day one.
+w command is same as who but gives more information.
+finger command does the trace of user like where it is coming from and what protocol it is using.
+id username gives information about the user.
+
+>> Talking to users
+users command shows all the user logged in
+wall command broadcast the message to all the users that are logged in. Ctrl D to get the prompt back and send the message
+write username send message only to the username provided
+
+>> Linux account authentication
+If we want to add new user to hundred servers we don't create them manually by logging into each server. We simply take use of directory service
+or directory server where user can login, having the authentication through a different server. The client or the user try to login through the directory server and account authentication is issued against/to the server and it check if the user exists and send back user is authenticated if it exist and it is okay to login.
+If you want to login to a server we use SSH protocol and if by using some directory service we use a protocol LDAP.
+Type of Accounts-
+Local account that we created by useradd
+Domain/Directory accounts like Active Directory by Windows, IDM by RedHat, WinBIND, OpenLDAP, IBM Directory server etc.
+
+>> System utility commands
+date to check date, cal is for calender, uptime shows the how long the system has been up for, hostname shows the name of the host, uname shows
+the information about the system, which shows the location of the command and bc is the binary calculator.
+
+>> Processes and service commands
+Application or service is a program that run in your computer like Word in Windows and Apache in Linux.
+Script is something that is written in a file and then packaged it to in a way that it will execute.
+When you start an application it generates a process with a process id. Every process could have multiple threads associated with it.
+Daemon is something that continuously runs in the background. It is a form of process which is listening to the incoming traffic or outgoing traffic.
+Job is something that is created by scheduler like a work order to run those applications and services.
+
+systemctl command is a tool to control system services.
+systemctl start|stop|status servicename.service or systemctl start service
+systemctl enable|disable servicename.service (when we start or restart this service will be started automatically by enable)
+systemctl restart|reload servicename.service
+systemctl mask service (mask is to prevent the service from running by other program or we don't start the service by accident)
+systemctl list-units --all or systemctl -a (--all just list all the services available which are either active or inactive)
+UNIT shows the systemd unit name.
+LOAD shows whether the unit's configuration has been parsed by systemd. The configuration of loaded units is kept in memory.
+ACTIVE shows the state about the unit is active.
+SUB shows more detailed info about the unit.
+DESCRIPTION shows a short text description of what the unit is/does.
+systemctl poweroff
+systemctl halt
+systemctl reboot
+To add a service under systemctl management-
+create a unit file /etc/systemd/system/servicename.service
+
+ps(process status) command displays all currently running processes in the linux system.
+ps -e (show all running processes)
+ps aux (show all running processes in BSD format)
+ps -ef (show all running processes in full form listing)
+ps -u username (show all processes by username)
+ps axo pid,comm,nice,cls --sort=-nice (to show process with priority)
+
+top command shows the summary information of the system and the list of processes or threads which are currently managed by the linux kernel.
+top -u username (shows tasks/processes owned by that user)
+top then press c (shows commands absolute path)
+top then press k (kill a process by PID with top session)
+top then M and P (sort all linux running processes by memory usage)
+
+kill command is used to terminate processes manually
+kill -l (to get a list of all signals names or signal number)
+kill PID
+killall is used to kill the process and its related or child processes
+pkill is used to kill the process by their name
+
+crontab command is used to schedule tasks.By default there are 4 types of cronjobs hourly, daily, weekly and monthly. All above crons are setup in /etc/cron.____(dir) and timing to run these scripts for each are set in /etc/anacrontab (except hourly). Hourly run timing is in etc/cron.d/0hourly but in Ubuntu all timings are present in /etc/crontab file.
+crontab -e (edit the crontab)
+crontab -l (list the crontab entries)
+crontab -r (remove the crontab)
+cron (crontab daemon/service that manages scheduling)
+21 16 * 10 * echo "First crontab"
+min hour day_of_month(1-31) month day_of_week(0-6) command_to_execute
+
+at command is like crontab which allows you to schedule jobs but only once(ctrl d to exit)
+at 4:40 PM (schedule a job)
+atq (list the at entries)
+atrm number (remove the entry)
+atd (at daemon/service that manages scheduling)
+at 6PM 101623 (schedule a job to run on 16th oct 2023)
+at 4pm + 4 days (schedule a job at 4pm four days from now)
+at now + 5 hours (schedule a job to run five hours from now)
+at 8:00 AM Sun (schedule a job at 8am on coming sunday)
+at 10am next month (schedule a job at 10am next month)
+
+>> Process management
+sleep 100
+Press ctrl z to stop the process, jobs to show the running or stopped jobs, bg to put/run the process in background
+fg to get the process in foreground
+nohup process & (to run process even after exit or closing the terminal)
+nohup sleep 10 > /dev/null 2>&1 & (it just puts all the errors and information to the /dev/null)
+nice is used to set process priority from -20 to 19. The lower the number more priority that task gets.
+nice -n 5 sleep 10
+
+>> System monitoring
+df command gives disk partition information (df -h)
+fdisk -l shows the total disk size and the partitions that are created out of the disk.
+du -sh . (gives the space of the current location)
+dmesg gives the output of system related warnings, failures, error messages etc.
+iostat command is used for monitoring system input/output statistics for devices and partitions or we can say iostat gives the information how we are communicating with our system peripheral devices or system internal devices.
+netstat displays network connection for TCP, routing tables, a number of network interface and network protocol statistics. The new command is ss inplace of netstat.
+netstat -rnv gives the gateway information, subnet mask and what interface it is going through.
+free gives the physical and swap/visual memory information.
+cat /proc/cpuinfo (everytime the CPU start it keeps the system resources information in this file)
+cat /proc/meminfo (it shows the memory information)
+
+>> Log monitoring
+/var/log keep logs and generate logs and record everything that goes on with the system.
+boot file record everything that goes with your system when system boots or starts.
+chrony file stores any changes made to the chrony service it goes in this log.
+cron file stores the activity when you create a job or schedule a job using crontab.
+maillog file have all the information of daemon sendmail about sent and recieved mails.
+secure file stores all the login and logout information of the users.
+messages file have all the hardware, software, application, process information logged into this file.
+httpd is an apache application log.
+
+>> System maintenance and system information commands
+shutdown
+init 0-6 (init have levels of bringing the system down or rebooting)
+reboot
+halt (it stops all the processes ongoing and it is same as pressing the power button for several seconds)
+
+cat /etc/redhat-release
+uname -a
+sudo dmidecode
+arch (gives the system architecture)
+
+>> Recover root password
+Works in virtualbox or VMWare
+reboot
+rw init=/sysroot/bin/sh
+ctrl x
+chroot /sysroot
+passwd root
+exit
+reboot
+
+>> SOS report
+It collect and package diagnostic and support data by RedHat or CentOS to provide support by them.
+Run sosreport command
+
+>> Environment variables
+It is a dynamic named value that can affect the way running processes will behave on a computer. They are part of the environment in which a process runs. In simple words, set of defined rules and values to build an environment. When a user login, that user is given an environment by saying your home dir is this, your shell are this etc.
+printenv or env (to view all environment variables)
+echo $SHELL (to view one environment variable)
+To set the environment variables
+export TEST=1
+echo $TEST
+To set environment variable permanently
+vi .bashrc
+TEST='123'
+export TEST
+To set global environment variable permanently (set this for all the users who login in this machine)
+vi /etc/profile or /etc/bashrc
+TEST='123'
+export TEST
+
+>> Shell Scripting
+A shell script is an executable file containing multiple shell commands that are executed sequentially. They should have executable permissions to all. They should be called specifying absolute path or with ./scriptname if you are inside the directory where the script is present. First line should be the interpreter we want to use (#!/bin/bash). The file can contain-
+Shell ($!/bin/bash) - It specifies use /bin/bash shell
+Comments (#)
+Commands (echo, cp, grep etc)
+Statements (if, while, for etc)
+You can run scripts from anywhere by doing these steps (basically making your own command)-
+Create a folder on home called bin and store all scripts there, then make those file executable and then add the path of the bin folder.
+chmod a+x file (it make the file executable)
+vim .bashrc (add PATH="$PATH:$HOME/bin" to end of that file)
+
+I/O script-
+read varname is used inside a script to read the input provided by the user and store it in varname.
+If you're storing the command in a variable you can run just with $varname and you need the backtick below the esc key to run with echo command
+b=hostname
+$b
+a=`hostname`
+echo "Hello my hostname is $a"
+
+If then script-
+#!/bin/bash
+count=100
+if [ $count -eq 100 ]
+then
+ echo Count is 100
+else
+ echo Count is not 100
+fi
+Other if statements:
+if [ “$a” = Monday ] || [ “$a” = Tuesday ] (If the output is either Monday or Tuesday)
+if test -s error.txt (Test if the error.txt file exist and its size is greater than zero)
+if [ $? -eq 0 ] If input is equal to zero (0). $? is the output of all the command you run and it have exit status 0 for successful and 1.
+if [ -e /export/home/filename ] If file is there
+if [ "$a" != "" ] If variable does not match
+if [ error_code != "0" ] If file not equal to zero (0)
+Comparisons:
+-eq equal to for numbers
+== equal to for letters
+-ne not equal to
+!== not equal to for letters
+-lt less than
+-le less than or equal to
+-gt greater than
+-ge greater than or equal to
+File Operations:
+-s file exists and is not empty
+-f file exists and is not a directory
+-d directory exists
+-x file is executable
+-w file is writable
+-r file is readable
+
+for loop script-
+#!/bin/bash
+i=1
+for username in `awk -F: '{print $1}' /etc/passwd`
+do
+echo "Username $((i++)) : $username"
+done
+
+do while script-
+#!/bin/bash
+count=0
+num=10
+while [ $count -lt 10 ]
+do
+ echo
+ echo $num seconds left to stop this process $1 ($1 will be the process or PID entered after running the script. Eg. scriptname 23423)
+ echo
+ sleep 1
+num=`expr $num - 1`
+count=`expr $count + 1`
+done
+echo
+echo $1 process is stopped!!!
+echo
+
+case script-
+#!/bin/bash
+NOW=$(date +"%a")
+case $NOW in
+	Mon) echo "Full backup";;
+	Tue|Wed|Thu|Fri) echo "Partial backup";;
+	Sat|Sun) echo "No backup";;
+	*) ;;
+esac
+
+Checking remote servers connectivity script-
+It is to check if your remote servers are alive or down. You can also say that if they are reachable or not. ping command with ip address is used. 
+$!/bin/bash
+ping -c1 192.168.1.1
+	if [ $? -eq 0 ]
+	then
+	echo OK
+	else
+	echo NOT OK
+	fi
+Change the ip to 192.168.1.235
+ping -c1 192.168.1.235 &> /dev/null
+	if [ $? -eq 0 ]
+	then
+	echo OK
+	else
+	echo NOT OK
+	fi
+#Defining variable
+$!/bin/bash
+hosts="192.168.1.1"
+ping -c1 $hosts &> /dev/null
+	if [ $? -eq 0 ]
+	then
+	echo $hosts OK
+	else
+	echo $hosts NOT OK
+	fi
+#For multiple IPs
+Create a file with all the IPS in it.
+$!/bin/bash
+IPList="path_to_file"
+for ip in $(cat $IPList)
+do
+	ping -c1 $ip &> /dev/null
+	if [ $? -eq 0 ]
+	then
+	echo $ip ping passed
+	else
+	echo $ip ping failed
+	fi
+done
+
+>> Alias
+The alias command allows you to define new commands. Useful for creating shortcuts for longer commands. The syntax is-
+alias tell="whoami; hostname; pwd"
+alias rm="rm -i"
+alias h="history -r | more"
+To view all current aliases:
+alias
+To remove a previously defined alias:
+unalias alias_name
+Creating user or global aliases-
+User = applies to only a specific user profile. Add alias in the end of /home/username/.bashrc file like alias hh="hostname".
+Global = applies to everyone who has an account on the system. Add alias in /etc/bashrc file.
+
+>> Network components
+IP address is a unique string of numbers seperated by periods that identifies each computer using the Internet Protocol to communicate over a network.
+Subnet mask is a 32 bit number that masks an IP address, and divides the IP address into network address and host address. Subnet mask is made by setting network bits to all "1"s and settin host bits to all "0"s.
+A network gateway is a device or node that connects disparate networks by translating communications from one protocol to another.
+Static IP means that IP of a certain network element like a computer or router stays the same throughout whereas DHCP(Dynamic Host Configuration Protocol) is primarily used for assigning dynamic IP addresses but it can also be used to assign static IP addresses.
+The port where we can connect CAT5(Ethernet) cable in our device is the Interface and the interface have the MAC address associated with it.
+
+>> Network files and commands
+To configure your machine and bring it online so it could communicate from one machine to another, we should have interface detection(ethernet) and assigning an IP address to the system.
+Interface configuration files-
+/etc/nsswitch.conf file tells the system where it should resolve its hostname to IP address.
+/etc/hosts file defines the system IP address and system hostname.
+/etc/hostname file have the hostname.
+/etc/netplan/*.yaml file is used to configure network interface in which we can specify IP address on all the netwrok, all the subnet mask and gateway.
+/etc/resolv.conf file specifies the DNS server. DNS server resolve hostname to IP, IP to hostname and hostname to hostname.
+ifconfig, ifup, ifdown, nestat(find the alternative of these)
+ping is used to ping a server, tcpdump traces every single transactions that are leaving your machine and coming into your machine. tcpdump -i interface_name( i is to specify the interface to be sniffed)
+
+>> NIC
+Network Interface Card is a port that is used to connect the ethernet cable to the computer. ethtool eth0 shows the information about the NIC. Other NIC-
+lo is the loopback device which is a special interface that computer uses to communicate with itself. It is used for diagnostics, troubleshooting and to connect to servers running on local machine.
+virb0 is Virtual Bridge 0 interface is used for Network Address Translation.
+
+>> curl and ping
+curl command is used to check if the url or webpage is up or reacable and shows the output if it is reachable.
+curl www.google.com, curl -O link_of_file(alternate of wget)
+ping is used to check if a server is up or working.
+
+>> Installing files and package
+For Redhat, CentOS and Fedora-
+yum installs a package from the repositories that are defined in your Linux system and those repositories and those configuration files has url link for the repositories or package that you want to download & install. It is available for CentOS. yum install package, yum remove package.
+rpm(redhat package manager) command is used to install a package that is already downloaded in your system.
+rpm -qa (it queries all the packages that are installed in the system)
+rpm -ihv package_location (it installs the package)
+rpm -e package (it removes the package)
+For Ubuntu-
+apt-get to download & install a package.
+apt list --installed or dpkg -l(it shows all downloaded packages)
+dpkg -i or -r location_of_.deb_file (i to install, r to remove)
+wget command is used to download files or apps in linux if the app is not available in the apt or yum repository. wget https://.........
+
+>> APT (Advanced Packaging Tool)
+Major updates like from version 5 to 6 can't be updated with apt command but minor update like 5.4 to 5.5 can be updated with apt update -y (y is to install new package without getting prompted if you want to install or not)
+apt update preserve the old packages while apt upgrade will delete obselete packages.
+Cache is just a place to store files locally so that you get performance benefits later(Ex- Some website across the world)
+Cache is located in var/lib/apt/lists.
+apt-cache search docx (we are telling apt package manager to look inside the cache for any packages you give it )
+apt-cache show docx2txt
+apt show package or dpkg -s package (it show all details of the package)
+cat /var/lib/dpkg/info/package_name.conffiles (it shows all the configuration files of the package)
+dpkg -S /bin/pwd (it show which package have pwd command)
+sudo apt-get update (it update the cache available from the repositories)
+sudo apt-get upgrade (it upgrade all the softwares)
+sudo apt-get install package_name
+sudo apt-get purge package_name (it uninstall the package and its configuration files)
+sudo apt-get autoremove (it removes the dangling dependies which are not in use)
+sudo apt-get clean/autoclean (clean deletes all and autoclean deletes which are not accessible packages.)
+Archives are stored in /var/cache/apt/archives. It have the compressed package archives that are installed on the system.
+
+>> SSH and Telnet are used to provide connections between computers or servers. Telnet is unsecure and ssh is secured.
+nslookup and dig command are used to resolve hostname to IP, IP to hostname and hostname to hostname. Eg. nslookup www.google.com
+
+>> ntp and chronyd
+It stands for network time protocol and they both are used for clock/time synchronization across multiple computers.
+Configuration file for ntp /etc/ntp.conf, service is systemctl start ntp and command is ntpq, port 123.
+File for chronyd /etc/chronyd.conf, log file is /var/log/chrony, service is chronyd, command is chronyc, refer google when I need this.
+
+>> timedatectl
+It is a replacement of old date command and shows/change date, time and timezone. It can either use chronyd or ntpd. Or you can use systemd-timesyncd daemon to sync time which is a replcament of ntpd and chronyd and you need to install this seperately.
+timedatectl or timedatectl status (to check time status)
+timedatectl list-timezones (to view all timezones)
+timedatectl set-timezone "timezone"
+timedatectl set-time YYYY-MM-DD
+timedatectl set-time '2023-07-25 16:14:50'
+timedatectl set-ntp true (to start automatic time sync with a remote ntp server)
+
+>> sendmail
+It is a program used to send and recieve emails. Files are in /etc/mail dir, service is sendmail and the file needed to modify is /etc/mail/sendmail.mc in which we modify the SMART HOST(email@domain.com) which is a a relay server meaning it act as a mediator between sender and reciever, the changes in this file automatically modifies /etc/mail/sendmail.cf.
+mail -s "Subject" email_id and then you type the content of mail.
+
+>> apache2(httpd)
+It's purpose is to serve webpages. Conf file in /etc/apache2 and the homepage is in var/www/html/index.html. log files in /var/log/apache2. service is apache2.
+
+>> Central logger(rsyslog)
+It is a server that acts as a server and receives all the logs from every server. If we want to find which server is having issue we can simply send logs of that server to the central logger and can check the log of all the servers present in the central logger. So, it's purpose is to generate logs or collect logs from other servers.
+Conf file is /etc/rsyslog.conf, service is rsyslog and refer google if you use this.
+
+>> Linux OS hardening
+It is basically to secure your system from virus, attacks from hacker that could harm your system. We can do this by following below ideas-
+Create a username that is not easily guessed like admin etc., making the userid greater than 10000, password aging should be modified for security, check /etc/pam.d/ (Pluggable authentication modules) that manages user accounts, its authentication and security.
+Remove unwanted packages, stop unused services.
+Check for listening ports and stop unwanted port. Change port for security. ss -lntp shows which port are listening for connections.
+Secure SSH configuration by changing the port in /etc/ssh/sshd_config after installing openssh-server.
+Enable firewall(iptables or firewalld) and firewall is if you want to only accept the traffic that coming in from port 22, you can tell that to firewall. So, it allows someone or traffic to come in or it allows the traffic to leave. Use firewall-config to use GUI, firewall-cmd to use it from command line. iptables is older and firewalld in new. Learn commands when you need this.
+Enable SELinux(security enhanced linux). It defines the access, transition rights of every user, every application process of the system. With this we can change the permission who can access or modify the running process and use application. sestatus to check if it is enabled.
+
+>> OpenLDAP
+It is a open source Lightweight Actice Directory aceess protocol. It is used to manage the users which are on different servers. It is a directory service. service is slapd and modify the /etc/openldap/slapd.d/ according to your use.
+
+>> Traceroute
+It is used to map the journey that a packet of information undertakes from its source to destination. One use of traceroute is to locate when data loss occurs throughout a network, which could signify a node that's down. Because each hop in the record reflects a new server or router between originatingPC and the intended target, reviewing the results of a traceroute scan also lets you identify slow points that may adversely affect your network traffic.
+traceroute www.google.com (it can also take hostname or IP)
+
+>> To open image we can use various packages to view image. We are now using imagemagick. display image.jpg
+
+>> SSH
+SSH stands for secure shell. It is a free suite of tools that help secure your network connections. It is the premier connectivity tool for remote login with the SSH protocol. It encrypts all traffic to eliminate eavesdropping, connection hijacking, and other attacks.  service daemon is sshd. package is openssh-server. SSH is very secure meaning communication through SSH is always encrypted but we can make it more secure by following these-
+Configure idle timeout interval to logout automatically when the system is idle. Edit the /etc/ssh/sshd_config file and add these lines ClientAliveInterval 600(10 min) and ClientAliveCountMax 0, then restart sshd.
+Disable root login should be one of the measures you should take when setting up the system for the first time. It disable any user to login to the system with root account. Add or edit the PermitRootLogin yes to no and restart sshd.
+Disable empty password is to prevent remote logins from accounts with empty password. Add or edit PermitEmptyPasswords no and restart sshd.
+Limit User SSH access to provide another layer of security, you should limit SSH logins to only certain users who need remote access. Add or edit AllowUsers username username and restart sshd.
+Change the port 22 to some other port and restart sshd.
+
+>> Cockpit
+It is a server administration tool, focused on providing a user friendly interface to manage administer services. It is easy to use and open web-based interface for your servers. service is cockpit and to acess web interface put IP_of_system:9090. It runs on port 9090.
+
+>> Firewall
+It can be defined as a wall that prevents the spread of fire. When data moves in and out of a server its packet information is tested against the firewall rules to see if it should be allowed or not. To simplify, it is a watchman or a shield that has a set of rules given and based on that rule they decide who can enter or leave. Types-
+Software - It runs on OS and we are going to focus on this.
+Hardware - A dedicated appliance with firewall software.
+There are 2 tools to manage firewall whice are iptables and firewalld. We can use either of them at a time. So, disable one of them and mask it.
+To check the iptables rules and to flush/delete them we use iptables -L and iptables -F.
+The function of iptables tool is packet filtering and this mechanism is organized into three different structures-
+
+tables-
+It is something that allows you to process packets in specific ways. There are 4 different types of tables, filter, mangle, nat and raw.
+
+chains-
+The chains are attached to tables. These chains allow you to inspect traffic at various points. Chains allow you to filter traffic by adding rules to them like if traffic is coming from 192.335.1.23 then go to defined target. There are 3 main chains used in iptables-
+INPUT means incoming traffic.
+FORWARD means going to a router, from one device to another.
+OUTPUT means outgoing traffic.
+
+targets-
+It decides he fate of a packet. There are 3 types of targets-
+ACCEPT - connection accepted
+REJECT - send reject response
+DROP   - drop connection without sending any response
+After this this video becomes all about firewalld and if I want to use firewalld just add these command in notes because I viewed the video and it's not hard.
+
+>> Tune system performance
+We can optimize system performance by selecting a tuning profile managed by tuned daemon. Prioritize or de prioritize specific processes. It is a systemd service.
+tuned service comes with pre-defined profiles and settings. Based on selected profile the tuned service automatically adjust system to get the best performance. tune is for system tuning and d is for daemon. The tuned daemon applies system settings when the service starts or upon selection of new tuning profile.
+apt install tuned and then start tuned service.
+tuned-adm active(to check which profile is active)
+tuned-adm list (to list available profiles)
+tuned-adm profile profile_name (to change profile)
+tuned-adm recommend (it gives the recommendation of profile for a system)
+tuned-adm off (turn off tuned setting daemon)
+With nice and renice commands we can nmake the system to give preference to certain processes than others. The nice level values range from -20(highest) to 19(lowest) and by default, processes inherit their nice level from their parent, which is usually 0. Nice value is a user space and PR(in top command) is the process actual priority(range from rt, -99 to 39) that use by Linux kernel. In linux system priorities are 0 to 139 in which 0 to 99 for real time and 100 to 139 for users.
+nice -n -15 top (to set the process priority)
+renice -n 12 PID (to change the process priority)
+
+>> System run level
+who -r (to see the run level)
+0 shutdown(or halt) the system.Eg. init 0
+1 single user mode, usually aliased s or S
+6 reboot system
+2 multiuser mode without networking(it cannot connect with other computers)
+3 multiuser mode with networking
+5 multiuser mode with networking and GUI
+
+>> Computer boot process and Linux boot process (Google)
+
+>> motd(message of the day)
+It is shown when a user login to the system and you can modify it by creating /etc/motd file and add the message. To add command like hostname and to show as motd when a user login you need to create a file in /etc/profile.d/motd.sh and add the commands. Then modify the /etc/ssh/sshd_config and find PrintMotd yes and change it to no and then restart sshd.
+

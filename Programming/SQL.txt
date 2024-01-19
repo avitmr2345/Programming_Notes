@@ -1,0 +1,166 @@
+SHOW databases;
+USE database_name;
+SELECT database();
+CREATE DATABASE soap_store;
+DROP DATABASE soap_store;
+CREATE TABLE cats (
+    name VARCHAR(50) NOT NULL DEFAULT 'unnamed',
+    age INT NOT NULL DEFAULT 99
+);
+SHOW tables;
+SHOW COLUMNS FROM cats; or DESC cats;
+DROP TABLE cats;
+INSERT INTO cats (name, age) 
+VALUES 
+  ('Meatball', 5), 
+  ('Turkey', 1), 
+  ('Potato Face', 15);
+CREATE TABLE unique_cats (
+    cat_id INT AUTO_INCREMENT PRIMARY KEY,
+	or
+    PRIMARY KEY (cat_id)
+    name VARCHAR(100) NOT NULL,
+    age INT NOT NULL
+);
+SELECT * FROM cats WHERE age = 4;
+SELECT name, age AS cat_age FROM cats;
+UPDATE cats SET name='Shorthair' WHERE age=4;
+DELETE FROM cats WHERE name='Egg';
+DELETE FROM cats;
+SELECT CONCAT(author_fname,' ', author_lname) AS author_name FROM books;
+SELECT CONCAT_WS('-',title, author_fname, author_lname) FROM books;
+SELECT SUBSTRING('Hello World', 1, 4);
+SELECT SUBSTRING('Hello World', 7);
+SELECT SUBSTRING('Hello World', -3);
+SELECT SUBSTR(title, 1, 10) AS 'short title' FROM books;
+SELECT REPLACE('Hello World', 'Hell', '%$#@');
+SELECT CONCAT(author_fname, REVERSE(author_fname)) FROM books;
+SELECT author_lname, CHAR_LENGTH(author_lname) AS 'length' FROM books; -- LENGTH give size in bytes but CHAR_LENGTH give exact characters size.
+SELECT UPPER('Hello World'); -- UCASE('h')
+SELECT LOWER('Hello World'); -- LCASE('H')
+SELECT INSERT('Hello Bobby', 6, 0, 'There'); 
+SELECT LEFT('omghahalol!', 3);
+SELECT RIGHT('omghahalol!', 4);
+SELECT REPEAT('ha', 4);
+SELECT TRIM('  pickle  ');
+SELECT DISTINCT author_fname, author_lname FROM books;
+SELECT * FROM books ORDER BY author_lname DESC;
+SELECT book_id, author_fname, author_lname FROM books ORDER BY 2 DESC;
+SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 14;
+SELECT title, released_year FROM books ORDER BY released_year DESC LIMIT 0,5;
+SELECT title, author_fname FROM books WHERE author_fname LIKE '%da\%%';
+SELECT * FROM books WHERE author_fname LIKE '_a_\_';
+SELECT COUNT(*) FROM books;
+SELECT COUNT(author_lname) FROM books;
+SELECT author_lname, COUNT(*) AS books_written FROM books GROUP BY author_lname ORDER BY books_written DESC;
+SELECT MAX(pages) FROM books;
+SELECT MIN(author_lname) FROM books;
+SELECT title, pages FROM books WHERE pages = (SELECT MAX(pages) FROM books);
+SELECT author_fname, author_lname, COUNT(*) FROM books GROUP BY author_lname, author_fname;
+SELECT CONCAT(author_fname, ' ', author_lname) AS author, COUNT(*) FROM books GROUP BY author;
+SELECT author_lname, MAX(released_year), MIN(released_year) FROM books GROUP BY author_lname;
+SELECT 
+	author_lname, 
+        author_fname,
+	COUNT(*) as books_written, 
+	MAX(released_year) AS latest_release,
+	MIN(released_year)  AS earliest_release
+	MAX(pages) AS longest_page_count
+FROM books GROUP BY author_lname, author_fname;
+SELECT SUM(pages) FROM books;
+SELECT author_lname, COUNT(*), SUM(pages) FROM books GROUP BY author_lname;
+SELECT AVG(pages) FROM books;
+SELECT released_year, AVG(stock_quantity), COUNT(*) FROM books GROUP BY released_year;
+CREATE TABLE date(
+	max_precise DECIMAL(5,2),
+	less_precise DOUBLE,
+	least_precise FLOAT );
+SELECT birthdate, DATE_FORMAT(birthdate, '%a %b %D') FROM people;
+SELECT * FROM books WHERE released_year != 2017;
+SELECT * FROM books WHERE title NOT LIKE '%e%';
+SELECT title, author_lname, released_year FROM books WHERE released_year > 2010 AND/OR author_lname = 'Eggers';
+SELECT title, released_year FROM books WHERE released_year BETWEEN 2004 AND 2014;
+SELECT * FROM people WHERE birthtime BETWEEN CAST('12:00:00' AS TIME) AND CAST('16:00:00' AS TIME);
+SELECT title, author_lname FROM books WHERE author_lname IN/NOT IN ('Carver', 'Lahiri', 'Smith');
+SELECT title, stock_quantity, IF(stock_quantity > 100, '**','*') AS stock from books;
+SELECT title, stock_quantity,
+    CASE
+        WHEN stock_quantity <= 40 THEN '*'
+        WHEN stock_quantity <= 70 THEN '**'
+        WHEN stock_quantity <= 100 THEN '***'
+        WHEN stock_quantity <= 140 THEN '****'
+        ELSE '*****'
+    END AS stock FROM books;
+SELECT author_fname, author_lname FROM books WHERE author_lname IS NULL/ IS NOT NULL;
+CREATE TABLE contacts (
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(15) NOT NULL UNIQUE
+);
+CREATE TABLE users2 (
+    username VARCHAR(20) NOT NULL,
+    age INT,
+    CONSTRAINT age_not_negative CHECK (age >= 0)
+);
+CREATE TABLE companies (
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    CONSTRAINT name_address UNIQUE (name , address)
+);
+ALTER TABLE companies ADD COLUMN phone VARCHAR(15);
+ALTER TABLE companies DROP COLUMN phone;
+RENAME TABLE companies to suppliers;
+ALTER TABLE suppliers RENAME TO companies;
+ALTER TABLE companies RENAME COLUMN name TO company_name;
+ALTER TABLE companies MODIFY company_name VARCHAR(100) DEFAULT 'unknown';
+ALTER TABLE suppliers CHANGE business(oldName) biz_name(newName) VARCHAR(50);
+ALTER TABLE houses ADD CONSTRAINT positive_pprice CHECK (purchase_price >= 0);
+ALTER TABLE houses DROP CONSTRAINT positive_pprice;
+CREATE TABLE customers (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(50)
+);
+CREATE TABLE orders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    order_date DATE,
+    amount DECIMAL(8,2),
+    customer_id INT,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+);
+SELECT * FROM customers, orders;(cross join)
+SELECT * FROM customers JOIN orders ON orders.customer_id = customers.id;
+SELECT first_name, last_name, SUM(amount) AS total FROM customers JOIN orders ON orders.customer_id = customers.id GROUP BY first_name , last_name ORDER BY total;
+SELECT first_name, last_name, order_date, amount FROM customers LEFT JOIN orders ON orders.customer_id = customers.id;
+SELECT first_name, last_name, IFNULL(SUM(amount), 0) AS money_spent FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY first_name , last_name;
+SELECT first_name, last_name, order_date, amount FROM customers RIGHT JOIN orders ON customers.id = orders.customer_id;
+CREATE VIEW full_reviews AS SELECT title, released_year, genre, rating, first_name, last_name FROM reviews
+JOIN series ON series.id = reviews.series_id JOIN reviewers ON reviewers.id = reviews.reviewer_id;
+CREATE OR REPLACE VIEW ordered_series AS SELECT * FROM series ORDER BY released_year DESC;
+ALTER VIEW ordered_series AS SELECT * FROM series ORDER BY released_year;
+DROP VIEW ordered_series;
+SELECT title, AVG(rating), COUNT(rating) AS review_count FROM full_reviews GROUP BY title HAVING COUNT(rating) > 1;
+SELECT released_year, genre, AVG(rating) FROM full_reviews GROUP BY released_year, genre WITH ROLLUP;
+SELECT @@GLOBAL.sql_mode;
+SELECT @@SESSION.sql_mode;
+SET GLOBAL sql_mode = 'modes';
+SET SESSION sql_mode = 'modes';
+SELECT emp_no, department, salary, AVG(salary) OVER() FROM employees;
+SELECT emp_no, department, salary, SUM(salary) OVER(PARTITION BY department) AS dept_payroll, SUM(salary) OVER() AS total_payroll
+FROM employees;
+SELECT emp_no, department, salary, SUM(salary) OVER(PARTITION BY department ORDER BY salary) AS rolling_dept_salary,
+SUM(salary) OVER(PARTITION BY department) AS total_dept_salary FROM employees;
+SELECT emp_no, department, salary,
+    ROW_NUMBER() OVER(PARTITION BY department ORDER BY SALARY DESC) as dept_row_number,
+    RANK() OVER(PARTITION BY department ORDER BY SALARY DESC) as dept_salary_rank,
+    RANK() OVER(ORDER BY salary DESC) as overall_rank,
+    DENSE_RANK() OVER(ORDER BY salary DESC) as overall_dense_rank,
+    ROW_NUMBER() OVER(ORDER BY salary DESC) as overall_num
+FROM employees ORDER BY overall_rank;
+SELECT emp_no, department, salary, NTILE(4) OVER(PARTITION BY department ORDER BY salary DESC) AS dept_salary_quartile,
+NTILE(4) OVER(ORDER BY salary DESC) AS salary_quartile FROM employees;
+SELECT emp_no, department, salary, FIRST_VALUE(emp_no) OVER(PARTITION BY department ORDER BY salary DESC) as highest_paid_dept,
+FIRST_VALUE(emp_no) OVER(ORDER BY salary DESC) as highest_paid_overall FROM employees;
+SELECT emp_no, department, salary, salary - LAG(salary) OVER(ORDER BY salary DESC) as salary_diff FROM employees;
+SELECT emp_no, department, salary, salary - LEAD(salary) OVER(PARTITION BY department ORDER BY salary DESC) as dept_salary_diff
+FROM employees;

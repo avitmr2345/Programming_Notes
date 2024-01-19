@@ -1,0 +1,31 @@
+xargs converts the standard input into command line arguments and helps in piping with command who don't accept standard input
+find . -type f -name "*.txt" | xargs grep -l e (find the files with .txt extension and list the files which have e in them.)
+
+Scheduled Automation using Cron -
+Crontab is used when we have to do some specific tasks at some intervals of time.
+crontab -e
+Crontab is broken in rows and have 6 columns in which first 5 are scheduling information and last column in command to run.
+*/15 means to run every 15 minutes.
+If you want to run a bash script you provide the path (bash ~/bin/backup)
+
+Modifying and Installing from Source Code -
+Firstly download the package from gnu.org and then extract -
+tar -xJf package_name (J is for the xzip extraction)
+
+Add a line in ls.c file and then we have to download the GNU C compiler (sudo apt-get install gcc) and then configure the gcc compiler and to
+create a makefile(used for installation of this new software package) by giving a command -
+bash configure
+
+Download the make package and run it -
+make (it compiles the files that are not compiled and modified and convert into machine code ) 
+
+Last step is to install this machine code in required places of our path-
+sudo make install (it install all the software that comes inside the package).
+
+Downloading Source Code -
+Steps:-
+sudo vim /etc/apt/sources.list(Package manager uses this config file to determine which repo & which package file is download)
+Then update the cache after changing that file.
+sudo apt-get install dpkg-dev
+
+sudo apt-get source package_name
