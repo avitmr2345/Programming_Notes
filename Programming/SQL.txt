@@ -10,13 +10,14 @@ CREATE TABLE cats (
 SHOW tables;
 SHOW COLUMNS FROM cats; or DESC cats;
 DROP TABLE cats;
+DROP TABLE IF EXIST table1, table2;
 INSERT INTO cats (name, age) 
 VALUES 
   ('Meatball', 5), 
   ('Turkey', 1), 
   ('Potato Face', 15);
 CREATE TABLE unique_cats (
-    cat_id INT AUTO_INCREMENT PRIMARY KEY,
+    cat_id INT AUTO_INCREMENT PRIMARY KEY or cat_id SERIAL PRIMARY KEY,
 	or
     PRIMARY KEY (cat_id)
     name VARCHAR(100) NOT NULL,

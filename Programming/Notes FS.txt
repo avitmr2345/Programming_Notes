@@ -286,7 +286,7 @@ An Application Programming Interface is a set of rules and protocols that define
 Endpoint is a specific URL or route that we can send a request to in order to access a particular resource or perform a specific action or we can say it is the destination where your API request is sent to interact with the server.
 Path & Query Parameters - You can use API path and parameters in order to narrow down on a specific piece of data you want from an external server. QP are for filtering and searching while PP are for identifying a resource by some specific parameter.
 Authentication - Verifying the identity of a user, process, or device, often as a prerequisite to allowing access to resources in an 
-information system.
+information system. No authentication have rate limit, Basic authentication need username & password registered with the API provider, API key Authorization to access the API, Token Based Authentication uses username & pass and generates a token. The token give access to use the API. 
 Eg. of Endpoint, Path and Parameters - 
 https://v2.jokeapi.dev/joke/Programming?blacklistFlags=religious,political 	(BaseUrl/Endpoint/PathParameter/QueryParameter)
 Programming is the Path.
@@ -296,6 +296,9 @@ JSON stands for JavaScript Object Notation is a way to format data for transport
 const jsonData = JSON.stringify(JS object);	//used to perform serialization when sending a json across internet.
 const data = JSON.parse(jsonData);
 
-Making get request with Node https module with the external server -
-const https = require("https");
-https.get("https://xyz", function(){});
+Axios is used to reach out from our server to another server or resource. We can do this with native node module https but it has a huge code for this and we can do this in less code with Axios.
+
+A RESTful API (Representational State Transfer) is an architectural style for an application program interface (API) that uses HTTP requests to access and use data.
+What makes an API RESTful?
+HTTP method, JSON output(standard data format to give output), Client-Server, Stateless, Resource based.
+
