@@ -362,3 +362,65 @@ currentTime > 18 && <h1>Go home!</h1>	//condition && expression. Developer use t
 React State-
 Let an ice cube is the your UI and when the temperature is -10 degrees then we see ice but when the temperature rise to 30 degress the ice is going to turn into water.
 When we have a UI that is dependent upon the value of a state variable, this kind of programming is known as declarative programming. Imperative programming is when we specify an element to imperatively do something different.
+
+Destructuring allows us to destructure a complex structure like array or JS object.
+const arr = [1,2];
+const [n1,n2] = arr; //sets the n1 value to 1 and n2 to 2.
+const obj = {
+	name: "cat",
+	sound: "meow",
+	feeding: {food: 100g, water: 200mL}
+}
+const {name, sound} = obj; //we should same the same name defined in the obj to destructure.
+const {name: catName, sound: catSound} = obj; //it destructure and also rename the name defined in the obj.
+const {name = "Fluffy", sound = "Purr"} = obj; //it sets the default value if value is not defined in the obj when we destructure.
+const {feeding: {food, water}} = obj; //it destructure the nested object in the obj and this extensive destructuring.
+
+React Hooks-
+Hooks is a way of being able to make our website interactive and actually have changeable state. But one of the rules for using hooks is that you must use a hook inside a functional React component.
+function App() {
+	const [count, setCount] = useState(0);	//sets count = 0 where 0 is the initial state and setCount is used to update the state.
+	function increase() {
+		setCount(count + 1);
+  	}
+
+	return (
+		<div className="container">
+      			<h1>{count}</h1>
+			<button onClick={increase}>+</button>
+		</div>
+	);
+}
+
+For event handling see the code in the React folder.
+
+React Forms-
+function App() {
+  const [name, setName] = useState("");
+  const [headingText, setHeading] = useState("");
+
+  function handleChange(event) {
+    setName(event.target.value);
+  }
+
+  function handleClick(event) {
+    setHeading(name);
+
+    event.preventDefault();
+  }
+
+  return (
+    <div className="container">
+      <h1>Hello {headingText}</h1>
+      <form onSubmit={handleClick}>
+        <input
+          onChange={handleChange}
+          type="text"
+          placeholder="What's your name?"
+          value={name}
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+}
