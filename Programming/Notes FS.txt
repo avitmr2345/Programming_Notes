@@ -359,10 +359,6 @@ Ternary operator & AND operator-
 isLoggedIn ? <h1>Hello</h1> : <Login />
 currentTime > 18 && <h1>Go home!</h1>	//condition && expression. Developer use this format if they wanna render the expression only when a condition is met.
 
-React State-
-Let an ice cube is the your UI and when the temperature is -10 degrees then we see ice but when the temperature rise to 30 degress the ice is going to turn into water.
-When we have a UI that is dependent upon the value of a state variable, this kind of programming is known as declarative programming. Imperative programming is when we specify an element to imperatively do something different.
-
 Destructuring allows us to destructure a complex structure like array or JS object.
 const arr = [1,2];
 const [n1,n2] = arr; //sets the n1 value to 1 and n2 to 2.
@@ -372,9 +368,13 @@ const obj = {
 	feeding: {food: 100g, water: 200mL}
 }
 const {name, sound} = obj; //we should same the same name defined in the obj to destructure.
-const {name: catName, sound: catSound} = obj; //it destructure and also rename the name defined in the obj.
+const {name: catName, sound: catSound} = obj; //it destructure and also rename the name & sound defined in the obj.
 const {name = "Fluffy", sound = "Purr"} = obj; //it sets the default value if value is not defined in the obj when we destructure.
 const {feeding: {food, water}} = obj; //it destructure the nested object in the obj and this extensive destructuring.
+
+React State-
+Let an ice cube is the your UI and when the temperature is -10 degrees then we see ice but when the temperature rise to 30 degress the ice is going to turn into water.
+When we have a UI that is dependent upon the value of a state variable, this kind of programming is known as declarative programming. Imperative programming is when we specify an element to imperatively do something different.
 
 React Hooks-
 Hooks is a way of being able to make our website interactive and actually have changeable state. But one of the rules for using hooks is that you must use a hook inside a functional React component.
@@ -392,35 +392,91 @@ function App() {
 	);
 }
 
-For event handling see the code in the React folder.
-
-React Forms-
+React Forms and event handlers-
+We get an event passed whenever any of the event handlers(onClick, onSubmit etc.) gets triggered. When the input element triggers the function that's stored in the onChange it passes over an object and that object corresponds to the event that triggered this onChange. target is the element that triggered the event.
+In HTML, form elements such as <input>, <textarea>, and <select> typically maintain their own state and update it based on user input. In React, mutable state is typically kept in the state property of components, and only updated with setState(). We can combine the two by making the React state be the “single source of truth”. Then the React component that renders a form also controls what happens in that form on subsequent user input. An input form element whose value is controlled by React in this way is called a “controlled component”.
+We want the value and the state to all be equal to the same thing.(value={name})
 function App() {
-  const [name, setName] = useState("");
-  const [headingText, setHeading] = useState("");
+	const [name, setName] = useState("");
+	const [headingText, setHeading] = useState("");
+
+	function handleChange(event) {		//event handling
+		setName(event.target.value);
+	}
+	function handleClick(event) {		//also event handling and it shows the name when button gets clicked
+		setHeading(name);
+		event.preventDefault();	  //it is a method that prevents the default next behaviour of the event(refresh page bcz of onSubmit)
+	}
+	return (
+		<div className="container">
+		<h1>Hello {headingText}</h1>	
+		<form onSubmit={handleClick}>	//onSubmit get triggered when submit button is pressed.
+		<input
+			onChange={handleChange}
+			type="text"
+			placeholder="What's your name?"
+			value={name}
+        	/>
+		<button type="submit">Submit</button>
+		</form>
+		</div>
+	);
+}
+
+React Changing Complex State-
+function App() {
+  const [fullName, setFullName] = useState({
+    fName: "",
+    lName: ""
+  });
 
   function handleChange(event) {
-    setName(event.target.value);
-  }
+    const { value, name } = event.target;
 
-  function handleClick(event) {
-    setHeading(name);
-
-    event.preventDefault();
+    setFullName(prevValue => {		//it has the previous value and updates the value accordingly to the event triggered.
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevValue.lName
+        };
+      } else if (name === "lName") {
+        return {
+          fName: prevValue.fName,
+          lname: value
+        };
+      }
+    });
   }
 
   return (
     <div className="container">
-      <h1>Hello {headingText}</h1>
-      <form onSubmit={handleClick}>
+      <h1>
+        Hello {fullName.fName} {fullName.lName}
+      </h1>
+      <form>
         <input
+          name="fName"
           onChange={handleChange}
-          type="text"
-          placeholder="What's your name?"
-          value={name}
+          placeholder="First Name"
+          value={fullName.fName}
         />
-        <button type="submit">Submit</button>
+        <input
+          name="lName"
+          onChange={handleChange}
+          placeholder="Last Name"
+          value={fullName.lName}
+        />
+        <button>Submit</button>
       </form>
     </div>
   );
 }
+
+Spread operator-
+It allows an iterable such as array or string to be expanded in places where zero or more arguments or elements are expected, or an object expression to be expanded in places where zero or more key-value pairs are expected. Basically it expands or spread the elements into individual items and add each of those items into the position where it is specified.
+const arr1 = ["Lemon"];
+const arr2 = ["Tomato", ...arr1];	//add the arr1 into arr2.
+const name = { Name: "Avish" };
+const user = { ...name, id: 1 };
+return { (...prevValue, [name]: value ) };	//JS set object key by variable which is name(check React40 if got confused)
+
