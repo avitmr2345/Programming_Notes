@@ -302,3 +302,63 @@ A RESTful API (Representational State Transfer) is an architectural style for an
 What makes an API RESTful?
 HTTP method, JSON output(standard data format to give output), Client-Server, Stateless, Resource based.
 
+								 React
+React is a JS library for building user interfaces. It take benifits from actually combining small amount of each type of files(HTML, CSS, JS) into a single component so that each component has its own styling, its own functionality that it controls. We can create several components to each perform a different function and have a different appearance. It is also able to re-render the changes really efficiently like on a website we checked the checkbox. It does this by comparing changes (called diffing). It is going to compare the new version of DOM tree that you want to be rendered with the old version that's already showing up. By convention we always create a div html element that has an id of root. This is root of React application so, everthing that we create using React is going to be inserted inside this div.
+
+JSX is a JavaScript Extension Syntax used in React to easily write HTML and JavaScript together.
+const jsx = <h1>This is JSX</h1>   or  ReactDOM.render(<h1>Hello</h1>,document.getElementById("root"));	//render(what to show, where to show)
+But the browser does not understand this JSX because it's not valid JavaScript code. This is because we're assigning an HTML tag to a variable that is not a string but just HTML code. So to convert it to browser understandable JavaScript code, we use Babel which is a JavaScript compiler/transpiler which is present in "react" package.
+Use <script src="" type="text/JSX"></script> to specify that we are using a JSX file.
+
+Template literals and String Interpolation-
+const name = "Avish"; const ex = "!";
+<h1>Hello {name}</h1>; or <h1>Hello {'${name} ${ex}'}</h1>
+
+ReactDOM.render(<h1 style={{ color: "red" }}Hello</h1>, document.getElementById("root"));	//inline styles
+
+Import and Export-
+export default pi;	//pi is passed as default when we import
+export {function1, function2};
+import Pi, {function1, function2} from "./math.js";
+
+React components-
+Components allow us to split up a large file or a complex web structure into smaller componets and we can reuse each of these components when we need the same functionality.
+Inside Heading.jsx file-
+import React from "react";
+function Heading () {
+	return <h1>My Favourite Topic</h1>;
+}
+export default Heading;
+Now you can import this in another file and use this-
+<Heading />
+
+React Props-
+We can pass attributes or properties to our React components like-
+<Card name="Avish" age="22" />	<Card name="Ayu" age="19" />
+function Card(props) {
+	return (<h2>{props.name}</h2>
+		<h2>{props.age}</h2>)
+}
+
+Map -Creates a new array by doing something with each item in an array.
+var numbers = [3, 56, 2, 48, 5];
+function double(x) {
+	return x * 2;
+}
+const newNumbers = numbers.map(double);
+Filter - Creates a new array by keeping the items that return true.
+const newNumbers = numbers.filter(function(num) {
+	return num < 10;
+});
+Reduce - Accumulate a value by doing something to each item in an array.
+var newNumber = numbers.reduce(function (accumulator, currentNumber) {
+	return accumulator + currentNumber;
+});
+
+Ternary operator & AND operator-
+isLoggedIn ? <h1>Hello</h1> : <Login />
+currentTime > 18 && <h1>Go home!</h1>	//condition && expression. Developer use this format if they wanna render the expression only when a condition is met.
+
+React State-
+Let an ice cube is the your UI and when the temperature is -10 degrees then we see ice but when the temperature rise to 30 degress the ice is going to turn into water.
+When we have a UI that is dependent upon the value of a state variable, this kind of programming is known as declarative programming. Imperative programming is when we specify an element to imperatively do something different.
