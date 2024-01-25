@@ -304,6 +304,7 @@ HTTP method, JSON output(standard data format to give output), Client-Server, St
 
 								 React
 React is a JS library for building user interfaces. It take benifits from actually combining small amount of each type of files(HTML, CSS, JS) into a single component so that each component has its own styling, its own functionality that it controls. We can create several components to each perform a different function and have a different appearance. It is also able to re-render the changes really efficiently like on a website we checked the checkbox. It does this by comparing changes (called diffing). It is going to compare the new version of DOM tree that you want to be rendered with the old version that's already showing up. By convention we always create a div html element that has an id of root. This is root of React application so, everthing that we create using React is going to be inserted inside this div.
+Commands-npx create-react-app my-app or npm init react-app my-app, npm start
 
 JSX is a JavaScript Extension Syntax used in React to easily write HTML and JavaScript together.
 const jsx = <h1>This is JSX</h1>   or  ReactDOM.render(<h1>Hello</h1>,document.getElementById("root"));	//render(what to show, where to show)
@@ -479,4 +480,93 @@ const arr2 = ["Tomato", ...arr1];	//add the arr1 into arr2.
 const name = { Name: "Avish" };
 const user = { ...name, id: 1 };
 return { (...prevValue, [name]: value ) };	//JS set object key by variable which is name(check React40 if got confused)
+
+Component Tree code-
+Just go through the below three files which are-
+1. App.jsx and the content inside it is -
+import React, { useState } from "react";
+import ToDoItem from "./ToDoItem";
+function App() {
+  const [items, setItems] = useState([]);
+  function addItem(inputText) {
+    setItems(prevItems => {
+      return [...prevItems, inputText];
+    });
+  }
+  function deleteItem(id) {
+    setItems(prevItems => {
+      return prevItems.filter((item, index) => {
+        return index !== id;
+      });
+    });
+  }
+  return (
+    <div className="container">
+      <div className="heading">
+        <h1>To-Do List</h1>
+      </div>
+      <InputArea onAdd={addItem} />
+      <div>
+        <ul>
+          {items.map((todoItem, index) => (
+            <ToDoItem
+              key={index}
+              id={index}
+              text={todoItem}
+              onChecked={deleteItem}
+            />
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+export default App;
+2. InputArea.jsx and the content inside it is -
+import React, { useState } from "react";
+function InputArea(props) {
+  const [inputText, setInputText] = useState("");
+  function handleChange(event) {
+    const newValue = event.target.value;
+    setInputText(newValue);
+  }
+  return (
+    <div className="form">
+      <input onChange={handleChange} type="text" value={inputText} />
+      <button
+        onClick={() => {
+          props.onAdd(inputText);
+          setInputText("");
+        }}
+      >
+        <span>Add</span>
+      </button>
+    </div>
+  );
+}
+export default InputArea;
+3. ToDoItem.jsx and the content inside it is -
+import React from "react";
+function ToDoItem(props) {
+  return (
+    <div
+      onClick={() => {
+        props.onChecked(props.id);
+      }}
+    >
+      <li>{props.text}</li>
+    </div>
+  );
+}
+export default ToDoItem;
+-->Explanation
+In this set of files, the parent component is App.jsx. It serves as the main component that orchestrates the behavior of the application. It includes and manages the state for the ToDoItem components, renders the InputArea component for adding new to-do items, and renders a list of ToDoItem components based on the state.
+Here's why App.jsx is considered the parent component:
+State Management: It uses the useState hook to manage the state of the to-do items (items array).
+
+Child Components Integration: It includes and renders child components such as InputArea and ToDoItem. The InputArea component is responsible for handling user input and triggering the addition of new items, while the ToDoItem component is responsible for displaying individual to-do items.
+
+Data Flow: It passes down state (items array) and functions (addItem and deleteItem) as props to its child components (InputArea and ToDoItem), allowing them to interact with and modify the state.
+
+In a React application, the parent component is typically the one that manages the overall state and orchestrates the behavior of its child components, and in this case, that role is performed by App.jsx.
 
