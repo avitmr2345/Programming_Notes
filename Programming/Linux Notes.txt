@@ -175,6 +175,10 @@ vi filename
 ls -l > filename
 echo "Hey" > filename or echo "Avish" >> filename
 
+>> xargs
+xargs is a command used to build and execute command lines from standard input. It reads data from standard input (or another specified input) and executes a command with that data as arguments. xargs converts the standard input into command line arguments and helps in piping with command who don't accept standard input.
+echo "file1.txt file2.txt file3.txt" | xargs cat
+
 >> Input and Output Redirection
 0,1,2 are std i/p , std o/p and std error.
 To redirect the output - ls > list.txt
@@ -449,7 +453,7 @@ kill PID
 killall is used to kill the process and its related or child processes
 pkill is used to kill the process by their name
 
-crontab command is used to schedule tasks.By default there are 4 types of cronjobs hourly, daily, weekly and monthly. All above crons are setup in /etc/cron.____(dir) and timing to run these scripts for each are set in /etc/anacrontab (except hourly). Hourly run timing is in etc/cron.d/0hourly but in Ubuntu all timings are present in /etc/crontab file.
+Crontab is used when we have to do some specific tasks at some intervals of time. By default there are 4 types of cronjobs hourly, daily, weekly and monthly. All above crons are setup in /etc/cron.____(dir) and timing to run these scripts for each are set in /etc/anacrontab (except hourly). Hourly run timing is in etc/cron.d/0hourly but in Ubuntu all timings are present in /etc/crontab file. Crontab is broken in rows and have 6 columns in which first 5 are scheduling information and last column in command to run. If you want to run a bash script you provide the path (bash ~/bin/backup).
 crontab -e (edit the crontab)
 crontab -l (list the crontab entries)
 crontab -r (remove the crontab)
