@@ -569,4 +569,3 @@ Child Components Integration: It includes and renders child components such as I
 Data Flow: It passes down state (items array) and functions (addItem and deleteItem) as props to its child components (InputArea and ToDoItem), allowing them to interact with and modify the state.
 
 In a React application, the parent component is typically the one that manages the overall state and orchestrates the behavior of its child components, and in this case, that role is performed by App.jsx.
-
