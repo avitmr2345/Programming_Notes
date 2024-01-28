@@ -46,3 +46,44 @@ Conclusion -
 Blockchain utilizes one-way functions and hashing to create a secure and tamper-proof ledger.
 The use of hashes ensures the uniqueness and integrity of each block in the blockchain.
 This technology provides a reliable and transparent way to record and verify transactions.
+
+Decentralized applications (DApps) - 
+They are the backbone of Web 3.0, the next iteration of the Internet. Creating and funding DApps brings about a significant change in the way companies are formed and new tech startups are built. Let's explore how DApps are created and the new opportunities they offer:
+Traditional Startup Model vs. Web 3.0 Model -
+In the traditional startup model:
+Build the startup and technology.
+Deploy the technology.
+Raise venture capital (VC) funding.
+Potentially IPO and cash out.
+In the Web 3.0 model:
+Build the startup and technology.
+Start releasing tokens to the public or funds like VCs.
+Sell tokens that enable people to use and interact with the technology.
+Start raising money for the DApp from day one.
+
+Decentralized Autonomous Organizations (DAOs) -
+The blockchain technology behind DApps also transforms the way companies are run. DAOs, or decentralized autonomous organizations, replace the traditional board of directors and organizational chart of a company. In a DAO:
+Token holders have special tokens called governance tokens.
+Governance tokens allow token holders to vote on the future actions of the company or DApp.
+Users can contribute to the roadmap of the decentralized application.
+
+Pseudonymity and Privacy -
+One of the significant advantages of Web 3.0 is pseudonymity, which provides privacy and allows individuals to participate in online activities without revealing personal information such as their address or real identity.
+This feature promotes a level playing field where recognition and rewards are based on the value individuals create rather than their personal attributes such as age, race, or gender.
+
+Internet Computer -
+The Internet computer is a powerful and secure blockchain that aims to run the entire base layer of the web.
+It provides a protocol that combines hosting, storage, and services in one secure platform.
+The goal of the Internet computer is to achieve blockchain singularity, where decentralized applications (Dapps) can operate fully on the blockchain without relying on centralized infrastructure.
+The Internet Computer is a revolutionary approach to scaling blockchain smart contracts. It addresses the limitations of traditional blockchains by introducing a novel consensus algorithm called threshold relay. This algorithm allows the Internet Computer to achieve faster speeds and process thousands of computations per second.
+
+Working of Internet Computer -
+Aggregating compute capacity: The Internet Computer combines the compute capacity of a large number of independent data centers worldwide. These data centers are connected using the Internet Computer protocol, creating a decentralized world computer. By aggregating the compute capacity of independent data centers, the Internet Computer achieves a high level of decentralization. This ensures that no single entity has control over the network, enhancing security and trust.
+
+Canisters: The decentralized computer is organized into individual units called canisters or canister smart chains. Each canister can run processes, execute code, and store data for programs.
+
+Accessing canisters: As a user, you can interact with canisters directly by making HTTPs requests. This allows you to utilize the functionality provided by the canisters.
+
+Writing code: As a developer, you can write code that compiles into a performant web application using webassembly. The Internet Computer supports multiple programming languages such as Rust or Dfinity's Motoko.
+
+Memory management: Canisters have a unique way of managing memory. Your program state, including variables, collections, and arrays, can be stored within the canister itself. This allows for efficient memory utilization and storage of program data. Canisters on the Internet Computer act as a process or a code sandbox. They preserve the program state, allowing the canister to run indefinitely. This means that data stored in variables, such as collections, arrays, dictionaries, or objects, remains intact and does not get wiped. As a developer, you don't have to worry about data persistence or managing databases because the canister behaves as if it never gets killed.
