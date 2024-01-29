@@ -87,3 +87,11 @@ Accessing canisters: As a user, you can interact with canisters directly by maki
 Writing code: As a developer, you can write code that compiles into a performant web application using webassembly. The Internet Computer supports multiple programming languages such as Rust or Dfinity's Motoko.
 
 Memory management: Canisters have a unique way of managing memory. Your program state, including variables, collections, and arrays, can be stored within the canister itself. This allows for efficient memory utilization and storage of program data. Canisters on the Internet Computer act as a process or a code sandbox. They preserve the program state, allowing the canister to run indefinitely. This means that data stored in variables, such as collections, arrays, dictionaries, or objects, remains intact and does not get wiped. As a developer, you don't have to worry about data persistence or managing databases because the canister behaves as if it never gets killed.
+
+								Motoko
+It is a programming language for developers to build the next generation of distributed applications to run on the Internet Computer blockchain networks. It has support for Internet Computer canister smart contracts. A canister smart contracts or canister is expressed as a Motoko actor. An actor is an autonomous object that fully encapsulates its state and communicates with other actors only through asynchronous messages.
+Commands - dfx new project_name, dfx start, dfx deploy, npm start
+Candid UI provides an easy way for us to interact with our canisters. Commands -
+dfx canister id __Candid_UI	// it finds the candid ui canister associated with our canister(dbank)
+dfx canister id dbank		// it finds the id of our canister(dbank)
+Use stable keyword to make the date persistant which means when we deploy the canister again the value doesn't restore to the initially specified value. Eg. stable var currentValue = 300;
