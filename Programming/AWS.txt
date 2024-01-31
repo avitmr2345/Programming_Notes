@@ -1,0 +1,42 @@
+--> Cloud Computing
+Cloud computing is the on-demand delivery of compute power, database, storage, application, and other IT resources. It allows users to access these resources instantly, without the need for advance ordering or building their own data centers. Here are some key points about cloud computing:
+On-demand delivery: Cloud computing provides resources when they are needed, allowing users to scale up or down as required.
+Pay-as-you-go pricing: Users only pay for the resources they use, when they use them. There is no need for upfront investment or long-term commitments.
+Provisioning: Cloud service platforms allow users to provision the exact type and size of computing resources they need. Whether it's a big server or a small one, the cloud can accommodate the user's requirements.
+Instant access: Resources can be accessed instantly, without the need for 24 or 2 hours notice. Users can have access to servers, storage, databases, and application services within seconds.
+Interface: Cloud computing provides a user-friendly interface that allows easy access to servers, storage, databases, and application services. This interface makes it convenient for users to manage and utilize their resources.
+
+Types of Cloud Computing -
+1. Infrastructure as a Service (IaaS)
+Provides the fundamental building blocks for cloud computing.
+Offers networking, computers, and data storage space in their raw form.
+Provides a high level of flexibility and allows easy migration from traditional on-premises IT to the cloud.
+Examples of IaaS services include Amazon EC2, Google Cloud, Azure, Rackspace, and Digitalocean.
+2. Platform as a Service (PaaS)
+Removes the need for organizations to manage the underlying infrastructure.
+Focuses on the deployment and management of applications.
+Allows developers to concentrate on developing and running their applications without worrying about infrastructure management.
+AWS manages everything from the runtime to the networking.
+Examples of PaaS services include AWS Elastic Beanstalk, Google App Engine, and Microsoft Azure App Service.
+3. Software as a Service (SaaS)
+Provides a complete product that is run and managed by the service provider.
+Users can access the software through the internet without the need for installation or maintenance.
+Eliminates the need for organizations to manage software updates, security, and infrastructure.
+Examples of SaaS services include Salesforce, Google Workspace, Microsoft Office 365, and Dropbox.
+
+Types of Clouds -
+1. Private Cloud
+Used by a single organization and not exposed to the public.
+Examples: Rackspace
+Provides a private data center managed by a third party.
+Offers complete control and more security for sensitive applications.
+2. Public Cloud
+Owned and operated by a third-party cloud service provider.
+Resources are delivered over the internet.
+Examples: Microsoft Azure, Google Cloud, Amazon Web Services (AWS).
+In this course, we will focus on AWS.
+3. Hybrid Cloud
+Hybrid cloud combines private and public cloud infrastructure.
+Some servers are kept on-premises while certain capabilities are extended to the cloud.
+Provides control over sensitive assets in the private infrastructure.
+Offers flexibility and cost-effectiveness of the public cloud.
