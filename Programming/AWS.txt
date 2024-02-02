@@ -67,7 +67,7 @@ EC2 is composed of several components -
 EC2 instances: Virtual machines that can be rented from AWS.
 EBS volumes: Virtual drives used for storing data.
 Elastic Load Balancer: Distributes load across multiple EC2 instances.
-Auto Scaling Group (ASG): Allows for scaling of services based on demand.
+Auto Scaling Groups (ASG): Allows for scaling of services based on demand.
 
 Choosing EC2 Instances -
 When creating an EC2 instance, users have several options to choose from:
@@ -203,3 +203,63 @@ Unlike EBS volumes, which can only be attached to one instance at a time, EFS ca
 EFS is a shared network file system, also known as a shared NFS (Network File System).
 It is designed to work with Linux EC2 instances and this architecture allows for easy sharing and access to files across instances in different availability zones.
 
+--> Elastic Load Balancing & ASG
+Scalability and High Availability -
+Scalability allows an application to handle greater loads by adapting.
+There are two types of scalability in the cloud:
+1. Vertical scalability
+Increasing the size or capacity of an instance. Example: Changing from t2.micro to t2.large.
+Vertical scalability is common in non-distributed systems like databases.
+2. Horizontal scalability (elasticity)
+Increasing the number of instances. Improves performance and capacity. Increase fault tolerance and availability.
+In AWS, achieving horizontal scalability:
+Using Elastic Load Balancing (ELB) to distribute traffic across multiple instances.
+Auto Scaling Groups (ASG) to automatically add or remove instances based on demand.
+Horizontal scalability is commonly used in distributed systems to handle large workloads.
+
+Scalability is linked but different from high availability.
+High availability refers to the ability of an application to remain operational and accessible even in the face of failures or disruptions. It is recommended to use at least two availability zones for high availability.
+Achieving high availability in AWS:
+Using Elastic Load Balancing (ELB) to distribute traffic across multiple instances.
+Auto Scaling Groups (ASG) to automatically replace failed instances.
+Deploying resources across multiple Availability Zones (AZs) to ensure redundancy.
+
+Scalability vs Elasticity vs Agility
+Scalability: Ability for a system to accommodate a larger load by making the hardware stronger (scaling up) or adding nodes (scaling out).
+Elasticity: System's ability to automatically scale based on the load it receives.
+Agility: New IT resources are only a click away, which means that you reduce the time to make those resources available to your developers from weeks to just minutes.
+
+Elastic Load Balancing -
+Elastic Load Balancing (ELB) is a service provided by AWS that allows for better scalability and availability of backend EC2 instances and they can be spread out across multiple AZ. It acts as a server that forwards internet traffic to multiple downstream servers, which are the backend EC2 instances. Load balancers handle upgrades, maintenance, and high availability, while users only need to configure their behavior.
+Types of Load Balancers:
+1. Application Load Balancer (ALB)
+Layer 7 load balancer for HTTP and HTTPS traffic.
+Supports HTTP routing features and static DNS for a static URL.
+Simple architecture: Users access the load balancer using HTTP or HTTPS protocols.
+2. Network Load Balancer (NLB)
+Ultra-high performance load balancer.
+Layer 4 load balancer for TCP and UDP traffic.
+Suitable for applications that require low latency and high throughput.
+Simple architecture: Users access the load balancer using TCP or UDP protocols.
+3. Gateway Load Balancer (GWLB)
+Layer 3 load balancer.
+It is designed to route traffic to third-party security virtual appliances, such as firewalls, intrusion detection systems, or deep packet inspection systems.
+GWLB allows you to inspect IP packets and perform firewall operations before forwarding the traffic to your applications.
+It supports the Geneve protocol for routing traffic to virtual appliances running on EC2 instances.
+GWLB architecture involves sending traffic to EC2 instances running virtual appliances, analyzing the traffic, and then forwarding it back to the load balancer for further routing to the applications.
+
+Auto Scaling Groups -
+An autoscaling group (ASG) is a feature provided by cloud service providers, that allows for the automatic creation and termination of instances based on the current demand or load on an application. ASGs are commonly used in conjunction with load balancers to ensure efficient and scalable application deployments. We can spread our load across multiple AZ.
+The goal of ASG is to:
+Scale out(add EC2 instances) to match an increased load.
+Scale in(remove EC2 instances) to match a decreased load.
+Ensure we have a min and max number of machines running.
+Replace unhealthy instances.
+
+ASG in AWS with Load Balancer -
+When using an autoscaling group with EC2 instances, the load balancer plays a crucial role in distributing traffic.
+Initially, if there is only one EC2 instance in the autoscaling group, the load balancer will redirect all incoming web traffic to that instance.
+As the autoscaling group scales out by adding more EC2 instances, the load balancer will register them and distribute traffic across all instances.
+The load balancer dynamically adjusts the distribution of traffic based on the number of instances available.
+This ensures that the workload is evenly distributed and can handle increased traffic.
+The load balancer can distribute traffic to the maximum size of the autoscaling group if it scales to that point.
