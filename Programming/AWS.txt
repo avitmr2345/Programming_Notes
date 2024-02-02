@@ -40,3 +40,92 @@ Hybrid cloud combines private and public cloud infrastructure.
 Some servers are kept on-premises while certain capabilities are extended to the cloud.
 Provides control over sensitive assets in the private infrastructure.
 Offers flexibility and cost-effectiveness of the public cloud.
+
+--> IAM(Identity & Access Management)
+It is a Global service in which we are going to create our users and assign them to groups. Groups only contains users, not other groups. Users don't have to belong to a group, and user can belong to multiple groups. We create users or groups because we want to allow them to use our AWS accounts and we have to give them permissions. We add inline policies to those users who are not in any group. We protect users and groups by defining the password policy. The second option is using Multi Factor Authentication(MFA) which is password + security device you own to login the account. MFA devices options are - Virtual MFA device, Universal 2nd Factor Security Key etc.
+
+Permissions -
+Users or Groups can be assigned JSON documents called policies. These polices define the permissions of the users. In AWS you apply the least privilege principle that is don't give more permissions than a user needs.
+
+IAM Policies Structure -
+Version: policy language version
+Id: an identifier for the policy (optional)
+Statement: one or more individual statements (required)
+Sid: an identifier for the statement (optional)
+Effect: whether the statement allows or denies access
+Principal: account/user/role to which this policy applied to
+Action: list of actions this policy allows or denies based on the Effect
+Resource: list of resources to which the actions applied to
+Condition: conditions for when this policy is in effect (optional)
+
+IAM Roles for Services -
+Some AWS services will need to perform actions on your behalf. To do so, we'll assign permissions to AWS services with IAM Roles. Roles allows entities in the AWS to get credentials for a short duration and to do whatever they need to.
+
+--> EC2
+Elastic Compute Cloud is a service provided by AWS that allows users to rent virtual servers in the cloud, known as EC2 instances, and use them as compute resources.
+EC2 is composed of several components -
+EC2 instances: Virtual machines that can be rented from AWS.
+EBS volumes: Virtual drives used for storing data.
+Elastic Load Balancer: Distributes load across multiple EC2 instances.
+Auto Scaling Group (ASG): Allows for scaling of services based on demand.
+
+Choosing EC2 Instances -
+When creating an EC2 instance, users have several options to choose from:
+Operating System: Linux, Windows, or Mac OS.
+Compute Power: Users can select the desired CPU and number of cores.
+Random Access Memory (RAM): Users can choose the amount of RAM required.
+Storage Space: Users can choose between network-attached storage (EBS or EFS) or hardware-attached storage (EC2 instance store).
+Network Configuration: Users can select the type of network card and public IP.
+Security Group: Users can define firewall rules for their EC2 instance.
+Bootstrap Script (EC2 User Data): A script that configures the instance during its initial launch.
+
+Instance Types -
+Instances are categorized into families based on their intended use cases and performance characteristics.
+Choosing the right instance type is important to ensure optimal performance for your application.
+Some common instance families include:
+General Purpose (e.g., t2, m5)
+Compute Optimized (e.g., c5, r5)
+Memory Optimized (e.g., x1, z1d)
+Storage Optimized (e.g., i3, d2)
+Naming convention:
+m5.2xlarge (m is instance class, 5 is generation, 2xlarge is the size within the instance class)
+
+EC2 User Data and Bootstrapping -
+Bootstrapping refers to the process of launching commands or scripts when a machine starts.
+The EC2 User Data script is run only once, during the initial boot of the instance.
+The purpose of the EC2 User Data script is to automate boot tasks, hence the name bootstrapping.
+The tasks you can automate using the User Data script can include installing updates, software, or downloading files from the internet.
+The more tasks you add to your User Data script, the longer it will take for your instance to boot.
+The EC2 User Data script runs with root user privileges, so any commands you include will have sudo rights.
+
+Security Groups -
+Security groups are a fundamental aspect of network security in the AWS cloud.
+Security groups act as firewalls around EC2 instances that determine what traffic is allowed to enter and exit the EC2 instances.
+Security groups can have rules that reference either IP addresses or other security groups.Rules define whether inbound traffic from the outside to the EC2 instance is allowed, and if the EC2 instance can perform outbound traffic to the internet.
+Security groups can be attached to multiple EC2 instances. There is not a one-to-one relationship between security groups and instances.
+Similarly, an EC2 instance can have multiple security groups attached to it.
+Instances are associated with security groups, and security groups are associated with rules.
+
+Impact of Region and VPC Changes -
+Security groups are tied to a specific region and VPC combination.
+If you switch to another region or create a new VPC, you need to create new security groups.
+This means that security groups are not portable across regions or VPCs.
+It is important to consider this when planning and managing your security groups.
+
+Troubleshooting Security Group Issues -
+If you are unable to connect to an EC2 instance on a specific port and your computer hangs without any response, it is likely a security group issue. This is because the security group is blocking the inbound traffic to that port. On the other hand, if you receive a "connection refused" error, it means that the security group allowed the traffic to reach the instance, but the application running on the instance is not responding or not launched properly.
+By default, all inbound traffic is blocked and all outbound traffic is authorized.
+This means that you can initiate outbound connections from your instances, but incoming connections are not allowed unless explicitly configured in the security group rules.
+
+Referencing Security Groups from Other Security Groups -
+AWS provides a feature that allows you to reference one security group from another security group. This is particularly useful when working with load balancers. By referencing a security group in the inbound rules of another security group, you can allow instances associated with the second security group to communicate with instances associated with the first security group. This eliminates the need to specify IP addresses and simplifies the configuration process.
+For example, if you have an EC2 instance with security group "Group 1" and you authorized inbound traffic from "Group 2" then any instance associated with "Group 2" can communicate with the instance associated with "Group 1" on the specified port.
+
+Importance of SSH Access -
+SSH access is often the most critical and sensitive aspect of security. 
+It is recommended to maintain a separate security group specifically for SSH access.
+This helps ensure that SSH access is properly configured and secured.
+By dedicating a separate security group, it becomes easier to manage and monitor SSH traffic.
+SSH(Secure Shell) allows you to control a remote machine or server using CLI.
+Linux and windows command - ssh -i '.\EC2 Tutorial.pem' ec2-user@65.2.57.62 (.pem is ssh key, 65.... is public IP address)
+
