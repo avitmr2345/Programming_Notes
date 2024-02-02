@@ -62,7 +62,7 @@ IAM Roles for Services -
 Some AWS services will need to perform actions on your behalf. To do so, we'll assign permissions to AWS services with IAM Roles. Roles allows entities in the AWS to get credentials for a short duration and to do whatever they need to.
 
 --> EC2
-Elastic Compute Cloud is a service provided by AWS that allows users to rent virtual servers in the cloud, known as EC2 instances, and use them as compute resources.
+Elastic Compute Cloud is a service provided by AWS that allows users to rent virtual servers in the cloud, known as EC2 instances, and use them as compute resources. EC2 instances are bound to an Availibility Zones(AZ).
 EC2 is composed of several components -
 EC2 instances: Virtual machines that can be rented from AWS.
 EBS volumes: Virtual drives used for storing data.
@@ -128,4 +128,78 @@ This helps ensure that SSH access is properly configured and secured.
 By dedicating a separate security group, it becomes easier to manage and monitor SSH traffic.
 SSH(Secure Shell) allows you to control a remote machine or server using CLI.
 Linux and windows command - ssh -i '.\EC2 Tutorial.pem' ec2-user@65.2.57.62 (.pem is ssh key, 65.... is public IP address)
+
+--> EC2 Instance Storage
+EBS volumes -
+Elastic Block Store (EBS) is a block-level storage service provided by AWS. It allows you to create and attach persistent block storage volumes to your EC2 instances. They allow data to persist even after the instance is terminated.
+Each EBS volume can only be mounted to one instance at a time.
+When creating EBS volumes, you need to specify the AZ in which the volume will be created & it is bound to that specific availability zone.
+EBS volumes are network drives, not physical drives and are attached to instances through the network..
+Communication between the instance and the EBS volume is done through the network, which may introduce some latency.
+EBS volumes can be quickly detached from one EC2 instance and attached to another.
+EBS volumes are locked to specific availability zones, meaning they can only be attached to instances in the same availability zone.
+When creating EBS volumes through EC2 instances, there is an attribute called "delete on termination". This attribute determines whether the EBS volume should be deleted automatically when the associated EC2 instance is terminated.
+By default:
+The "Delete on Termination" option is ticked for the root volume.
+The "Delete on Termination" option is not ticked for any other attached EBS volumes.
+
+EBS Snapshots -
+It makes a backup of your EBS volume at a point of time. It is not necessary to detach volume to do snapshot. Can copy snapshots across AZ or regions, so that you would be able to transfer some of your data in a different region.
+
+AMI -
+AMI stands for Amazon Machine Image. AMIs represent a customization of an EC2 instance.
+AMIs can be created by AWS or customized by users. AMIs contain software configurations, including the operating system and monitoring tools.
+Behind the scenes, when we create an AMI, EBS snapshots are also created.
+These snapshots capture the data stored on the instance's EBS volumes.
+They provide a backup of the instance's data and can be used to restore or create new volumes.
+Benefits of Using AMI:
+Faster boot time and configuration time.
+Prepackaged software installation on EC2 instances.
+Can be built for a specific region and copied across regions. Allows for leveraging the AWS global infrastructure.
+
+Types of AMIs -
+1. Public AMIs
+Provided by AWS. Can be used by all AWS users. No need to create or maintain them.
+Examples: Amazon Linux 2 AMI.
+2. Custom AMIs
+Created and maintained by users. Can be built for specific requirements. Automation tools available for AMI creation. Users are responsible for creating and maintaining them.
+3. AWS Marketplace AMIs
+Created by vendors and potentially sold by them. Can save time by using pre-configured software. Users can also create and sell their own AMIs on the AWS Marketplace.
+
+AMI Creation Process -
+AMIs are a powerful tool for creating customized EC2 instances with pre-configured software and settings.
+Launching an Instance in us-east-1a:
+We will start by launching an instance in the us-east-1a region.
+This instance will serve as the basis for our custom AMI.
+
+Creating a Custom AMI:
+Once we have customized the instance, we will create an AMI from it.
+This AMI will capture the configuration and state of the instance at the time of creation.
+It will serve as a template for launching new instances with the same configuration.
+
+Launching Instances from the Custom AMI in us-east-1b:
+In the us-east-1b region, we will be able to launch instances from the custom AMI we created.
+This will effectively create a copy of our EC2 instance in a different region. We can launch multiple instances from the same AMI if needed.
+
+EC2 Image Builder -
+EC2 Image Builder is a service provided by AWS that allows you to automate the creation, maintenance, validation, and testing of Amazon Machine Images (AMIs) for EC2 instances. This service simplifies the process of building and customizing software components on EC2 instances, ensuring that your AMIs are up-to-date and meet your specific requirements.
+
+EC2 Image Builder Working -
+Setup: You configure and set up the EC2 Image Builder service, specifying the desired components and customizations for your AMIs.
+Builder EC2 Instance: When the EC2 Image Builder service runs, it automatically creates a builder EC2 instance. This instance is responsible for building components and customizing the software according to your specifications. For example, it can install Java, update the CLI, update the software system, install firewalls, or even install your application.
+AMI Creation: Once the builder EC2 instance completes its tasks, EC2 Image Builder creates an AMI from that instance. This AMI represents the desired state of your EC2 instances, including all the customizations and software installations.
+Validation: To ensure the quality and functionality of the AMI, EC2 Image Builder automatically creates a test EC2 instance from the newly created AMI. You can define a set of tests to be run on this instance, such as checking if the AMI is working correctly, if it is secure, or if your application is running properly. You have the flexibility to skip certain tests if needed.
+Distribution: Once the AMI passes the validation tests, it is ready for distribution. Although EC2 Image Builder is a regional service, you can distribute the AMI to multiple regions, allowing your application and workflow to be globally available.
+
+EC2 Instance Store -
+The EC2 Instance Store is a type of hardware disk that can be attached directly to an EC2 instance. It provides extremely high disk performance and is a great choice when you need better I/O performance and good throughput.
+The storage provided by the EC2 Instance Store is considered ephemeral, meaning that if you stop or terminate the EC2 instance, the data stored on the instance store will be lost. Therefore, it is not suitable for long-term storage.
+The EC2 Instance Store is ideal for use cases where you need temporary storage or scratch data. It can be used as a buffer or cache for storing data that is not critical or does not need to be persisted long-term.
+
+EFS -
+EFS stands for Elastic File System and is a managed network file system.
+It allows you to attach a network file system to multiple EC2 instances simultaneously.
+Unlike EBS volumes, which can only be attached to one instance at a time, EFS can be mounted onto hundreds of instances.
+EFS is a shared network file system, also known as a shared NFS (Network File System).
+It is designed to work with Linux EC2 instances and this architecture allows for easy sharing and access to files across instances in different availability zones.
 
