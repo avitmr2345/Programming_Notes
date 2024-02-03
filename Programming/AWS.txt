@@ -354,3 +354,103 @@ Summarizing the storage options on AWS:
 Block storage will be EBS, EC2 instance store.
 File storage will be EFS.
 Object storage will be S3, Glacier.
+
+--> Database Analytics
+RDS -
+RDS stands for Relational Database Service. It is a managed database service provided by AWS for relational databases.
+RDS uses SQL as the query language. It allows you to create and manage databases in the cloud.
+Supported databases include PostgreSQL, MySQL, MariaDB, Oracle, Microsoft SQL Server, and Aurora (proprietary database from AWS).
+
+Aurora -
+Aurora is a database technology created by AWS. It is not open source and is designed to be cloud optimized.
+Aurora is not included in the free tier of AWS. Aurora supports two types of databases: PostgreSQL and MySQL.
+Aurora offers a 5x performance improvement over MySQL on RDS and a 3x performance improvement over PostgreSQL on RDS.
+Storage for Aurora databases automatically grows in increments of 10GB up to 128 terabytes.
+Aurora is more expensive than RDS (about 20% more), but it is more efficient and cost-effective.
+
+RDS Database Deployment Options -
+RDS Read Replicas -
+Read replicas are used to scale the read workload of an RDS database.
+By creating read replicas, copies of the main RDS database are created, allowing applications to read from these replicas.
+This distributes the read workload across multiple RDS databases. Up to 15 read replicas can be created for an RDS database.
+Writing data is still done only to the main database.
+Multi-AZ Deployment -
+Multi-AZ deployment is used to achieve high availability in case of an availability zone (AZ) outage.
+A replication is set up across a different AZ, creating a failover database.
+If the main RDS database crashes or the AZ experiences issues, RDS triggers a failover.
+Data is only read and written to the main database.
+The failover database remains passive and is not used for active read or write operations until there is a failure in the main DB.
+Multi-Region Deployment -
+In a multi-region deployment, read replicas of the RDS database are created in different regions.
+Read replicas allow applications in different regions to read data locally, reducing latency.
+However, writes still need to happen cross-region, which may introduce some latency.
+This deployment is useful for setting up a disaster recovery strategy in case of a regional issue.
+It provides better performance for applications in different regions.
+
+Amazon Elasticache -
+Amazon Elasticache is a type of database service provided by AWS. It is used to manage in-memory databases, specifically Redis or Memcached. These in-memory databases offer high performance and low latency.
+The architecture for using Elasticache involves an elastic load balancer directing traffic to EC2 instances. These instances read and write data from the main Amazon RDS database. If possible, they also cache certain values in the Elasticache database. This helps in offloading the pressure from the main database and improving overall performance.
+
+DynamoDB -
+DynamoDB is a fully managed, highly available database provided by AWS. It is part of the NoSQL database family, meaning it is not a relational database. DynamoDB is known for its scalability, as it can handle massive workloads and is a distributed serverless database meaning there is no need to provision servers.
+Replication across three availability zones for high availability.
+Scales to millions of requests per second, trillions of rows, and hundreds of terabytes of storage.
+Fast and consistent performance, with single-digit millisecond latency.
+Integrated with IAM for security, authorization, and administration.
+Low cost and auto scaling capabilities. Offers a standard and infrequent access IA table class for cost savings.
+If you want to cache frequently read objects from DynamoDB tables, it is recommended to use DynamoDB Accelerator (DAX) instead of Elasticache. DAX provides better integration and performance specifically for DynamoDB, resulting in significantly improved latency and overall application performance.
+DynamoDB Global Tables provide a way to replicate a DynamoDB table across multiple regions, allowing users to read and write to the table with low latency in their respective regions. The active-active replication feature ensures that changes made in any region are replicated to other regions, maintaining data consistency.
+
+Redshift -
+Redshift is a database that is based on PostgreSQL, but it is not used for OLTP (online transaction processing) like RDS. Instead, Redshift is designed for OLAP (online analytical processing), which is used for analyzing data and making computations.
+It can scale to handle petabytes of data. Data in Redshift is stored in columns, making it a columnar storage of data.
+Redshift uses a massively parallel query execution (MPP) engine to perform computations quickly.
+It is integrated with business intelligence (BI) tools such as Quicksight or Tableau, allowing you to create dashboards on top of your data in the data warehouse.
+
+EMR -
+Elastic MapReduce is a service provided by AWS that allows users to create and manage Hadoop clusters for big data analysis. A Hadoop cluster is a group of computers (EC2 instances) that work together to analyze and process vast amounts of data. EMR allows users to create a cluster made up of hundreds of EC2 instances that collaborate to analyze data. It simplifies the provisioning and configuration of EC2 instances in the cluster and supports autoscaling and integration with spot instances. EMR is commonly used for data processing, machine learning, web indexing, and other big data applications.
+
+Athena -
+Athena is a serverless query service provided by AWS that allows you to perform analytics on objects stored in Amazon S3. It enables you to query files in S3 using SQL without the need to load them into a separate database. Athena is built on the Presto engine, which is a distributed SQL query engine.
+It supports various file formats such as CSV, JSON, Orc, Avro, and Parquet.
+If desired, you can use tools like Amazon QuickSight for getting reporting on top of Athena.
+
+Quicksight -
+Quicksight is a serverless, machine learning powered business intelligence service offered by AWS. It allows users to create interactive dashboards to visually represent data and provide insights to business users.
+It offers a variety of features, including the ability to create graphs, charts, and other visualizations.
+Quicksight is designed to be fast, automatically scalable, and embeddable into other applications.
+Quicksight integrates with various AWS services, such as RDS databases, Aurora, Athena, Redshift, and S3.
+
+DocumentDB -
+DocumentDB is a NoSQL database service provided by AWS. It is based on MongoDB technology and is compatible with MongoDB.
+DocumentDB is used to store, query, and index JSON data.
+It is a fully managed database, similar to Aurora, and provides high availability.
+Data in DocumentDB is replicated across three availability zones.
+Storage in DocumentDB automatically grows in increments of 10GB, up to a maximum of 64 terabytes.
+DocumentDB is engineered to handle workloads with millions of requests per second.
+
+Neptune -
+Neptune is a fully managed graph database that is designed to handle highly connected data sets, such as social networks. In a graph data set, entities are represented as nodes, and the relationships between entities are represented as edges. For example, in a social network, users are connected to each other through friendships, likes, comments, and shares.
+
+QLDB & Amazon Managed Blockchain -
+Quantum Ledger Database is a fully managed, serverless database that serves as a ledger for financial transactions. It allows you to review the history of all changes made to your application data over time. QLDB is designed to be immutable, meaning that once data is written to the database, it cannot be removed or modified. This ensures the integrity and security of financial transactions.
+
+Amazon Managed Blockchain is a service provided by Amazon Web Services (AWS).
+Blockchain is a technology that allows multiple parties to execute transactions without the need for a trusted central authority.
+It allows users to join public blockchain networks or create their own private blockchain networks within the AWS environment.
+Currently, it supports two blockchain frameworks: Hyperledger Fabric and Ethereum.
+
+Difference between QLDB and Amazon Managed Blockchain
+QLDB is a ledger database, while Amazon Managed Blockchain is a blockchain technology.
+QLDB does not have a concept of decentralization, as it is a centralized database owned by Amazon. On the other hand, Amazon Managed Blockchain has decentralization.
+
+Glue -
+Glue is a managed Extract, Transform, and Load (ETL) service provided by Amazon Web Services. It allows you to prepare and transform your data sets for analytics by extracting data from various sources, transforming it, and loading it into different destinations. Glue is a fully serverless service, meaning you don't have to worry about managing servers and can focus solely on data transformation.
+Glue Data Catalog -
+The Glue Data Catalog is another component of AWS Glue.
+It serves as a catalog or repository for your data sets within your AWS infrastructure.
+The Glue Data Catalog contains metadata about your data sets, including column names, field names, and field types.
+Services like Athena, Redshift, and EMR can utilize the Glue Data Catalog to discover and understand the structure of your data sets, enabling them to build appropriate schemas for analysis.
+
+DMS -
+Database Migration Service is used to transferring data from one database to another. It supports homogeneous & heterogeneous migrations.
