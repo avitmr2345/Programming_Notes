@@ -12,12 +12,14 @@ Provides the fundamental building blocks for cloud computing.
 Offers networking, computers, and data storage space in their raw form.
 Provides a high level of flexibility and allows easy migration from traditional on-premises IT to the cloud.
 Examples of IaaS services include Amazon EC2, Google Cloud, Azure, Rackspace, and Digitalocean.
+
 2. Platform as a Service (PaaS)
 Removes the need for organizations to manage the underlying infrastructure.
 Focuses on the deployment and management of applications.
 Allows developers to concentrate on developing and running their applications without worrying about infrastructure management.
 AWS manages everything from the runtime to the networking.
 Examples of PaaS services include AWS Elastic Beanstalk, Google App Engine, and Microsoft Azure App Service.
+
 3. Software as a Service (SaaS)
 Provides a complete product that is run and managed by the service provider.
 Users can access the software through the internet without the need for installation or maintenance.
@@ -30,11 +32,13 @@ Used by a single organization and not exposed to the public.
 Examples: Rackspace
 Provides a private data center managed by a third party.
 Offers complete control and more security for sensitive applications.
+
 2. Public Cloud
 Owned and operated by a third-party cloud service provider.
 Resources are delivered over the internet.
 Examples: Microsoft Azure, Google Cloud, Amazon Web Services (AWS).
 In this course, we will focus on AWS.
+
 3. Hybrid Cloud
 Hybrid cloud combines private and public cloud infrastructure.
 Some servers are kept on-premises while certain capabilities are extended to the cloud.
@@ -54,7 +58,7 @@ Statement: one or more individual statements (required)
 Sid: an identifier for the statement (optional)
 Effect: whether the statement allows or denies access
 Principal: account/user/role to which this policy applied to
-Action: list of actions this policy allows or denies based on the Effect
+Action: list of actions or set of API calls this policy allows or denies based on the Effect
 Resource: list of resources to which the actions applied to
 Condition: conditions for when this policy is in effect (optional)
 
@@ -161,8 +165,10 @@ Types of AMIs -
 1. Public AMIs
 Provided by AWS. Can be used by all AWS users. No need to create or maintain them.
 Examples: Amazon Linux 2 AMI.
+
 2. Custom AMIs
 Created and maintained by users. Can be built for specific requirements. Automation tools available for AMI creation. Users are responsible for creating and maintaining them.
+
 3. AWS Marketplace AMIs
 Created by vendors and potentially sold by them. Can save time by using pre-configured software. Users can also create and sell their own AMIs on the AWS Marketplace.
 
@@ -210,6 +216,7 @@ There are two types of scalability in the cloud:
 1. Vertical scalability
 Increasing the size or capacity of an instance. Example: Changing from t2.micro to t2.large.
 Vertical scalability is common in non-distributed systems like databases.
+
 2. Horizontal scalability (elasticity)
 Increasing the number of instances. Improves performance and capacity. Increase fault tolerance and availability.
 In AWS, achieving horizontal scalability:
@@ -236,11 +243,13 @@ Types of Load Balancers:
 Layer 7 load balancer for HTTP and HTTPS traffic.
 Supports HTTP routing features and static DNS for a static URL.
 Simple architecture: Users access the load balancer using HTTP or HTTPS protocols.
+
 2. Network Load Balancer (NLB)
 Ultra-high performance load balancer.
 Layer 4 load balancer for TCP and UDP traffic.
 Suitable for applications that require low latency and high throughput.
 Simple architecture: Users access the load balancer using TCP or UDP protocols.
+
 3. Gateway Load Balancer (GWLB)
 Layer 3 load balancer.
 It is designed to route traffic to third-party security virtual appliances, such as firewalls, intrusion detection systems, or deep packet inspection systems.
@@ -251,8 +260,8 @@ GWLB architecture involves sending traffic to EC2 instances running virtual appl
 Auto Scaling Groups -
 An autoscaling group (ASG) is a feature provided by cloud service providers, that allows for the automatic creation and termination of instances based on the current demand or load on an application. ASGs are commonly used in conjunction with load balancers to ensure efficient and scalable application deployments. We can spread our load across multiple AZ.
 The goal of ASG is to:
-Scale out(add EC2 instances) to match an increased load.
-Scale in(remove EC2 instances) to match a decreased load.
+Scale out (add EC2 instances) to match an increased load.
+Scale in (remove EC2 instances) to match a decreased load.
 Ensure we have a min and max number of machines running.
 Replace unhealthy instances.
 
@@ -263,3 +272,79 @@ As the autoscaling group scales out by adding more EC2 instances, the load balan
 The load balancer dynamically adjusts the distribution of traffic based on the number of instances available.
 This ensures that the workload is evenly distributed and can handle increased traffic.
 The load balancer can distribute traffic to the maximum size of the autoscaling group if it scales to that point.
+
+--> S3
+Amazon S3 stands for Simple Storage Service and is a cloud storage service provided by Amazon Web Services (AWS).
+It allows you to store and retrieve large amounts of data, such as files, documents, images, videos, etc. It offers a wide range of use cases, including backup and storage, disaster recovery, archival purposes, hybrid cloud storage, hosting applications and media, data lakes, big data analytics, delivering software updates, and hosting static websites.
+Files in Amazon S3 are called objects.
+Files in Amazon S3 are stored in buckets, which can be seen as top-level directories.
+Buckets are created in your account and must have a globally unique name.
+S3 looks like a global service but buckets are created in a region.
+S3 pre-signed URL contains a signature that verifies the credentials in the encoded URL to allow the user to show its object. 
+S3 Objects:
+Objects in S3 are files.
+Each object has a key, which is the full path of the file.
+The key of a file in the top-level directory is the same as the object name.
+If a file is nested in folders, the key is the full path of the file. The key is composed of a prefix (folder path) and an object name.
+S3 does not have a concept of directories, everything is a key.
+Objects in Amazon S3 can have metadata associated with them. Metadata consists of a list of key-value pairs that provide additional information about the object. Metadata can be set by the system or by the user.
+Each object can have Tags (up to 10 Unicode key-value pairs as metadata which are useful for security/lifecycle).
+Object can have Version ID (if versioning is enabled).
+Object Values:
+The values of S3 objects are the content of the file.
+You can upload any type of file to S3. There is a maximum size limit for objects in S3.
+
+S3 Security -
+1. User-Based Security
+IAM policies determine which API calls are allowed for a user. IAM principles can access S3 objects if:
+IAM permissions allow it.
+Resource policies allow it.
+There is no explicit deny in the action.
+
+2. Resource-Based Security
+(i) Bucket Policies
+S3 bucket policies are bucket-wide rules that can be assigned from the S3 console.
+Bucket policies allow specific users or users from other accounts (cross-account) to access the S3 bucket.
+Bucket policies can be used to make S3 buckets public.
+(ii) Object Access Control List (ACL)
+ACL provides finer-grained security for S3 objects. ACL can be disabled.
+(iii) Bucket-level ACL is less common but can also be disabled.
+
+3. Object Encryption
+Objects in S3 can be encrypted using encryption keys.
+
+Bucket Policies -
+Bucket policies are the most common way to secure an S3 bucket. Bucket policies are JSON-based policies.
+The structure of a bucket policy:
+Resource: Specifies the buckets and objects the policy applies to.
+
+Granting Public Access
+To grant public access to a bucket or objects within it, we can use an S3 bucket policy.
+For example, we can set a bucket policy that allows anyone (*) to perform the GetObject action on all objects within the bucket.
+This would make all objects within the bucket publicly readable.
+
+Granting Access to IAM Users
+If we have an IAM user within our AWS account who needs access to the S3 bucket, we can assign IAM permissions to that user through a policy.
+By creating a policy that allows access to the S3 bucket, the user will be able to access the bucket.
+
+Granting Access from EC2 Instances
+If we want to give access from an EC2 instance to an S3 bucket, IAM users are not appropriate. Instead, we need to use IAM roles.
+We can create an IAM role for the EC2 instance with the necessary IAM permissions to access the S3 bucket.
+By assigning this role to the EC2 instance, it will be able to access the S3 bucket.
+
+Allowing Cross-Account Access
+If we want to allow access from an IAM user in another AWS account, we can use a bucket policy.
+We can create an S3 bucket policy that allows cross-account access.
+By specifying the IAM user in the other AWS account in the bucket policy, we can grant them access to the S3 bucket.
+
+Static Website Hosting, Versioning, Replication, S3 Storage Classes -
+Easy topics, if you forgot these watch a quick tutorial.
+
+AWS Snow Family -
+The AWS Snow Family is a collection of highly secure portable devices that serve two main use cases within AWS: data migration and edge computing. AWS OpsHub is a software to connect & manage your Snow Family Devices.
+Data migration refers to the process of transferring large amounts of data in and out of AWS. The AWS Snow Family offers three different types of devices for data migration: Snow Cone, Snowball Edge, and Snowmobile and each option has different storage capacities 8 terabytes, 80 terabytes, and 100 petabytes respectively.
+Recommended migration size for Snow Cone is up to 24 terabytes online and offline and DataSync agent is pre-installed on this.
+Snowball Edge is suitable for petabyte migrations and requires offline data transfer & supports storage clustering to put 15 of them together.
+Snowmobile is the best choice for transferring more than ten petabytes of data.
+
+Edge computing is a concept where data processing and analysis is performed closer to the source of data creation, rather than sending it back to the cloud. AWS Snow Family provides a range of devices that enable edge computing capabilities which are Snowcone, Snowcone SSD, Snowball Edge and they can run EC2 instances & AWS Lambda functions on them.
