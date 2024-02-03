@@ -37,7 +37,6 @@ Offers complete control and more security for sensitive applications.
 Owned and operated by a third-party cloud service provider.
 Resources are delivered over the internet.
 Examples: Microsoft Azure, Google Cloud, Amazon Web Services (AWS).
-In this course, we will focus on AWS.
 
 3. Hybrid Cloud
 Hybrid cloud combines private and public cloud infrastructure.
@@ -348,3 +347,10 @@ Snowball Edge is suitable for petabyte migrations and requires offline data tran
 Snowmobile is the best choice for transferring more than ten petabytes of data.
 
 Edge computing is a concept where data processing and analysis is performed closer to the source of data creation, rather than sending it back to the cloud. AWS Snow Family provides a range of devices that enable edge computing capabilities which are Snowcone, Snowcone SSD, Snowball Edge and they can run EC2 instances & AWS Lambda functions on them.
+
+Storage Gateway -
+It is a hybrid solution to extend on-premises storage to S3. Bridge b/w data stored on your end & cloud data in S3.
+Summarizing the storage options on AWS:
+Block storage will be EBS, EC2 instance store.
+File storage will be EFS.
+Object storage will be S3, Glacier.
