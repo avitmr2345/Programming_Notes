@@ -524,3 +524,84 @@ To define a batch job, you simply need a Docker image and a task definition that
 Lightsail -
 Lightsail is a standalone service in AWS that provides virtual servers, storage, databases, and networking in one place. It offers low and predictable pricing, making it a simpler alternative to other AWS services like EC2, RDS, ELB, EBS, and Route 53.
 Limitations of this are limited AWS integrations, no auto scaling and limited high availability.
+
+--> Deploying and Managing Infrastructure at Scale
+CloudFormation -
+CloudFormation is a technology in AWS that allows you to declaratively outline your AWS infrastructure for any resources.
+It provides a way to define your infrastructure as code, specifying the desired configuration of resources.
+With CloudFormation, you can create and manage your infrastructure in a consistent and automated manner.
+Cloud Development Kit -
+You can choose any supported language to write the code of your application and this is compiled into a CloudFormation template (JSON/YAML) using the CDK CLI and this template will be applied into CloudFormation to deploy our infrastructure.
+
+Elastic Beanstalk -
+Elastic Beanstalk is a developer-centric platform for deploying applications on AWS. It provides a simplified view of the underlying infrastructure and allows developers to focus on running their code rather than managing the infrastructure.
+Features of Elastic Beanstalk -
+Managed Service: Elastic Beanstalk handles the configuration and management of EC2 instances and the operating system, making it developer-friendly.
+Capacity Provisioning: Elastic Beanstalk automatically provisions and manages the capacity of resources through an Auto Scaling group and load balancing.
+Application Health Monitoring: Elastic Beanstalk provides a dashboard for monitoring the health and responsiveness of applications.
+Architecture Models: Elastic Beanstalk supports three architecture models:
+Single Instance Deployment: Suitable for development environments.
+Load Balanced and Auto Scaled: Ideal for production or pre-production web applications.
+Auto Scaled (non-web apps): Used for non-web applications in production, such as workers.
+
+CodeDeploy (hybrid) -
+CodeDeploy is a service provided by AWS that allows for automatic deployment of applications. It is a more flexible option compared to CloudFormation and Elastic Beanstalk, as it does not require the use of these services. CodeDeploy can be used independently to upgrade applications from one version to another.
+Features of CodeDeploy -
+Works with EC2 instances: CodeDeploy can upgrade multiple EC2 instances from version one to version two of an application.
+Works with on-premises servers: CodeDeploy also supports upgrading applications on servers that are located on-premises. This makes it a hybrid service, as it can be used for both on-premises and EC2 instances.
+Requires server provisioning: Before using CodeDeploy, servers need to be provisioned and configured. This includes installing the CodeDeploy agent on the servers, which assists in performing the upgrades.
+
+CodeCommit -
+CodeCommit is a code repository service provided by AWS. CodeCommit is based on the Git technology.
+CodeCommit is integrated with all other AWS services. It allows developers to store their code in a version control repository.
+It provides a fully managed, scalable, and highly available code repository.
+The code repository is private and secure, as it lives within your AWS account.
+
+CodeBuild -
+CodeBuild is a service provided by AWS that allows you to build your code in the cloud. It takes your source code, compiles it, runs tests, and produces ready-to-deploy packages. It's fully managed, continuously scalable, highly available, secure and a serverless service. Here's an overview of how it works:
+CodeBuild retrieves your code from CodeCommit, where it is stored.
+It runs scripts that you define to build your code.
+The output of the build process is a set of artifacts, which are ready to be deployed.
+
+CodePipeline -
+CodePipeline is a fully managed service provided by AWS that allows you to orchestrate and automate the different steps involved in deploying code to production. It serves as an orchestration layer that connects various AWS services together to create a pipeline for continuous integration and continuous delivery (CI/CD).
+Benefits of CodePipeline -
+Fully managed: CodePipeline is a fully managed service provided by AWS, which means that AWS takes care of the underlying infrastructure and maintenance, allowing you to focus on your code and application.
+Compatibility: CodePipeline is compatible with various AWS services such as CodeCommit, CodeBuild, CodeDeploy, Elastic Beanstalk, as well as third-party services like GitHub.
+Fast delivery and rapid updates: CodePipeline enables fast delivery and rapid updates by automating the entire deployment process.
+
+CodeArtifact -
+Software packages created by developers often depend on each other to be built, forming a code architecture.
+This dependency management is known as artifact management.
+Traditionally, developers had to set up their own artifact management system, which could be complex.
+AWS CodeArtifact is a secure, scalable, and cost-effective artifact management service provided by AWS.
+Benefits of AWS CodeArtifact -
+Provides a secure and reliable place to store and retrieve code dependencies.
+Supports common dependency management tools such as Maven, Gradle, npm, Yarn, Twine, Pip, and NuGet.
+Integrates seamlessly with other AWS services like CodeCommit and CodeBuild.
+CodeArtifact is useful for teams that require an artifact management system or a centralized location to store their code dependencies.
+Developers can push their code to CodeCommit, and CodeBuild can directly retrieve the dependencies from CodeArtifact during the build process.
+
+Codestar -
+Codestar is a unified user interface (UI) that simplifies the management of software development activities in one place. It addresses the challenge of setting up and integrating various development tools such as CodeCommit, CodeBuild, CodeDeploy, CodePipeline, Elastic Beanstalk and EC2. Codestar provides a convenient solution by offering a one-stop shop for starting a development project and automatically creating the necessary resources behind the scenes.
+
+Cloud9 -
+Cloud9 is a cloud-based Integrated Development Environment (IDE) that allows developers to write, run, and debug code directly in the cloud. It provides a code editor that runs in a web browser, eliminating the need to download IDE. Cloud9 enables real-time code collaboration, allowing multiple developers to work on the same code simultaneously. This feature is particularly useful for pair programming or team projects.
+
+SSM (hybrid) -
+AWS Systems Manager is a hybrid AWS service that allows you to manage your fleet of EC2 instances and on-premises systems at scale. It provides operational insights about the state of your infrastructure and offers a suite of ten plus products to help you manage your resources efficiently.
+Key Features -
+Automated Patching: SSM allows you to automate the patching of all your servers and instances for enhanced compliance.
+Run Commands: You can run commands across your entire fleet of servers directly from SSM, ensuring consistent execution.
+Parameter Store: SSM provides a parameter store to store and manage configuration parameters.
+Cross-Platform Compatibility: SSM works for Linux, Windows, macOS, and Raspberry Pi, making it versatile for different environments.
+How SSM Works -
+Install SSM Agent: To use SSM, you need to install the SSM agent on the systems you want to control.
+Agent Reporting: The SSM agent reports back to the SSM service in AWS, providing information about the managed instances.
+EC2 Instances and On-Premises VMs (Virtaul Machine): The SSM agent is installed on both EC2 instances and on-premises virtual machines, allowing control and management of both types of resources.
+Troubleshooting: If an instance cannot be controlled by SSM, it is likely due to an issue with the SSM agent.
+SSM Session Manager -
+It allows you to start a secure shell on your EC2 and on-premises servers. It don't need SSH keys, no port 22 needed. Supported on Linux, macOS and Windows. It sends session log data to S3 or CloudWatch logs.
+
+OpsWorks -
+OpsWorks is a service provided by AWS that allows you to manage server configuration using tools like Chef and Puppet. Chef and Puppet are not created by AWS, but they are widely used for automating server configuration and repetitive actions. OpsWorks is designed to work seamlessly with EC2 instances or on-premises virtual machines. It serves as an alternative to AWS Systems Manager (SSM) and allows you to provision standard AWS resources such as EC2 instances, databases, load balancers, and EBS volumes.
