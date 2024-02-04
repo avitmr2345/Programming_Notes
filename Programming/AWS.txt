@@ -454,3 +454,73 @@ Services like Athena, Redshift, and EMR can utilize the Glue Data Catalog to dis
 
 DMS -
 Database Migration Service is used to transferring data from one database to another. It supports homogeneous & heterogeneous migrations.
+
+--> Other Compute Services
+Docker -
+Docker is a software development platform that allows you to deploy applications by packaging them into containers. These containers are special because they can be run on any operating system with ease. Unlike traditional deployment methods where applications are installed directly on a specific operating system, Docker containers provide compatibility across different environments, resulting in predictable behavior and easier maintenance and deployment.
+When using Docker on an EC2 instance, you can have multiple containers running different applications on the same instance.
+Docker Images and Repositories -
+To run a Docker container, you need to create a Docker image. An image is a lightweight, standalone, and executable package that includes everything needed to run the application, including the code, runtime, libraries, and dependencies. Docker images can be stored in Docker repositories.
+There are two types of Docker repositories:
+Public repositories: The Docker Hub is a popular public repository where you can find base images for various technologies and operating systems.
+Private repositories: Amazon Elastic Container Registry (ECR) is a private Docker repository provided by AWS. This is particularly useful when you want to keep your images private or restrict access to specific users or AWS accounts.
+Docker vs Virtual Machines -
+In a traditional virtual machine setup (such as with EC2 instances on AWS), each virtual machine runs its own full operating system, which can be resource-intensive.
+With Docker, multiple containers can run on a single host operating system, sharing resources and reducing overhead.
+Docker containers are more lightweight and start up faster compared to virtual machines.
+Docker containers are more portable and can be easily moved between different environments, whereas virtual machines are tied to specific hardware configurations.
+
+ECS, Fargate, ECR -
+ECS:
+ECS stands for Elastic Container Service and is used to launch Docker containers on AWS.
+With ECS, you need to provision and maintain the infrastructure yourself, which means creating EC2 instances in advance.
+AWS takes care of starting or stopping the containers for you and provides integration with an Application Load Balancer.
+In a web application scenario, multiple EC2 instances are created in advance, and ECS places the Docker containers on these instances.
+ECS is a good choice when you want to run Docker containers on AWS and have control over the underlying infrastructure.
+Fargate:
+Fargate is also used to launch Docker containers on AWS, but it does not require provisioning(managing) any infrastructure.
+Fargate is a serverless offering, meaning you don't need to manage any servers. AWS runs the containers based on the specified CPU and RAM requirements.
+Fargate is simpler to use compared to ECS because you don't have to create or manage EC2 instances.
+When you need to run a new Docker container on Fargate, AWS automatically runs it for you without specifying the exact location.
+Fargate is a convenient option when you want to run Docker containers on AWS without the hassle of managing infrastructure.
+ECR:
+Elastic Container Registry is a private Docker registry service offered by AWS. It allows you to store your Docker images securely and efficiently. Here's how it works:
+You upload your Docker images to ECR.
+ECR stores these images in a secure and highly available manner.
+You can then use these images to run containers using AWS services like ECS (Elastic Container Service) or Fargate.
+
+Serverless Computing -
+Serverless computing is a paradigm in which developers do not have to manage servers. Instead, they can focus on deploying their code or functions. Initially, serverless was pioneered as a function-as-a-service with AWS Lambda but now also includes anything that's managed: database, messaging, storage etc. However, nowadays, the term "serverless" is used to refer to any managed service that does not require the user to manage or provision servers. Some examples of serverless are S3, DynamoDB, Fargate, Lambda etc.
+
+Lambda -
+Lambda is a serverless computing service provided by Amazon Web Services (AWS). It allows you to run your code without provisioning or managing servers. It's important to note that while Lambda can run Docker containers using the Lambda Container Image, it requires the container image to implement the Lambda Runtime API. CloudWatch Events or EventBridge will trigger the Lambda function every hour (or based on the defined schedule) to perform a task. This allows you to run scripts periodically without the need for servers. It is like a cron job in Linux.
+Traditional Server vs AWS Lambda -
+Traditional Server (EC2 Instance):
+Virtual server in the cloud.
+Bounded by the amount of memory and CPU power allocated.
+Continuously running, even when not in use.
+Scaling requires adding or removing servers, which can be slow and complicated.
+AWS Lambda:
+Virtual functions instead of servers.
+Functions are limited by time and intended for shorter executions.
+Functions run on demand and are not billed when not in use.
+Scaling is automated as part of the Lambda service.
+Benefits of AWS Lambda -
+Integration with whole AWS suite of services and many programming languages.
+Event-Driven.
+Easy monitoring through CloudWatch, which is the monitoring solution in AWS.
+Can allocate up to 10GB of RAM per function which means resource flexibility.
+
+API Gateway -
+The API Gateway is a service provided by AWS that allows developers to easily create, publish, maintain, monitor, and secure APIs in the cloud. It is a fully managed service and is designed to work seamlessly with other AWS services like AWS Lambda and DynamoDB.
+When building a serverless API, the Amazon API Gateway is an essential component to consider. It acts as a bridge between the client and the serverless functions, providing a secure and scalable way for clients to interact with your application.
+
+Batch -
+AWS Batch is a fully managed batch processing service that allows you to perform batch processing at any scale. It enables you to efficiently run hundreds of thousands of computing batch jobs on AWS with ease.
+A batch job is a job that has a specific start and end time. Unlike continuous or streaming jobs that run indefinitely, batch jobs have a defined duration. For example, a batch job may start at 01:00 a.m. and finish at 03:00 a.m.
+AWS Batch dynamically launches EC2 instances or spot instances to handle the load of running batch jobs. It automatically provisions the appropriate amount of compute and memory resources to handle your batch queue. This allows you to focus on submitting or scheduling batch jobs into the batch queue, while AWS Batch takes care of the infrastructure.
+To define a batch job, you simply need a Docker image and a task definition that runs on the ECS (Elastic Container Service) service.
+
+Lightsail -
+Lightsail is a standalone service in AWS that provides virtual servers, storage, databases, and networking in one place. It offers low and predictable pricing, making it a simpler alternative to other AWS services like EC2, RDS, ELB, EBS, and Route 53.
+Limitations of this are limited AWS integrations, no auto scaling and limited high availability.
