@@ -387,9 +387,9 @@ However, writes still need to happen cross-region, which may introduce some late
 This deployment is useful for setting up a disaster recovery strategy in case of a regional issue.
 It provides better performance for applications in different regions.
 
-Amazon Elasticache -
-Amazon Elasticache is a type of database service provided by AWS. It is used to manage in-memory databases, specifically Redis or Memcached. These in-memory databases offer high performance and low latency.
-The architecture for using Elasticache involves an elastic load balancer directing traffic to EC2 instances. These instances read and write data from the main Amazon RDS database. If possible, they also cache certain values in the Elasticache database. This helps in offloading the pressure from the main database and improving overall performance.
+Amazon ElastiCache -
+Amazon ElastiCache is a type of database service provided by AWS. It is used to manage in-memory databases, specifically Redis or Memcached. These in-memory databases offer high performance and low latency.
+The architecture for using ElastiCache involves an elastic load balancer directing traffic to EC2 instances. These instances read and write data from the main Amazon RDS database. If possible, they also cache certain values in the ElastiCache database. This helps in offloading the pressure from the main database and improving overall performance.
 
 DynamoDB -
 DynamoDB is a fully managed, highly available database provided by AWS. It is part of the NoSQL database family, meaning it is not a relational database. DynamoDB is known for its scalability, as it can handle massive workloads and is a distributed serverless database meaning there is no need to provision servers.
@@ -398,7 +398,7 @@ Scales to millions of requests per second, trillions of rows, and hundreds of te
 Fast and consistent performance, with single-digit millisecond latency.
 Integrated with IAM for security, authorization, and administration.
 Low cost and auto scaling capabilities. Offers a standard and infrequent access IA table class for cost savings.
-If you want to cache frequently read objects from DynamoDB tables, it is recommended to use DynamoDB Accelerator (DAX) instead of Elasticache. DAX provides better integration and performance specifically for DynamoDB, resulting in significantly improved latency and overall application performance.
+If you want to cache frequently read objects from DynamoDB tables, it is recommended to use DynamoDB Accelerator (DAX) instead of ElastiCache. DAX provides better integration and performance specifically for DynamoDB, resulting in significantly improved latency and overall application performance.
 DynamoDB Global Tables provide a way to replicate a DynamoDB table across multiple regions, allowing users to read and write to the table with low latency in their respective regions. The active-active replication feature ensures that changes made in any region are replicated to other regions, maintaining data consistency.
 
 Redshift -
