@@ -7,9 +7,10 @@ Instant access: Resources can be accessed instantly, without the need for 24 or 
 Interface: Cloud computing provides a user-friendly interface that allows easy access to servers, storage, databases, and application services. This interface makes it convenient for users to manage and utilize their resources.
 
 Types of Cloud Computing -
+When you create your own server and databases, this is known as on-premises and you have to manage all the mentioned things like Application, Data, Runtime, Middleware, O/S, Virtualization, Servers, Storage and Networking etc.
 1. Infrastructure as a Service (IaaS)
 Provides the fundamental building blocks for cloud computing.
-Offers networking, computers, and data storage space in their raw form.
+Offers networking, servers, virtualization and data storage.
 Provides a high level of flexibility and allows easy migration from traditional on-premises IT to the cloud.
 Examples of IaaS services include Amazon EC2, Google Cloud, Azure, Rackspace, and Digitalocean.
 
@@ -45,7 +46,7 @@ Provides control over sensitive assets in the private infrastructure.
 Offers flexibility and cost-effectiveness of the public cloud.
 
 --> IAM(Identity & Access Management)
-It is a Global service in which we are going to create our users and assign them to groups. Groups only contains users, not other groups. Users don't have to belong to a group, and user can belong to multiple groups. We create users or groups because we want to allow them to use our AWS accounts and we have to give them permissions. We add inline policies to those users who are not in any group. We protect users and groups by defining the password policy. The second option is using Multi Factor Authentication(MFA) which is password + security device you own to login the account. MFA devices options are - Virtual MFA device, Universal 2nd Factor Security Key etc.
+It is a Global service in which we create our users and assign them to groups. Groups only contains users, not other groups. Users don't have to belong to a group, and user can belong to multiple groups. We create users or groups because we want to allow them to use our AWS accounts and we have to give them permissions. We add inline policies to those users who are not in any group. We protect users and groups by defining the password policy. The second option is using Multi Factor Authentication(MFA) which is password + security device you own to login the account. MFA devices options are - Virtual MFA device, Universal 2nd Factor Security Key etc.
 
 Permissions -
 Users or Groups can be assigned JSON documents called policies. These polices define the permissions of the users. In AWS you apply the least privilege principle that is don't give more permissions than a user needs.
@@ -98,7 +99,6 @@ Bootstrapping refers to the process of launching commands or scripts when a mach
 The EC2 User Data script is run only once, during the initial boot of the instance.
 The purpose of the EC2 User Data script is to automate boot tasks, hence the name bootstrapping.
 The tasks you can automate using the User Data script can include installing updates, software, or downloading files from the internet.
-The more tasks you add to your User Data script, the longer it will take for your instance to boot.
 The EC2 User Data script runs with root user privileges, so any commands you include will have sudo rights.
 
 Security Groups -
