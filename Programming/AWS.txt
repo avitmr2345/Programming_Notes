@@ -104,7 +104,7 @@ The EC2 User Data script runs with root user privileges, so any commands you inc
 Security Groups -
 Security groups are a fundamental aspect of network security in the AWS cloud.
 Security groups act as firewalls around EC2 instances that determine what traffic is allowed to enter and exit the EC2 instances.
-Security groups can have rules that reference either IP addresses or other security groups.Rules define whether inbound traffic from the outside to the EC2 instance is allowed, and if the EC2 instance can perform outbound traffic to the internet.
+Security groups can have rules that reference either IP addresses or other security groups. Rules define whether inbound traffic from the outside to the EC2 instance is allowed, and if the EC2 instance can perform outbound traffic to the internet.
 Security groups can be attached to multiple EC2 instances. There is not a one-to-one relationship between security groups and instances.
 Similarly, an EC2 instance can have multiple security groups attached to it.
 Instances are associated with security groups, and security groups are associated with rules.
@@ -137,7 +137,7 @@ EBS volumes -
 Elastic Block Store (EBS) is a block-level storage service provided by AWS. It allows you to create and attach persistent block storage volumes to your EC2 instances. They allow data to persist even after the instance is terminated.
 Each EBS volume can only be mounted to one instance at a time.
 When creating EBS volumes, you need to specify the AZ in which the volume will be created & it is bound to that specific availability zone.
-EBS volumes are network drives, not physical drives and are attached to instances through the network..
+EBS volumes are network drives, not physical drives and are attached to instances through the network.
 Communication between the instance and the EBS volume is done through the network, which may introduce some latency.
 EBS volumes can be quickly detached from one EC2 instance and attached to another.
 EBS volumes are locked to specific availability zones, meaning they can only be attached to instances in the same availability zone.
