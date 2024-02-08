@@ -124,13 +124,16 @@ Referencing Security Groups from Other Security Groups -
 AWS provides a feature that allows you to reference one security group from another security group. This is particularly useful when working with load balancers. By referencing a security group in the inbound rules of another security group, you can allow instances associated with the second security group to communicate with instances associated with the first security group. This eliminates the need to specify IP addresses and simplifies the configuration process.
 For example, if you have an EC2 instance with security group "Group 1" and you authorized inbound traffic from "Group 2" then any instance associated with "Group 2" can communicate with the instance associated with "Group 1" on the specified port.
 
-Importance of SSH Access -
+SSH Access -
 SSH access is often the most critical and sensitive aspect of security. 
 It is recommended to maintain a separate security group specifically for SSH access.
 This helps ensure that SSH access is properly configured and secured.
 By dedicating a separate security group, it becomes easier to manage and monitor SSH traffic.
-SSH(Secure Shell) allows you to control a remote machine or server using CLI.
+SSH(Secure Shell) allows you to control a remote machine or server using CLI. We create a SSH key to connect to the server or EC2 instance to maintain or perform some action on servers from CLI.
 Linux and windows command - ssh -i '.\EC2 Tutorial.pem' ec2-user@65.2.57.62 (.pem is ssh key, 65.... is public IP address)
+
+EC2 Instance Connect -
+It opens a CLI in the AWS which connect the EC2 instance without the need of SSH. It needs the security group which have the SSH port access to make it work. Don't configure this with the aws configure command and by entering the access key ID and secret access key because the other users can also get your access keys information, so we do this giving by assigning the proper IAM roles to access some information.
 
 --> EC2 Instance Storage
 EBS volumes -
