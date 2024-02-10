@@ -782,4 +782,68 @@ In an active-active architecture, there are multiple regions or instances, and e
 Replication still occurs within each active region or instance to ensure data consistency.
 This architecture further improves read and write latency at a global level compared to active-passive architecture.
 Setting up an active-active architecture is more complex as the application needs to handle multiple regions or instances simultaneously.
-An example of a database that uses active-active architecture is DynamoDB Global Tables.
+
+--> Cloud Integration
+Cloud integration refers to the process of connecting multiple applications or services in a cloud environment to enable communication and data exchange between them. There are two main patterns for application communication: synchronous and asynchronous.
+Synchronous Communication:
+In synchronous communication, applications directly communicate with each other. This means that one application waits for a response from another application before proceeding. For example, in a buying and shipping service scenario, the buying service would directly communicate with the shipping service to initiate the shipping process.
+Asynchronous/Event Based Communication:
+In asynchronous communication, applications are decoupled and do not directly communicate with each other. Instead, they use a messaging system, such as a queue, to exchange messages. In this pattern, the buying service would put an order message in a queue, and the shipping service would read from the queue to process the orders.
+
+Synchronous communication can be problematic if there are sudden spikes of traffic. In that case, it's better to decouple your applications using SQS: queue model, SNS: pub/sub model or Kinesis: real time big data streaming model and these services can scale independently from our application.
+
+Amazon SQS -
+Simple Queue Service is a service provided by AWS that allows for the decoupling of applications.
+It enables producers to send messages into a queue, which can then be read and processed by consumers.
+Producers and consumers can be single or multiple entities.
+SQS allows for the sharing of work among consumers, with each consumer receiving different messages.
+Once a consumer is done processing a message, it can delete the message from the queue.
+Key Features:
+SQS is fully managed and serverless, meaning there is no need to provision servers. SQS offers low latency.
+It is designed to decouple applications, allowing them to operate at different speeds.
+SQS can scale seamlessly from handling one message per second to tens of thousands of messages per second.
+The default retention period for messages is four days, with a maximum of 14 days.
+There is no limit to the number of messages that can be in a queue.
+Messages must be processed within the retention period, as they will be automatically deleted.
+Consumers share the work of processing messages, enabling parallel processing and increased efficiency.
+How SQS Helps in Decoupling -
+By inserting messages into an SQS queue instead of sending them directly to the video application, we can achieve decoupling between the web servers and the video processing layer. Here's how it works:
+Web servers receive requests and send messages to an SQS queue.
+The video processing layer, consisting of an auto scaling group with EC2 instances, reads messages from the SQS queue and processes the videos.
+
+Amazon Kinesis -
+Amazon Kinesis is a managed service that allows you to collect, process, and analyze real-time big data streaming data at any scale. It provides several sub-services to handle different aspects of data streaming and analysis:
+1. Kinesis Data Streams
+Kinesis Data Streams is a low-latency streaming service that allows you to ingest data at scale from hundreds of thousands of sources.
+Sources can include various devices such as trucks, boats, IoT devices, or any other source that can produce data.
+It is used to collect and store the streaming data for further processing and analysis.
+
+2. Kinesis Data Firehose
+Kinesis Data Firehose is a service that simplifies the process of loading data streams into different destinations.
+Destinations can include Amazon S3, Amazon Redshift, Elasticsearch, and more.
+It automatically scales to handle the incoming data and manages the delivery to the specified destinations.
+
+3. Kinesis Data Analytics
+Kinesis Data Analytics allows you to perform real-time analytics on the streaming data using SQL language.
+It provides a simple and easy way to analyze the data and generate real-time insights.
+You can use it to process and transform the data in real-time, and produce output based on the analysis.
+
+4. Kinesis Video Streams
+Kinesis Video Streams is a service specifically designed for monitoring real-time video streams.
+It enables you to analyze video streams for various purposes, such as analytics or machine learning.
+
+SNS -
+SNS stands for Simple Notification Service. It is a service provided by AWS that allows you to send notifications to multiple subscribers. SNS uses a pub-sub (publish-subscribe) model, where an event publisher sends messages to an SNS topic, and the topic automatically sends notifications to all subscribed endpoints.
+The event publishers only send message to one SNS topic.
+Each SNS topic can have more than 12 million subscriptions/event subsribers per topic.
+There is a soft limit of 100,000 topic limits for each AWS account.
+SNS has various destinations it can publish messages to, including SQS, Lambda, Kinesis Data Firehose, email, SMS, mobile notifications, and HTTP/HTTPS endpoints.
+
+Amazon MQ -
+Amazon MQ is a managed message broker service provided by AWS. It allows you to use traditional open protocols, such as MQTT, AMQP, Stomp, Openwire, and WSS, when migrating your applications to the cloud. If you have a traditional application running on-premises that uses open protocols, you may not want to re-engineer your application to use AWS proprietary protocols like SQS and SNS. In such cases, Amazon MQ provides a solution by allowing you to use the protocols you are already familiar with.
+Amazon MQ supports two technologies: RabbitMQ and ActiveMQ. These are popular on-premises message brokers that provide access to the open protocols mentioned earlier. With Amazon MQ, you can get managed versions of these brokers on the cloud.
+Key Features and Considerations:
+Amazon MQ provides both queue and topic features as part of a single broker. This means you can use it for both point-to-point messaging (like SQS) and publish-subscribe messaging (like SNS).
+Unlike SQS and SNS, Amazon MQ does not scale as much.
+Since Amazon MQ runs on servers, there is a possibility of server issues. To ensure high availability, you can set up a multi-AZ setup with failover.
+Amazon MQ is primarily intended for companies migrating to the cloud and needing to use open protocols like MQTT, AMQP, Stomp, etc. If your application does not require these protocols, it is recommended to use SQS and SNS, as they scale better and are more tightly integrated with other AWS services.
