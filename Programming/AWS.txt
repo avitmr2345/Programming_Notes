@@ -575,7 +575,7 @@ Fast delivery and rapid updates: CodePipeline enables fast delivery and rapid up
 
 CodeArtifact -
 Software packages created by developers often depend on each other to be built, forming a code architecture.
-This dependency management is known as artifact management.
+Storing and retrieving these dependencies is known as artifact management.
 Traditionally, developers had to set up their own artifact management system, which could be complex.
 AWS CodeArtifact is a secure, scalable, and cost-effective artifact management service provided by AWS.
 Benefits of AWS CodeArtifact -
@@ -608,3 +608,178 @@ It allows you to start a secure shell on your EC2 and on-premises servers. It do
 
 OpsWorks -
 OpsWorks is a service provided by AWS that allows you to manage server configuration using tools like Chef and Puppet. Chef and Puppet are not created by AWS, but they are widely used for automating server configuration and repetitive actions. OpsWorks is designed to work seamlessly with EC2 instances or on-premises virtual machines. It serves as an alternative to AWS Systems Manager (SSM) and allows you to provision standard AWS resources such as EC2 instances, databases, load balancers, and EBS volumes.
+
+--> AWS Global Infrastructure
+Global Infrastructure -
+A global application is deployed in multiple geographies, such as different AWS regions or edge locations.
+Latency refers to the time it takes for a network packet to reach a server.
+Deploying an application closer to users reduces latency and improves performance.
+For example, if a user in India accesses a server in the US, there will be more latency compared to a server located in Asia.
+Reasons for Creating a Global Application -
+Decreased Latency:
+Deploying an application in multiple regions allows users to access it from the nearest location.
+Users around the world experience faster response times and better performance.
+Reducing latency enhances the overall user experience.
+Disaster Recovery:
+Having a disaster recovery plan is crucial to ensure high availability of the application.
+By deploying the application in multiple regions, if one region goes down due to natural disasters, power shutdowns, or other reasons, the application can fail over to another region.
+This ensures that the application remains operational even in the event of a regional outage.
+Protection Against Attacks:
+Online attackers may target applications to disrupt their functionality.
+Distributing the application across multiple regions makes it more challenging for attackers to bring down the entire application.
+If one region is under attack, the application can still function from other regions, providing resilience against attacks.
+
+AWS Regions -
+AWS regions are geographical locations where AWS has data centers.
+Each region is independent and isolated from other regions.
+Regions are spread across the world, but not every country has a region.
+Regions are identified by names such as Spain, London, Ireland, Paris, Frankfurt, Milan, and Stockholm.
+Availability Zones (AZ) -
+Each region is divided into multiple availability zones (AZ).
+Availability zones are physically separate data centers within a region.
+AZs are designed to be isolated from each other to ensure fault tolerance and high availability.
+AZs within a region are connected by a fast network.
+Edge Locations -
+Edge locations, also known as points of presence (PoP), are used for content delivery.
+Edge locations are strategically located around the world to be closer to end users.
+They are used to cache and deliver content to users with low latency.
+They are not the same as regions or availability zones.
+
+Route 53 -
+Amazon Route 53 is a managed DNS (Domain Name System) service.
+DNS is like a phone book that helps clients find the right servers through URLs.
+Route 53 is important for deploying a global application.
+DNS Records in AWS -
+A record: Maps a domain name to an IPv4 address.
+AAAA record: Maps a domain name to an IPv6 address.
+CNAME record: Maps a hostname to another hostname.
+Alias record: Maps a hostname to an AWS resource (e.g., ELB, CloudFront, S3, RDS).
+Understanding DNS with Route 53 -
+Web browser wants to access "myapp.mydomain.com".
+Application server has a public IPv4 address.
+To enable access using the URL, an A record is created in Route 53.
+When the web browser sends a DNS request for "myapp.mydomain.com", Route 53 replies with the IP address.
+The web browser uses the IP address to reach the correct server and get the HTTP response.
+
+Route 53 Routing Policies -
+1. Simple Routing Policy
+No health checks
+Web browser performs DNS query and receives an IPv4 address
+Basic routing policy
+
+2. Weighted Routing Policy
+Distributes traffic across multiple EC2 instances
+Assign weights to EC2 instances (e.g., 70, 20, 10)
+DNS ensures clients receive specified percentages of traffic to each instance
+Can use health checks
+
+3 .Latency Routing Policy
+Used for globally distributed applications
+Example: servers in California and Australia, users worldwide
+Redirects users based on their location to minimize latency
+Users close to America EC2 instance are directed to that server
+Users close to Australia are directed to the Australia server
+Route 53 minimizes latency between users and servers
+
+4. Failover Routing Policy
+Used for disaster recovery
+Involves a primary EC2 instance and a failover instance
+DNS system performs health check on primary instance
+If primary instance fails, traffic is redirected to failover instance
+Ensures clients know which instance to connect to in case of failure
+
+Cloudfront -
+Cloudfront is a content delivery network (CDN) provided by AWS. It improves the read performance of your website by caching its content at different edge locations around the world. This means that when a user requests your website, the content is served from the nearest edge location, reducing latency and improving the user experience.
+One of the benefits of using Cloudfront is that it provides Distributed Denial of Service (DDoS) protection. DDoS attacks are a type of attack where multiple servers are simultaneously targeted.
+CloudFront can also be used to upload data to an S3 bucket. This process is called ingress. You can have CloudFront in front of any custom origin HTTP backend, such as an Application Load Balancer, an EC2 instance, or an S3 website. However, before you can use CloudFront to upload data to an S3 bucket, you need to enable the bucket as a static S3 website or any other HTTP backend you prefer.
+Origin Types -
+S3 buckets: Used to distribute files and cache them at the edge locations. When a user requests content, Cloudfront can fetch it from the S3 bucket and cache it at the edge location for future requests. To ensure that only CloudFront can access your S3 bucket, you can use Origin Access Control (OAC). OAC replaces the older Origin Access Identity (OAI) feature. By configuring OAC, you can restrict access to your S3 bucket so that it can only be accessed through CloudFront. This adds an extra layer of security to your content.
+Custom origins: These can be other AWS services, such as EC2 instances or Elastic Load Balancers, or even non-AWS resources. Cloudfront can fetch content from these origins and cache it at the edge locations.
+
+Differences b/w CloudFront and S3 Replication -
+CloudFront is a CDN that caches content globally, while S3 replication replicates an entire bucket into another region
+CloudFront is ideal for static content, while S3 replication is suitable for dynamic content
+CloudFront uses caching to serve content from edge locations, while S3 replication provides near real-time updates
+
+S3 Transfer Acceleration -
+S3 Transfer Acceleration is a feature provided by Amazon S3 that allows for faster file transfers between different S3 buckets located in different regions. It is particularly useful when you need to transfer files from all around the world into a specific S3 bucket.
+How it works:
+When you upload a file from a specific location (e.g., United States) to an S3 bucket in a different region (e.g., Australia), the file is first uploaded to an edge location that is geographically closer to the user (e.g., an edge location in the USA).
+From the edge location, the file is then transferred to the S3 bucket in the target region (e.g., Australia) using Amazon's internal network, which provides a more reliable and faster connection.
+
+AWS Global Accelerator -
+AWS Global Accelerator is a service provided by Amazon Web Services (AWS) that aims to improve the global availability and performance of applications. It achieves this by leveraging the AWS global network and optimizing the routing of requests to applications.
+Improves performance for a wide range of applications over TCP or UDP.
+Good for HTTP use cases that require static IP addresses, deterministic and fast regional failover.
+How it works:
+Routing through the AWS network: When using AWS Global Accelerator, your requests are routed through the internal network of AWS. This allows for optimized routing to your application, resulting in a potential 60% improvement in performance.
+Edge locations: Users from around the world can access your application by connecting to an edge location. The edge location then routes the traffic directly to the region where your application is deployed. This reduces the traffic on the public Internet, as it only occurs between the user's location and the closest edge location.
+Leveraging the private AWS network: Once the traffic reaches the edge location, it is then sent through the private AWS network to your application load balancer. This private network connection is faster and more reliable than relying solely on the public Internet.
+Anycast IP: Accessing your application is done through two static IPs called Anycast IP. These IPs automatically redirect users to the correct edge location based on their location. This ensures that users are always directed to the nearest edge location for optimal performance.
+
+Difference b/w Global Accelerator and CloudFront -
+They both utilize the global network of AWS and the edge locations around the world and they both integrate with AWS Shield for DDoS protection. However, there are some differences between the two services:
+AWS Global Accelerator is primarily focused on improving the availability and performance of applications and there is no caching present, while CloudFront is a content delivery network (CDN) that is designed to deliver content, such as static files and media, with low latency and high transfer speeds.
+
+AWS Outpost -
+AWS Outpost is an exciting development that allows businesses to have a hybrid cloud infrastructure. A hybrid cloud refers to the combination of an on-premises infrastructure and a cloud infrastructure. AWS Outpost are "server racks" that offers the same AWS infrastructure services, APIs, and tools on their on-premises infrastructure as they do in the cloud.
+How AWS Outpost Works:
+AWS sets up and manages Outposts racks within your on-premises infrastructure & you can start leveraging AWS services on-premises.
+These Outpost racks come preloaded with AWS services, APIs, and tools, allowing businesses to build and run applications on their on-premises infrastructure just like in the cloud.
+However, it's important to note that with AWS Outpost, businesses are responsible for the physical security of the rack itself, as it is located within their own data center.
+Benifits:
+Fully managed service, Low latency access to on-premises systems, Local data processing, Data residency, Easy migration from on-premises to the cloud. EC2, EBS, S3, EKS, ECS, RDS and EMR are some services that works on Outposts.
+
+AWS Wavelength -
+AWS Wavelength is a feature of Amazon Web Services (AWS) that allows you to deploy AWS services directly to the edge of 5G networks.
+Wavelength Zones are infrastructure deployments embedded within the data centers of telecommunications providers at the edge of 5G networks.
+These zones are dedicated to specific 5G networks and are used to deploy AWS services directly on the edge.
+By deploying services to a Wavelength Zone, you can ensure that users accessing your application through a mobile device on a 5G network experience extremely low latency.
+With AWS Wavelength, you can deploy various AWS services to a Wavelength Zone, such as EC2 instances, EBS volumes, and VPCs.
+For example, a telecom carrier with a 5G network can have a Wavelength Zone, and through a carrier gateway, you can deploy an EC2 instance on that zone.
+The traffic within the Wavelength Zone typically stays within the communication service provider (CSP) network and does not reach AWS.
+However, if you need to establish a secure connection to AWS, it is possible to connect the Wavelength Zone to the parent AWS region.
+This allows EC2 instances in the Wavelength Zone to access AWS services like RDS or DynamoDB located in the main parent AWS region.
+
+AWS Local Zones -
+AWS Local Zones are an extension of AWS regions that allow you to place compute, storage, database, and other services closer to end users to run latency-sensitive applications. Local Zones are essentially additional availability zones (AZs) within a region that are located in different physical locations.
+Key Points:
+Local Zones are designed to reduce latency for applications that require low latency and high throughput.
+Local Zones are compatible with various AWS services such as EC2, RDS, ECS, EBS, Elastic Cache, and Direct Connect.
+By extending your AWS region to one or more Local Zones, you can distribute your resources across multiple locations, providing better performance for your users.
+Local Zones are separate from the main AWS region but are still connected to it, allowing you to seamlessly manage resources across both.
+Conclusion -
+Local Zones in AWS provide low latency access to applications for users in specific geographic locations.
+Enabling a Local Zone involves managing and updating the zone group.
+Creating a subnet in a Local Zone allows you to deploy EC2 instances closer to your users.
+This ensures faster access to your applications and improves the overall user experience.
+
+Global Application Architecture -
+1. Single Region, Single AZ
+Consists of a single EC2 instance in one Availability Zone (AZ) within one region.
+Does not provide high availability.
+Does not improve global latency.
+Simple to set up with low difficulty.
+
+2. Single Region, Multi AZ
+Consists of two AZs within one region.
+Provides high availability.
+Does not improve global latency significantly.
+AZs are close to each other, so accessing from a distant location may result in high latency.
+Slightly increased difficulty compared to single AZ setup.
+
+3. Multi-Region, Active-Passive
+Consists of two regions, each with one or multiple AZs.
+One region is active, allowing users worldwide to perform reads and writes on the EC2 instance(s) in that region.
+The other region is passive, with data replication from the active region.
+Users can read from the passive region but cannot write to it.
+Provides improved read latency globally due to data replication across regions.
+Writes still have high latency as they need to go to the central active region.
+Complexity increases with multiple passive regions.
+
+4. Active-Active Architecture
+In an active-active architecture, there are multiple regions or instances, and each region or instance is active and capable of handling reads and writes.
+Replication still occurs within each active region or instance to ensure data consistency.
+This architecture further improves read and write latency at a global level compared to active-passive architecture.
+Setting up an active-active architecture is more complex as the application needs to handle multiple regions or instances simultaneously.
+An example of a database that uses active-active architecture is DynamoDB Global Tables.
