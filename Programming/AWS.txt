@@ -6,7 +6,7 @@ Provisioning: Cloud service platforms allow users to provision the exact type an
 Instant access: Resources can be accessed instantly, without the need for 24 or 2 hours notice. Users can have access to servers, storage, databases, and application services within seconds.
 Interface: Cloud computing provides a user-friendly interface that allows easy access to servers, storage, databases, and application services. This interface makes it convenient for users to manage and utilize their resources.
 
-Types of Cloud Computing -
+Types of Cloud Computing:
 When you create your own server and databases, this is known as on-premises and you have to manage all the mentioned things like Application, Data, Runtime, Middleware, O/S, Virtualization, Servers, Storage and Networking etc.
 1. Infrastructure as a Service (IaaS)
 Provides the fundamental building blocks for cloud computing.
@@ -27,7 +27,7 @@ Users can access the software through the internet without the need for installa
 Eliminates the need for organizations to manage software updates, security, and infrastructure.
 Examples of SaaS services include Salesforce, Google Workspace, Microsoft Office 365, and Dropbox.
 
-Types of Clouds -
+Types of Clouds:
 1. Private Cloud
 Used by a single organization and not exposed to the public.
 Examples: Rackspace
@@ -73,7 +73,7 @@ EBS volumes: Virtual drives used for storing data.
 Elastic Load Balancer: Distributes load across multiple EC2 instances.
 Auto Scaling Groups (ASG): Allows for scaling of services based on demand.
 
-Choosing EC2 Instances -
+Choosing EC2 Instances:
 When creating an EC2 instance, users have several options to choose from:
 Operating System: Linux, Windows, or Mac OS.
 Compute Power: Users can select the desired CPU and number of cores.
@@ -109,18 +109,18 @@ Security groups can be attached to multiple EC2 instances. There is not a one-to
 Similarly, an EC2 instance can have multiple security groups attached to it.
 Instances are associated with security groups, and security groups are associated with rules.
 
-Impact of Region and VPC Changes -
+Impact of Region and VPC Changes:
 Security groups are tied to a specific region and VPC combination.
 If you switch to another region or create a new VPC, you need to create new security groups.
 This means that security groups are not portable across regions or VPCs.
 It is important to consider this when planning and managing your security groups.
 
-Troubleshooting Security Group Issues -
+Troubleshooting Security Group Issues:
 If you are unable to connect to an EC2 instance on a specific port and your computer hangs without any response, it is likely a security group issue. This is because the security group is blocking the inbound traffic to that port. On the other hand, if you receive a "connection refused" error, it means that the security group allowed the traffic to reach the instance, but the application running on the instance is not responding or not launched properly.
 By default, all inbound traffic is blocked and all outbound traffic is authorized.
 This means that you can initiate outbound connections from your instances, but incoming connections are not allowed unless explicitly configured in the security group rules.
 
-Referencing Security Groups from Other Security Groups -
+Referencing Security Groups from Other Security Groups:
 AWS provides a feature that allows you to reference one security group from another security group. This is particularly useful when working with load balancers. By referencing a security group in the inbound rules of another security group, you can allow instances associated with the second security group to communicate with instances associated with the first security group. This eliminates the need to specify IP addresses and simplifies the configuration process.
 For example, if you have an EC2 instance with security group "Group 1" and you authorized inbound traffic from "Group 2" then any instance associated with "Group 2" can communicate with the instance associated with "Group 1" on the specified port.
 
@@ -163,7 +163,7 @@ Faster boot time and configuration time.
 Prepackaged software installation on EC2 instances.
 Can be built for a specific region and copied across regions. Allows for leveraging the AWS global infrastructure.
 
-Types of AMIs -
+Types of AMIs:
 1. Public AMIs
 Provided by AWS. Can be used by all AWS users. No need to create or maintain them.
 Examples: Amazon Linux 2 AMI.
@@ -174,7 +174,7 @@ Created and maintained by users. Can be built for specific requirements. Automat
 3. AWS Marketplace AMIs
 Created by vendors and potentially sold by them. Can save time by using pre-configured software. Users can also create and sell their own AMIs on the AWS Marketplace.
 
-AMI Creation Process -
+AMI Creation Process:
 AMIs are a powerful tool for creating customized EC2 instances with pre-configured software and settings.
 Launching an Instance in us-east-1a:
 We will start by launching an instance in the us-east-1a region.
@@ -192,7 +192,7 @@ This will effectively create a copy of our EC2 instance in a different region. W
 EC2 Image Builder -
 EC2 Image Builder is a service provided by AWS that allows you to automate the creation, maintenance, validation, and testing of Amazon Machine Images (AMIs) for EC2 instances. This service simplifies the process of building and customizing software components on EC2 instances, ensuring that your AMIs are up-to-date and meet your specific requirements.
 
-EC2 Image Builder Working -
+EC2 Image Builder Working:
 Setup: You configure and set up the EC2 Image Builder service, specifying the desired components and customizations for your AMIs.
 Builder EC2 Instance: When the EC2 Image Builder service runs, it automatically creates a builder EC2 instance. This instance is responsible for building components and customizing the software according to your specifications. For example, it can install Java, update the CLI, update the software system, install firewalls, or even install your application.
 AMI Creation: Once the builder EC2 instance completes its tasks, EC2 Image Builder creates an AMI from that instance. This AMI represents the desired state of your EC2 instances, including all the customizations and software installations.
@@ -233,7 +233,7 @@ Using Elastic Load Balancing (ELB) to distribute traffic across multiple instanc
 Auto Scaling Groups (ASG) to automatically replace failed instances.
 Deploying resources across multiple Availability Zones (AZs) to ensure redundancy.
 
-Scalability vs Elasticity vs Agility
+Scalability vs Elasticity vs Agility:
 Scalability: Ability for a system to accommodate a larger load by making the hardware stronger (scaling up) or adding nodes (scaling out).
 Elasticity: System's ability to automatically scale based on the load it receives.
 Agility: New IT resources are only a click away, which means that you reduce the time to make those resources available to your developers from weeks to just minutes.
@@ -267,7 +267,7 @@ Scale in (remove EC2 instances) to match a decreased load.
 Ensure we have a min and max number of machines running.
 Replace unhealthy instances.
 
-ASG in AWS with Load Balancer -
+ASG in AWS with Load Balancer:
 When using an autoscaling group with EC2 instances, the load balancer plays a crucial role in distributing traffic.
 Initially, if there is only one EC2 instance in the autoscaling group, the load balancer will redirect all incoming web traffic to that instance.
 As the autoscaling group scales out by adding more EC2 instances, the load balancer will register them and distribute traffic across all instances.
@@ -629,7 +629,7 @@ Online attackers may target applications to disrupt their functionality.
 Distributing the application across multiple regions makes it more challenging for attackers to bring down the entire application.
 If one region is under attack, the application can still function from other regions, providing resilience against attacks.
 
-AWS Regions -
+AWS Regions:
 AWS regions are geographical locations where AWS has data centers.
 Each region is independent and isolated from other regions.
 Regions are spread across the world, but not every country has a region.
@@ -661,7 +661,7 @@ To enable access using the URL, an A record is created in Route 53.
 When the web browser sends a DNS request for "myapp.mydomain.com", Route 53 replies with the IP address.
 The web browser uses the IP address to reach the correct server and get the HTTP response.
 
-Route 53 Routing Policies -
+Route 53 Routing Policies:
 1. Simple Routing Policy
 No health checks
 Web browser performs DNS query and receives an IPv4 address
@@ -696,7 +696,7 @@ Origin Types -
 S3 buckets: Used to distribute files and cache them at the edge locations. When a user requests content, Cloudfront can fetch it from the S3 bucket and cache it at the edge location for future requests. To ensure that only CloudFront can access your S3 bucket, you can use Origin Access Control (OAC). OAC replaces the older Origin Access Identity (OAI) feature. By configuring OAC, you can restrict access to your S3 bucket so that it can only be accessed through CloudFront. This adds an extra layer of security to your content.
 Custom origins: These can be other AWS services, such as EC2 instances or Elastic Load Balancers, or even non-AWS resources. Cloudfront can fetch content from these origins and cache it at the edge locations.
 
-Differences b/w CloudFront and S3 Replication -
+Differences b/w CloudFront and S3 Replication:
 CloudFront is a CDN that caches content globally, while S3 replication replicates an entire bucket into another region
 CloudFront is ideal for static content, while S3 replication is suitable for dynamic content
 CloudFront uses caching to serve content from edge locations, while S3 replication provides near real-time updates
@@ -717,7 +717,7 @@ Edge locations: Users from around the world can access your application by conne
 Leveraging the private AWS network: Once the traffic reaches the edge location, it is then sent through the private AWS network to your application load balancer. This private network connection is faster and more reliable than relying solely on the public Internet.
 Anycast IP: Accessing your application is done through two static IPs called Anycast IP. These IPs automatically redirect users to the correct edge location based on their location. This ensures that users are always directed to the nearest edge location for optimal performance.
 
-Difference b/w Global Accelerator and CloudFront -
+Difference b/w Global Accelerator and CloudFront:
 They both utilize the global network of AWS and the edge locations around the world and they both integrate with AWS Shield for DDoS protection. However, there are some differences between the two services:
 AWS Global Accelerator is primarily focused on improving the availability and performance of applications and there is no caching present, while CloudFront is a content delivery network (CDN) that is designed to deliver content, such as static files and media, with low latency and high transfer speeds.
 
@@ -847,3 +847,130 @@ Amazon MQ provides both queue and topic features as part of a single broker. Thi
 Unlike SQS and SNS, Amazon MQ does not scale as much.
 Since Amazon MQ runs on servers, there is a possibility of server issues. To ensure high availability, you can set up a multi-AZ setup with failover.
 Amazon MQ is primarily intended for companies migrating to the cloud and needing to use open protocols like MQTT, AMQP, Stomp, etc. If your application does not require these protocols, it is recommended to use SQS and SNS, as they scale better and are more tightly integrated with other AWS services.
+
+--> Cloud Monitoring
+Cloudwatch Metrics -
+CloudWatch is a monitoring service provided by AWS that allows you to collect and track metrics, collect and monitor log files, and set alarms.
+Cloudwatch allows you to create a dashboard to visualize all your metrics at once.
+A metric is a variable that can be monitored, such as CPU utilization or network traffic.
+Metrics have timestamps to track changes over time.
+Metrics can be collected from various AWS services, such as EC2 instances, S3 buckets, RDS databases, and more.
+Metrics can also be custom-defined, allowing you to monitor your own applications and services.
+Some examples of metrics include the size and bytes of objects in an S3 bucket, the number of requests made to an S3 bucket, and the utilization of EC2 instances.
+
+CloudWatch Alarms -
+CloudWatch alarms are used to trigger notifications when a metric goes above or below a specified threshold.
+Alarms can be set up to monitor any metric and take actions based on the metric's value.
+Actions that can be triggered by alarms include:
+Auto Scaling Group actions: Increase or decrease the number of EC2 instances in an Auto Scaling Group.
+EC2 actions: Stop, terminate, reboot, or recover an EC2 instance.
+SNS notifications: Send a notification to an SNS topic, such as an email or a text message.
+Alarms can be created with various configurations, including:
+Threshold: The value at which the alarm is triggered.
+Evaluation period: The period over which the metric is evaluated, such as 5 minutes, 10 minutes, or an hour.
+Actions: The actions to be taken when the alarm is triggered.
+CloudWatch alarms have three possible states:
+OK: Everything is within the defined threshold.
+Insufficient Data: Not enough data points to determine the state.
+Alarm: The metric has breached the defined threshold.
+
+CloudWatch Logs -
+CloudWatch Logs is a service provided by AWS that allows you to collect and monitor log files from various sources. Log files are generated by applications running on servers and contain information about the application's activities, such as user actions, system events, and error messages. CloudWatch Logs provides real-time monitoring of these logs, allowing you to react to events and troubleshoot issues effectively. CloudWatch Logs allows you to specify the retention period for your log data. This determines how long your logs will be stored and accessible within CloudWatch Logs.
+Log Files and Collection -
+Log files are text files that contain records of events and actions performed by an application.
+They provide valuable information for troubleshooting and understanding the behavior of an application.
+CloudWatch Logs can collect logs from various sources, including:
+Elastic Beanstalk, ECS, Lambda, CloudTrail, CloudWatch Logs agent (installed on EC2 instances or on-premises servers), Route 53 (for logging DNS queries)
+Example - CloudWatch Logs for EC2 Instances
+By default, EC2 instances do not send log files to CloudWatch Logs. To enable log collection for EC2 instances, you need to follow these steps:
+Install the CloudWatch Logs agent on your EC2 instances and it can also be set up on on-premises servers, making it a hybrid agent.
+Configure the agent to send the desired log files to CloudWatch Logs.
+Ensure that your EC2 instance has the necessary IAM role with the correct permissions to send log data to CloudWatch Logs.
+
+Eventbridge -
+Eventbridge is a service provided by AWS that allows you to react to events happening within your AWS account. It can be used for scheduling Cron jobs, monitoring events, and triggering actions based on specific conditions.
+One of the use cases for Amazon Eventbridge is scheduling Cron jobs. You can create a rule in Eventbridge that specifies a recurring time interval, such as every 1 hour, and associate it with an event. This event can then trigger a script running on a Lambda function, effectively creating a serverless Cron job.
+Another use case is reacting to specific events happening within AWS services. For example, you can create a rule in Eventbridge to monitor sign-in events for the IAM root user. Whenever someone signs in using the root user, an event will be generated and sent to an SNS topic, which can be combined with email notifications. This allows you to receive alerts whenever someone logs in using the root user.
+
+Event Sources and Destinations:
+EventBridge can receive events from both AWS services and external partners. Here are the different types of event sources:
+Amazon Eventbridge supports a wide range of event sources, including EC2 instances, CodeBuild, S3, EventBridge itself, and many more. These event sources can generate events that are sent to Eventbridge for processing.
+Eventbridge allows you to define various destinations for the events. Some examples of destinations include:
+Lambda functions: You can trigger a Lambda function to execute a specific action in response to an event.
+SNS topics: Events can be sent to an SNS topic, which can then be used to send notifications via email, SMS, or other supported protocols.
+SQS queues: Events can be sent to an SQS queue for further processing or decoupling of components.
+
+Event buses:
+AWS Services: You can configure AWS services to send events to EventBridge. This includes services like AWS CloudTrail, AWS CloudWatch, AWS CodePipeline, and more. In Amazon Eventbridge, events are sent to event buses. The default event bus recieves events from various AWS services.
+Partner Events: EventBridge also allows you to receive events from partner services that integrate with AWS. For example, if you use Zendesk or Datadog, they can send their own events into your AWS account through a partner event bus. This enables you to react to events happening outside of AWS.
+Custom Applications: You can build your own custom applications and send events to EventBridge through a custom event bus. This gives you the flexibility to create custom integrations and tailor the event-driven architecture according to your specific needs.
+
+Additional Capabilities:
+In addition to receiving and processing events, EventBridge offers some additional capabilities:
+Schema Registry: EventBridge provides a schema registry that allows you to model the event schema. This helps you understand the structure of the events, including the data types and other relevant information.
+Event Archiving: You can choose to archive all the events sent to an event bus indefinitely or for a specific period. This allows you to store and analyze historical events for auditing, compliance, or other purposes.
+Event Replay: EventBridge allows you to replay archived events. This means you can reprocess events that were previously sent to the event bus. This can be useful for testing, debugging, or recovering from failures.
+
+CloudTrail -
+CloudTrail is a service that provides governance, compliance, and audit capabilities for AWS accounts.
+It enables the tracking and logging of all API calls and events that occur within an AWS account.
+CloudTrail is enabled by default for all AWS accounts.
+CloudTrail logs various types of activities, including: Console logins and actions, SDK usage, CLI commands, Service activity.
+When creating a CloudTrail trail, you can choose to monitor activities in all AWS regions or limit it to a specific region.
+This allows you to have a comprehensive view of activities across all regions(default) or focus on a specific region.
+CloudTrail logs can be sent to two locations for storage:
+CloudWatch Logs: CloudTrail logs can be sent to CloudWatch Logs for real-time monitoring and analysis.
+Amazon S3: CloudTrail logs can be stored in an Amazon S3 bucket for long-term retention.
+
+X-Ray -
+X-Ray is a service provided by Amazon Web Services that allows for tracing and visual analysis of applications. It helps in troubleshooting performance issues, understanding dependencies in a microservice architecture, and identifying errors and exceptions in specific requests. X-Ray provides a service graph that helps you identify performance bottlenecks, latency issues, and errors in your application.
+
+Challenges with Debugging in Production:
+When applications are deployed in production, debugging can be challenging due to the following reasons:
+Logs from different services and applications are scattered, making log analysis difficult.
+Distributed services connected through various AWS services like SQS, SNS, and others make it hard to trace and understand the system's behavior.
+Lack of a common view of the entire architecture makes it challenging to identify issues and bottlenecks.
+
+Benefits of X-Ray:
+Distributed Tracing: X-Ray allows you to trace requests as they move across different services and components in your application. This helps you understand the end-to-end flow and identify any issues or bottlenecks.
+Troubleshooting: X-Ray provides detailed insights into the performance of your application, including latency, errors, and fault rates. This helps you troubleshoot and optimize your application for better performance.
+Service Graph: X-Ray generates a service graph that visualizes the interactions between different components and services in your application. This helps you understand the dependencies and relationships between various parts of your application.
+
+CodeGuru -
+Amazon CodeGuru is a ML-powered service that offers automated code reviews and application performance recommendations. It aims to assist developers in improving the quality and performance of their code by providing actionable insights and suggestions.
+
+Automated Code Reviews with CodeGuru Reviewer:
+CodeGuru Reviewer performs automated code reviews using static code analysis.
+It analyzes the lines of code in your repository (e.g., CodeCommit, BitBucket, GitHub) and provides recommendations based on its machine learning capabilities.
+It can detect bugs, memory leaks, and other issues before they are identified by human reviewers.
+It currently supports Java and Python, allowing you to review code written in these languages.
+Benefits of CodeGuru Reviewer:
+Identifies critical issues, security vulnerabilities, and hard-to-find bugs.
+Helps implement coding best practices.
+Finds resource leaks and other potential problems.
+
+Application Performance Recommendations with CodeGuru Profiler:
+CodeGuru Profiler offers visibility and recommendations for application performance during runtime, specifically in production environments.
+It optimizes expensive lines of code before production by detecting and suggesting improvements during the build and testing phase.
+During deployment, it measures the application in real-time and identifies performance and cost improvements.
+CodeGuru Profiler supports applications running on AWS cloud or on-premises.
+Recommendations from CodeGuru Profiler are provided directly in your code.
+Benefits of CodeGuru Profiler:
+Improves application performance and reduces costs.
+Helps optimize resource usage.
+Provides real-time insights into performance bottlenecks.
+
+AWS Health Dashboard -
+The AWS Health Dashboard is a tool provided by Amazon Web Services (AWS) that allows users to monitor the health and status of their AWS services and resources. It consists of two parts: the Service History and the Account Health Dashboard.
+
+Service History:
+The Service History section of the AWS Health Dashboard provides information about the health of AWS services in different regions.
+Users can view the behavior and status of services on a daily basis, allowing them to track any issues or incidents that may have occurred.
+The Service History also offers an RSS feed that users can subscribe to for regular updates on service health.
+
+Account Health Dashboard:
+The Account Health Dashboard focuses on the health of the user's AWS account and resources.
+It is a global service that provides alerts, displays outages and remediation guidance when AWS experiences events that directly impact the user's account.
+While the Service History displays the overall status of all services, the Account Health Dashboard specifically shows the performance and availability of services being used by the user or underlying your AWS resources.
+The Account Health Dashboard offers relevant and timely information, including proactive notifications about scheduled maintenance activities.
+Users can aggregate data for their entire AWS organization within the Account Health Dashboard.
