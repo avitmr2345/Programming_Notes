@@ -974,3 +974,144 @@ It is a global service that provides alerts, displays outages and remediation gu
 While the Service History displays the overall status of all services, the Account Health Dashboard specifically shows the performance and availability of services being used by the user or underlying your AWS resources.
 The Account Health Dashboard offers relevant and timely information, including proactive notifications about scheduled maintenance activities.
 Users can aggregate data for their entire AWS organization within the Account Health Dashboard.
+
+--> VPC Networking
+IP Addresses in AWS -
+In AWS, there are two types of IP addresses: IPv4 and IPv6.
+IPv4:
+IPv4 stands for Internet Protocol version 4 and are 32-bit numbers.
+IPv4 addresses have a capacity of about 4.3 billion addresses.
+Public IPv4 addresses can be used on the Internet and are assigned to EC2 instances.
+When you create an EC2 instance, it is assigned a new public IPv4 address.
+If you stop and start the instance, it will be assigned a new public IPv4 address.
+Private IPv4 addresses are internal IPs that can be used within your own network.
+Private IPv4 addresses remain constant throughout the lifecycle of an EC2 instance, even if you stop and start it.
+
+Elastic IPs:
+Elastic IPs allow you to create a fixed IPv4 address and attach it to your EC2 instance.
+If you stop and start the EC2 instance with an Elastic IP attached, it will retain the same public IPv4 address.
+Elastic IPs can be beneficial if you need a fixed public IPv4 address.
+However, there is a cost associated with Elastic IPs.
+If the EC2 instance is stopped or the Elastic IP is not attached to anything, there will be an ongoing cost.
+This is because AWS needs to pay to keep the public IP alive within its network.
+
+IPv6:
+IPv6 is the next evolution of the Internet Protocol. IPv6 addresses have a significantly larger capacity than IPv4 addresses.
+Every IP address is public (no private range). Example - 2001:0db8:85a3:0000:0000:8a2e:0370:7334 (128-bit numbers)
+IPv6 addresses are not as commonly used as IPv4 addresses in AWS, but they are available for use. You can enable your Virtual Private Cloud (VPC) to use IPv6 addresses as well.
+
+VPC -
+Virtual Private Cloud allows you to deploy your resources in a private network within AWS. It is linked to a specific region, so if you have multiple regions, you will need multiple VPCs.
+Subnets:
+A subnet is a range of IP addresses in your VPC. Subnets allow you to divide your VPC's IP address range into smaller, more manageable segments. 
+It can be said subnet is a partition of your network and is associated with an availability zone (AZ). There are two types of subnets:
+1. Public Subnet
+This subnet is accessible from the internet.
+To make a subnet public, you need to create an Internet Gateway and associate it with your VPC.
+The public subnet must have a route to the Internet Gateway to enable internet access.
+Instances launched in a public subnet can communicate with the internet and can be accessed from the internet.
+2. Private Subnet
+This subnet is not accessible from the internet. It provides a more secure environment for resources that do not require internet access, such as databases.
+Instances launched in a private subnet cannot communicate with the internet directly.
+However, you may still want instances in a private subnet to have internet access for tasks like downloading updates or files.
+To provide internet access to instances in a private subnet, you can create a NAT Gateway or a NAT Instance.
+A NAT Gateway is a managed service provided by AWS, while a NAT Instance is a self-managed instance.
+The NAT Gateway or NAT Instance is created in the public subnet and acts as a bridge between the private subnet and the internet.
+You need to create a route from the private subnet to the NAT Gateway/NAT Instance and from the NAT Gateway/NAT Instance to the Internet Gateway to enable internet connectivity for the private subnet.
+
+Route Tables:
+To define access to the internet and communication between subnets, you need to use route tables. Route tables determine how traffic is routed within the VPC.
+
+VPC Structure:
+A complete VPC structure within AWS consists of the following components:
+AWS Cloud: The overall cloud environment provided by AWS.
+Regions: Within the AWS cloud, there are multiple regions.
+VPC: Each region can have one or more VPCs.
+CIDR Range: Each VPC has a CIDR range, which is a range of IP addresses allowed within the VPC.
+Availability Zones (AZs): Each VPC can span across two or more availability zones. Each availability zone can contain subnets, including public and private subnets.
+
+Network ACL & Security Group -
+Network ACLs:
+Network Access Control Lists are another layer of security for your VPC.
+They operate at the subnet level and control inbound and outbound traffic.
+The default network ACL allows all traffic on all ports and protocols from anywhere.
+You can create custom network ACLs and define specific rules to allow or deny traffic in and out of your subnets.
+Each rule in a network ACL has a rule number and specifies the type of traffic to allow or deny.
+Rules only include IP addresses.
+Security Groups:
+Security groups act as virtual firewalls that controls traffic to and from an ENI / an EC2 instance.
+Security groups control traffic at the instance level.
+They can have only allow rules.
+Rules include IP addresses and other security groups.
+
+VPC Flow Logs -
+VPC flow logs are logs that capture all the IP traffic going through your interfaces within a Virtual Private Cloud (VPC). These logs provide valuable information for monitoring and troubleshooting connectivity issues within your VPC.
+It can capture network information from AWS managed interfaces like ELB, ElastiCache, RDS, Aurora etc.
+VPC Flow logs data can go to S3, CloudWatch Logs and Kinesis Date Firehose.
+
+Types of Flow Logs:
+VPC Flow Logs: Captures traffic going in and out of the entire VPC.
+Subnet Flow Logs: Captures traffic going in and out of a specific subnet within the VPC.
+Elastic Network Interface Flow Logs: Captures traffic going in and out of a specific elastic network interface.
+
+VPC Peering -
+VPC peering allows you to connect two VPCs privately using the AWS network, making them behave as if they were part of the same network.
+The IP address ranges of the VPCs being peered should not overlap. If they do overlap, a VPC peering connection cannot be established.
+VPC peering connections are not transitive. This means that if you have VPC A peered with VPC B, VPC A peered with VPC C and you want VPC B to communicate with VPC C, you need to create a separate peering connection between VPC B and VPC C.
+
+Benefits of VPC Peering:
+Enables communication between VPCs without the need for internet gateways, VPN connections, or NAT devices.
+Allows resources in different VPCs to securely communicate with each other using private IP addresses.
+Simplifies network architecture and reduces data transfer costs.
+
+VPC Endpoints -
+When connecting to AWS services, we typically connect to them over the public Internet. However, AWS provides a feature called VPC endpoints that allows us to connect to these services using a private AWS network instead. This offers several advantages, including improved security and reduced latency.
+
+Types of VPC Endpoints:
+There are two types of VPC endpoints that we can use to connect to AWS services:
+VPC Endpoint Gateway: This type of endpoint is specifically for connecting to Amazon S3 and DynamoDB services. It allows us to connect to these services privately within our VPC private subnet. By using a gateway endpoint, we can avoid going over the public Internet and improve security.
+VPC Endpoint Interface: This type of endpoint is used to connect to any other AWS service that is not Amazon S3 or DynamoDB. For example, if we want to push a custom metric from an EC2 instance inside of VPC private subnet to CloudWatch, we would create an interface endpoint for CloudWatch. This allows the EC2 instance to connect to CloudWatch privately.
+
+PrivateLink -
+PrivateLink is a feature within the VPC endpoint services family that allows you to connect a service running within your VPC to other VPCs directly and privately. It provides a secure and scalable way to establish connectivity between services without the need for VPC peering or an Internet gateway.
+
+How it works:
+Scenario: Let's say there is a vendor in AWS Marketplace and they run a service on their AWS account within their own VPC and they want to expose a service to customers of AWS. So, to thousand of VPC they need to have private access to establish a connectivity and we can go for VPC peering in this scenario but it doesn't scale and not very secure. We use PrivateLink which allows you to connect a service running within your VPC to other VPC directly and privately.
+Vendor Setup: The vendor will create a network load balancer to expose their service within their own VPC.
+Your Setup: You will create an elastic network interface (ENI) within your VPC.
+Establishing Private Link: You will establish a private link between your ENI and the vendor's network load balancer. This creates a direct and private connection between the two VPCs.
+Private Access: With the private link established, you now have private access to the vendor's service. All communication between your VPC and the vendor's VPC remains within the private network, ensuring security and privacy.
+Scalability: If the vendor needs to provide access to additional customers, they can simply create new private links for each customer. This makes it easy to manage and highly scalable.
+
+Site-to-Site VPN & Direct Connect -
+Site-to-Site VPN:
+A site-to-site VPN allows you to securely connect your on-premises network to your VPC over the public internet. It establishes a secure and encrypted connection between your on-premises network and your VPC.
+
+To establish a site-to-site VPN, you need the following components:
+Customer Gateway (CGW): This is a physical device or software application on your on-premises network that acts as the gateway for the VPN connection.
+Virtual Private Gateway (VGW): This is a logical representation of an Amazon VPN gateway that you create in your VPC.
+Site-to-Site VPN Connection: This is the connection between the CGW and VGW that allows traffic to flow securely between your on-premises network and your VPC.
+
+Direct Connect (DX):
+Direct connect is a physical connection between your on-premises data center and AWS. Here are some key points about direct connect:
+It establishes a private, secure, and fast connection between your on-premises data center and the VPC.
+It uses a private network instead of the public Internet, ensuring better security and reliability.
+It is more expensive compared to site-to-site VPN because it requires a physical connection with a direct connect partner and takes at least a month to set up.
+
+Client VPN -
+The AWS Client VPN allows you to privately connect your computer to your AWS Virtual Private Cloud (VPC) or on-premises network using the OpenVPN protocol. This enables you to access resources in your VPC or on-premises network securely and easily.
+
+Why use AWS Client VPN?
+Accessing EC2 instances in a private VPC: If you have deployed EC2 instances in a private VPC, you can use AWS Client VPN to access them using their private IP addresses. This is particularly useful when you want to connect to your instances securely without exposing them to the public internet.
+Establishing a site-to-site VPN connection: If your VPC has established a site-to-site VPN connection to your on-premises data center, AWS Client VPN allows your computer to access your on-premises servers privately. This means you can securely connect to your on-premises resources as if you were on the same network.
+
+How it works:
+Install the AWS Client VPN software on your computer.
+Establish a VPN connection over the public internet to your VPC or on-premises network.
+Once the VPN connection is established, you can access your resources in the VPC or on-premises network using their private IP addresses.
+If your VPC has a site-to-site VPN connection to your on-premises data center, you can also access your on-premises servers privately.
+
+Transit Gateway -
+The Transit Gateway is a service provided by AWS that simplifies the network topology of a complex infrastructure. It allows for the connection of thousands of VPCs and on-premises systems through a hub and spoke star connection.
+The Transit Gateway acts as a central hub, with all connections being made through it.
+It eliminates the need for VPC peering, multiple connections, and complex routing between VPCs, VPN connections, and Direct Connect gateways.
