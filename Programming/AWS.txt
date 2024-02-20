@@ -1169,3 +1169,176 @@ Amazon EC2 instances, NAT gateways, Load balancers, RDS, CloudFront, Aurora, API
 Prohibited Activities:
 While the above-mentioned services are authorized for penetration testing, there are certain activities that are strictly prohibited. These activities include:
 DNS Zone Walking, DDoS Attacks, Port Flooding, Protocol Flooding, Request Flooding
+
+Encryption -
+Encryption is a crucial aspect of data security in AWS. It involves converting data into a format that is unreadable and unintelligible to unauthorized individuals. AWS provides two types of encryption: encryption at rest and encryption in transit.
+
+Encryption at Rest:
+Encryption at rest refers to the encryption of data when it is stored or archived on a physical device, such as a hard drive or a database. It ensures that even if the physical device is compromised, the data remains protected. Some examples of encryption at rest in AWS include:
+Encrypted data on an EFS (Elastic File System) network drive
+Encrypted data on Amazon S3 (Simple Storage Service)
+
+Encryption in Transit:
+Encryption in transit, on the other hand, involves encrypting data while it is being transferred from one location to another. This ensures that the data remains secure during transit and cannot be intercepted or tampered with. Examples of encryption in transit in AWS include:
+Transferring data from on-premises data centers to AWS
+Moving data between an EC2 (Elastic Compute Cloud) instance and a DynamoDB table
+Transferring data from EFS to Amazon S3
+
+To ensure comprehensive data protection, it is recommended to encrypt data in both states: at rest and in transit. By encrypting data in both states, even if unauthorized individuals gain access to the data, they will not be able to decrypt and read it without the encryption keys.
+They are used to encrypt and decrypt the data. Encryption keys are essential for maintaining the confidentiality and integrity of the data.
+
+AWS Key Management Service (KMS)
+KMS is the encryption service provided by AWS. It is used to manage encryption keys for various AWS services.
+With KMS, AWS manages the keys for us, and we define who can access these keys.
+Encryption with KMS is optional, and we can choose to enable it for different AWS services.
+Examples of services that can be encrypted with KMS:
+EBS volumes, S3 buckets, Redshift databases, RDS databases and EFS files
+Some services, like CloudTrail logs, S3 Glacier, and Storage Gateway, have encryption enabled by default.
+
+Cloud HSM (Hardware Security Module)
+Cloud HSM is another encryption service provided by AWS.
+With Cloud HSM, AWS provisions the encryption hardware, but we manage the keys ourselves.
+The hardware used for encryption is called a Hardware Security Module (HSM).
+AWS ensures that the HSM device is tamper-resistant and compliant with security standards.
+Cloud HSM works by:
+AWS manages the hardware (HSM device).
+We use the Cloud HSM service and client to manage the keys.
+The connection between our client and Cloud HSM is encrypted for secure key management.
+
+Customer Master Keys (CMK)
+AWS provides different types of Customer Master Keys (CMK) that can be used to encrypt and decrypt data. These keys are used to protect sensitive information and ensure the security of AWS resources. There are four types of CMKs in AWS:
+
+Customer Managed CMK:
+These keys are created, managed, and used by AWS users themselves.
+Users have full control over these keys, including the ability to enable, disable, and define rotation policies.
+Users can generate new keys periodically while preserving the old keys.
+Users can also bring their own keys.
+
+AWS Managed CMK:
+These keys are created, managed, and used by AWS on behalf of the customer.
+Users do not have direct access to these keys.
+AWS services, such as AWS S3, AWS EBS, and Amazon Redshift, use these keys to encrypt and decrypt data.
+
+AWS Owned CMK:
+These keys are a collection of CMKs owned and managed by AWS.
+They are used by AWS to protect resources in multiple customer accounts.
+Users do not have access to view or manage these keys.
+
+Cloud HSM Keys (Custom Key Store):
+This type of key is generated directly from the user's own Cloud HSM hardware device.
+Cryptographic operations using these keys do not happen within AWS Key Management Service (KMS), but within the Cloud HSM cluster.
+
+AWS Certificate Manager (ACM) -
+AWS Certificate Manager is a service provided by Amazon Web Services that allows you to easily provision, manage, and deploy SSL/TLS certificates. These certificates are used to provide in-flight encryption for your websites by enabling HTTPS endpoints.
+SSL/TLS certificates are used to provide in-flight encryption for websites and enable HTTPS endpoints.
+SSL/TLS certificates enable HTTPS endpoints, ensuring secure communication between clients and servers.
+SSL/TLS certificates help protect sensitive information, such as login credentials and personal data, from being intercepted or tampered with during transmission.
+ACM supports both public and private TLS certificates, with public certificates being free of charge.
+ACM provides automatic TLS certificate renewal and integrates with various AWS services like ELB, CloudFront, APIs on API Gateway for seamless deployment of certificates.
+
+Secrets Manager -
+Secrets Manager is a service provided by AWS that allows you to securely store and manage secrets. It is designed specifically for storing sensitive information such as passwords, API keys, and database credentials.
+
+Features of Secrets Manager:
+Secret Rotation: Secrets Manager allows you to automate the rotation of secrets. This means that you can set a schedule for secrets to be automatically changed at regular intervals, such as every 90 days. This helps improve security by ensuring that secrets are regularly updated.
+Integration with Amazon RDS: Secrets Manager has seamless integration with Amazon RDS (Relational Database Service). This means that you can use Secrets Manager to automatically generate and manage passwords for your RDS databases. The secrets are encrypted using AWS Key Management Service (KMS) for added security.
+Encryption: Secrets stored in Secrets Manager are automatically encrypted using AWS KMS. This ensures that your secrets are protected and can only be accessed by authorized users or services.
+
+AWS Artifacts -
+AWS Artifacts is a portal provided by Amazon Web Services (AWS) that gives customers access to compliance reports and AWS agreements. It is not a service in itself, but it is presented as one in the AWS console. The purpose of AWS Artifacts is to provide customers with the necessary documentation to demonstrate AWS security and compliance.
+
+Amazon GuardDuty -
+Amazon GuardDuty is a service provided by AWS that helps protect your AWS account by performing intelligent threat discovery. It uses machine learning algorithms, performs automatic detection, and utilizes third-party data to identify potential threats. Enabling GuardDuty is as simple as a single click, and it offers a 30-day trial period without the need to install any additional software. It can also protect against CryptoCurrency attacks. We can set EventBridge rules to be notified in case of any findings. EventBridge rules can target AWS Lambda or SNS.
+
+GuardDuty analyzes various input data sources to identify potential threats. These include:
+CloudTrail Event Logs:
+GuardDuty examines CloudTrail logs to detect unusual API calls and unauthorized deployments.
+CloudTrail Management Events: GuardDuty monitors management events such as the creation of VPC subnets to identify any suspicious activities.
+CloudTrail Data Events: GuardDuty analyzes data events, such as "get object," "list objects," and "delete objects" in S3, to detect any unauthorized access or data manipulation.
+
+VPC Flow Logs:
+GuardDuty examines VPC flow logs to identify unusual internet traffic, unusual IP addresses, and potential compromises.
+
+DNS Logs:
+GuardDuty analyzes DNS logs to detect EC2 instances sending encoded data within DNS queries, which could indicate a compromise.
+
+Optional Features:
+In addition to the mandatory input data sources, GuardDuty also offers optional features that allow you to analyze additional input data sources. These include EBS Volumes, Lambda, RDS and Aurora Login Activity, EKS Audit Logs.
+
+Amazon Inspector -
+Amazon Inspector is a service provided by AWS that allows you to run automated security assessments on various components of your infrastructure. It helps you identify vulnerabilities and potential security issues in your EC2 instances, container images on Amazon ECR, and Lambda functions.
+It performs continuous scanning of the infrastructure to identify any vulnerabilities.
+It relies on a database of vulnerabilities, such as CVE for package vulnerabilities, to compare against the components being assessed.
+If the database of vulnerabilities is updated, Amazon Inspector automatically runs another assessment to ensure that all infrastructure is tested again.
+Once Amazon Inspector completes its assessment, it can report its findings to the AWS Security Hub.
+Additionally, Amazon Inspector can send findings and events to Amazon EventBridge.
+
+AWS Config -
+AWS Config is a service provided by Amazon Web Services (AWS) that helps with auditing and recording the compliance of your resources by tracking the configuration and changes over time. It allows you to have a comprehensive list of all the changes made to your AWS resources, providing visibility and control over your infrastructure.
+
+Key Features:
+Storage and Analysis: The configuration data recorded by AWS Config can be stored in Amazon S3, allowing you to analyze it later using services like Amazon Athena. This enables you to gain insights and perform audits on your resources.
+
+Compliance Monitoring: AWS Config helps you address compliance-related questions by providing visibility into the configuration of your resources. For example, you can check if there is unrestricted SSH access to your security groups or if your S3 buckets have any public access.
+
+Config Rules: Config Rules are customizable rules that you can define to evaluate the compliance of your resources. These rules can be used to check for specific configurations or enforce best practices. AWS Config can send alerts through SNS notifications whenever a resource violates a rule.
+
+Multi-Region and Multi-Account Support: While AWS Config is a per-region service, you can create multiple configurations and aggregate the results across all your accounts and regions. This allows you to have a centralized view of your resources' configurations.
+
+Amazon Macie -
+Macie is a fully managed data security and data privacy service in AWS. Macie analyzes data stored in S3 buckets.
+It utilizes machine learning and pattern matching to discover and protect sensitive data.
+Specifically, it focuses on identifying personally identifiable information (PII).
+It notifies users of these discoveries through EventBridge.
+Users can integrate Macie with other AWS services like SNS topics and Lambda functions.
+
+AWS Security Hub -
+AWS Security Hub is a centralized security tool that allows you to manage security across multiple AWS accounts or within an organization. It automates security checks and provides an integrated dashboard to view the current security and compliance status. By aggregating alerts from various services and partner tools, such as GuardDuty, Inspector, Macie, IAM Access Analyzer, Systems Manager, Firewall Manager, and partner network solutions, Security Hub enables you to efficiently organize and respond to security alerts. Before using Security Hub, the AWS Config service needs to be enabled.
+
+Key Features:
+Centralized Security: Security Hub aggregates security findings from multiple accounts and services into one central location, allowing for better organization and streamlined actions.
+Automated Checks: Security Hub automatically analyzes events from various services and partner tools, collecting potential security issues and findings.
+Integrated Dashboard: The Security Hub dashboard provides a comprehensive view of security and compliance status, making it easier to identify and address security issues.
+Event Generation: Security Hub generates events in the EventBridge service (CloudWatch Events) for further investigation and analysis.
+Amazon Detective Integration: To investigate security events in more detail, Amazon Detective can be used to determine the root cause of incidents.
+
+Amazon Detective -
+Amazon Detective is a service provided by Amazon Web Services (AWS) that helps in analyzing and investigating security issues or suspicious activities within your AWS environment. It uses machine learning and graph theory to quickly identify the root cause of these issues.
+Amazon Detective automatically collects and processes events from various sources within your AWS environment, including VPC flow logs, CloudTrail trails, and GuardDuty findings. It then creates a unified view of this data, allowing you to easily analyze and investigate security issues.
+
+AWS Abuse -
+If you suspect any abusive or prohibited behaviors on AWS, such as spam, illegal content, DDoS attacks, or malware distribution, you can report it to AWS. Here are some examples of abusive behaviors:
+Spam: If you receive undesired emails from IP addresses associated with AWS websites and forums.
+Spy and Bad EBIS Resources: Any resources used for spying or engaging in illegal activities.
+Port Scanning: Someone conducting a port scan from an AWS instance, which is not allowed.
+DDoS Attack Intrusion Attempts: Unauthorized attempts to log into your AWS resources.
+Questionable or Copyrighted Content: Hosting illegal or copyrighted content on AWS.
+
+To report any suspicious activities, you can contact the AWS abuse team. There are two ways to do this:
+Online Form: Fill out the online form provided by AWS to report the abusive behavior.
+Email: Send an email to abuse@amazonaws.com with the details of the suspected abuse.
+
+Root User Privileges -
+The root user in AWS is the account owner and is created when the account is first set up. The root user has complete access to all AWS services and resources. However, it is important to note that using the root user for everyday tasks is not recommended. Instead, it is advised to create a specific admin user for administrative tasks.
+
+Here are some important actions that can only be performed by the root user:
+Change Account Settings: Account name, Email address, Root user password, Root user access keys
+View Certain Tax Invoices
+Close Your Account
+Restore IAM User Permissions
+Change or Cancel AWS Support Plan
+Register as a Seller in the Reserved Instance Marketplace:
+Configure an Amazon S3 Bucket to Enable MFA
+Edit or Delete an S3 Bucket Policy
+Sign Up for GovCloud
+
+IAM Access Analyzer -
+IAM Access Analyzer is a service within the IAM console that helps identify which resources are being shared externally. This is important because sharing resources without proper authorization can pose a security risk to your company. IAM Access Analyzer specifically applies to the following resources:
+S3 buckets
+IAM roles
+KMS keys
+Lambda functions and layers
+SQS queues
+Secrets Manager secrets
+
+The concept behind IAM Access Analyzer is to define a "zone of trust" that corresponds to your AWS accounts or your entire AWS organization. Anything outside of this zone of trust that has access to the resources mentioned above will be reported as findings. This allows you to take action if you believe there is a security risk.
