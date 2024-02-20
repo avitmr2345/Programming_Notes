@@ -673,7 +673,7 @@ Assign weights to EC2 instances (e.g., 70, 20, 10)
 DNS ensures clients receive specified percentages of traffic to each instance
 Can use health checks
 
-3 .Latency Routing Policy
+3. Latency Routing Policy
 Used for globally distributed applications
 Example: servers in California and Australia, users worldwide
 Redirects users based on their location to minimize latency
@@ -1115,3 +1115,57 @@ Transit Gateway -
 The Transit Gateway is a service provided by AWS that simplifies the network topology of a complex infrastructure. It allows for the connection of thousands of VPCs and on-premises systems through a hub and spoke star connection.
 The Transit Gateway acts as a central hub, with all connections being made through it.
 It eliminates the need for VPC peering, multiple connections, and complex routing between VPCs, VPN connections, and Direct Connect gateways.
+
+--> Security & Compliance
+Shared Responsibility Model -
+AWS responsibility: Security of the cloud
+Infrastructure (hardware, software, facilities, networking)
+Managed services (S3, DynamoDB, RDS)
+
+Customer responsibility: Security in the cloud
+Management of operating systems (patching, updates)
+Configuration of firewall (network ACL, security group)
+Correct IAM permissions for EC2 instances
+Encryption of application data according to compliance requirements
+
+Shared Controls:
+Patch management, Configuration management, Awareness and training
+
+DDoS Attack Protection -
+A Distributed Denial of Service (DDoS) attack is a malicious attempt to disrupt the normal functioning of a server or network by overwhelming it with a flood of internet traffic. To protect ourselves from such attacks, we can implement various measures on AWS.
+
+Shield is a service provided by AWS that offers protection against Distributed Denial of Service (DDoS) attacks. It consists of two components: 
+Shield Standard:
+Shield Standard is a free service that is automatically activated for every AWS customer.
+It provides protection against common DDoS attacks, such as SYN floods, UDP floods, reflection floods, and other layer 3 and layer 4 attacks.
+Shield Advanced:
+Shield Advanced is an optional service that costs $3,000 per month per organization.
+It offers protection against more sophisticated attacks on EC2, ELB, CloudFront, Global Accelerator, and Route 53.
+With Shield Advanced, you also gain access to a response team that can assist you during DDoS attacks.
+Any fees incurred during an attack are covered by AWS.
+
+Web Application Firewall (WAF) and Web ACL
+The Web Application Firewall (WAF) is a service provided by AWS that helps protect your web applications from common web exploits. It specifically focuses on layer 7 attacks, which are attacks that target the HTTP protocol. WAF can be deployed on HTTP-friendly devices such as the Application Load Balancer and API Gateway. It can be used in combination with other services like AWS Shield, CloudFront, and Route 53 to provide comprehensive DDoS protection.
+A Web ACL is a set of rules defined on a WAF to control access to web applications.
+These rules can include filtering based on various criteria such as IP addresses, HTTP headers, request body, and specific strings.
+By defining these rules, you can protect your web application against common attacks like SQL injection and cross-site scripting (XSS).
+You can also set size constraints to ensure that requests are not too large and block access from specific countries using a geomatch.
+Rate-based rules count the occurrences of events, such as the number of requests per second from a user. By setting a limit, such as five requests per second, you can prevent a single user from overwhelming your application with excessive requests.
+
+CloudFront and Route 53
+CloudFront is a content delivery network (CDN) service provided by AWS.
+It caches your content at edge locations worldwide, reducing the load on your application server and improving performance.
+When combined with AWS Shield, CloudFront provides DDoS attack mitigation at the edge locations, protecting your application from being overwhelmed.
+Route 53, AWS's DNS service, can be used to route traffic to your application server.
+By using Route 53 with AWS Shield, your DNS infrastructure is protected from DDoS attacks.
+
+Penetration Testing -
+Penetration testing is a security assessment technique where you intentionally try to attack your own infrastructure to identify vulnerabilities and test the effectiveness of your security measures.
+
+Authorized Penetration Testing:
+AWS allows customers to carry out security assessments and penetration testing on their own infrastructure without prior approval for the following eight services:
+Amazon EC2 instances, NAT gateways, Load balancers, RDS, CloudFront, Aurora, API gateways, Lambda and Lambda Edge functions, Lightsail resources and Elastic Beanstalk environments. These services are explicitly authorized for penetration testing, meaning you can perform security assessments on them without seeking approval from AWS.
+
+Prohibited Activities:
+While the above-mentioned services are authorized for penetration testing, there are certain activities that are strictly prohibited. These activities include:
+DNS Zone Walking, DDoS Attacks, Port Flooding, Protocol Flooding, Request Flooding
