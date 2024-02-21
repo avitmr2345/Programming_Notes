@@ -1342,3 +1342,63 @@ SQS queues
 Secrets Manager secrets
 
 The concept behind IAM Access Analyzer is to define a "zone of trust" that corresponds to your AWS accounts or your entire AWS organization. Anything outside of this zone of trust that has access to the resources mentioned above will be reported as findings. This allows you to take action if you believe there is a security risk.
+
+--> Machine Learning
+Amazon Rekognition -
+It helps in finding objects, people, text, scenes in images and videos using ML. It offers facial analysis and facial search to do user verification, people counting. Use cases:
+Labeling, Content Moderation, Text Detection, Face Detection and Analysis, Face Search and Verification, Celebrity Recognition and Pathing.
+
+Amazon Transcribe -
+Automatically convert speech to text. Uses a deep learning process called Automatic Speech Recognition (ASR) to convert speech to text quickly and accurately.
+Automatically remove Personally Identifiable INformation (PII) using Redaction.
+Supports Automatic Language Identification for multi-lingual audio.
+
+Amazon Polly -
+Amazon Polly is a service provided by Amazon Web Services (AWS) that allows you to convert text into lifelike speech using deep learning techniques. It enables you to create applications that can talk and generate audio output based on the provided text.
+
+Amazon Translate -
+Amazon Translate is a service provided by Amazon that offers natural and accurate language translation. It allows you to localize content, such as websites and applications, for international users. With Amazon Translate, you can easily translate large volumes of text efficiently.
+
+Amazon Lex and Connect -
+Amazon Lex:
+Powers Alexa devices by Amazon
+Converts speech into text using Automatic Speech Recognition (ASR)
+Understands the intent of spoken words through Natural Language Understanding (NLU)
+Used to build chatbots or call center bots
+Amazon Connect:
+Used to create virtual contact center
+Receives calls and creates contact flows
+Cloud-based and can integrate with other customer relationship management systems (CRMs) or AWS services
+No upfront payment required. Approximately 80% cheaper than traditional contact center solutions
+
+Amazon Comprehend -
+Amazon Comprehend is a fully managed and serverless service provided by Amazon Web Services (AWS) that utilizes machine learning to analyze and understand text data. It is specifically designed for natural language processing (NLP) tasks.
+Amazon Comprehend is used to extract insights and relationships from text data. It can understand the meaning of the text, extract key phrases, identify places, people, brands, and events mentioned in the text, perform sentiment analysis to determine the positivity or negativity of the text, automatically organizing a collection of text files by topic and analyze the text using tokenization and parts of speech.
+
+Amazon Sagemaker -
+Amazon Sagemaker is a fully managed service designed for developers and data scientists to build machine learning models. Unlike other managed machine learning services, Sagemaker provides a higher level of functionality and allows for more complex model creation. It simplifies the process of building machine learning models by providing tools and resources to assist at every step.
+
+Amazon Forecast -
+Amazon Forecast is a fully managed service that utilizes machine learning to provide highly accurate forecasts. It allows you to predict future outcomes based on historical time series data and additional product features. 50% more accurate than looking at the data itself. Reduce forecasting time from months to hours. Use cases: Product Demand Planning, Financial Planning, Resource Planning etc.
+
+Amazon Kendra -
+Amazon Kendra is a fully managed machine learning-powered document search service provided by AWS. It allows users to extract answers from various types of documents, including text, PDF, HTML, PowerPoint, Microsoft Word, and fax.
+
+Features of Amazon Kendra:
+Data Sources: Amazon Kendra supports a wide range of data sources where documents may be stored. These sources can include databases, file systems, websites, and more.
+
+Knowledge Index: Amazon Kendra builds an internal knowledge index using machine learning techniques. This index is used to provide accurate and relevant search results.
+
+Natural Language Search: Users can perform searches using natural language queries, similar to how they would search on platforms like Google. For example, a user can ask, "Where is the IT support desk?" and Kendra can provide the answer, "First floor," based on the information it has gathered from the indexed documents.
+
+Incremental Learning: Amazon Kendra learns from user interactions and feedback to improve search results over time. This process is known as incremental learning, where the system adapts and promotes preferred search results based on user preferences.
+
+Customization: Users can fine-tune search results based on various factors such as the importance of data, freshness, or custom filters. This allows for personalized and tailored search experiences.
+
+Amazon Personalize -
+Amazon Personalize is a fully managed machine learning service provided by Amazon that allows you to build applications with real-time personalized recommendations. It is the same technology used by Amazon.com to provide personalized product recommendations to its users based on their browsing and purchasing history.
+Integrates into existing websites, applications, SMS, Email etc.
+
+Amazon Textract -
+Amazon Textract is a service provided by Amazon that allows you to extract text, handwriting, and data from scanned documents. It utilizes AI and machine learning algorithms to analyze the documents and provide the extracted information in a data file format.
+Supports various document types such as driver licenses, PDFs, images, forms, and tables.
