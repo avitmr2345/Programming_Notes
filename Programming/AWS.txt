@@ -1402,3 +1402,34 @@ Integrates into existing websites, applications, SMS, Email etc.
 Amazon Textract -
 Amazon Textract is a service provided by Amazon that allows you to extract text, handwriting, and data from scanned documents. It utilizes AI and machine learning algorithms to analyze the documents and provide the extracted information in a data file format.
 Supports various document types such as driver licenses, PDFs, images, forms, and tables.
+
+--> Account Management & Billing Support
+Get an overview of all the videos if needed.
+
+--> Advanced Identity
+AWS STS -
+The AWS Security Token Service (STS) is a service provided by AWS that allows you to create temporary limited privilege credentials to access your AWS resources. These temporary credentials are similar to your access key and secret access key, but they have an expiration period that you can configure.
+STS works by assuming a role and we receive back temporary security credentials.
+Use cases for STS include identity federation, IAM roles, and EC2 instances.
+
+Amazon Cognito -
+Amazon Cognito is a service provided by AWS that allows you to provide identity for your web and mobile application users. It is designed to handle potentially millions of users without the need to create IAM users for each individual user. Instead, you can create users for your mobile and web apps within Cognito.
+
+Microsoft Active Directory -
+Microsoft Active Directory (AD) is a database of objects found on any Windows server that has AD Domain Services. These objects can include user accounts, computers, printers, and file share security groups. AD provides centralized security management, allowing you to create accounts and assign permissions within it.
+AWS Directory Services -
+AWS Directory Services allows you to extend Active Directory functionality in the AWS cloud. While AWS itself does not have Active Directory, you can use AWS Directory Services to integrate with your on-premises Active Directory or create a new Active Directory in AWS.
+
+There are three flavors of AWS Directory Services:
+AWS Managed Microsoft AD: This allows you to create your own Active Directory in AWS and manage users locally. It also supports multi-factor authentication for enhanced security.
+
+AD Connector: If you already have an on-premises Active Directory, you can establish a trust relationship between your on-premises AD and AWS. This allows users to access AWS resources using their existing AD credentials.
+
+Simple AD: This is a standalone directory service compatible with Microsoft Active Directory. It provides basic AD functionality and is suitable for small-scale deployments.
+
+AWS IAM Identity Center -
+The AWS IAM Identity Center is a feature that provides single sign-on (SSO) capability for users and it is the successor to AWS Single Sign-ON. It allows users to have one login for all their AWS accounts within an organization. This feature is also applicable to business cloud applications, SAML 2.0 enabled applications, and EC2 Windows instances.
+Benefits:
+Single sign-on: Users only need to remember one login for all their AWS accounts.
+Centralized user management: User management can be done in a central manner instead of on a per-account basis.
+Simplified access: Users can access the management console of a specific account directly from the IAM Identity Center portal.
