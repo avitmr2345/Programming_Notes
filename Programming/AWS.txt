@@ -1433,3 +1433,115 @@ Benefits:
 Single sign-on: Users only need to remember one login for all their AWS accounts.
 Centralized user management: User management can be done in a central manner instead of on a per-account basis.
 Simplified access: Users can access the management console of a specific account directly from the IAM Identity Center portal.
+
+--> Other services
+Amazon WorkSpaces -
+It is a managed Desktop as a Service (DaaS) solution to easily provision Windows or Linux desktops. Basically it allows you to access a secure windows or linux desktops from within your AWS. It is great to eliminate management of on-premise Virtual Desktop Infrastructre (VDI). It is fast and quickly scalable to thousands of users. Secured data as it integrates with KMS.
+
+Amazon AppStream 2.0 -
+Amazon AppStream 2.0 is a desktop application streaming service provided by Amazon. It allows you to stream applications to any computer without the need for infrastructure acquisition and provisioning. The applications are accessed and delivered through a web browser.
+
+AWS IoT Core -
+IoT stands for Internet of Things, which refers to a network of internet-connected devices that collect and transfer data.
+It is serverless, secure & scalable to billions of devices and trillions of messages.
+IoT devices can be various objects such as cars, lights, fridges, and more.
+These devices are connected to the AWS cloud using AWS IoT Core.
+IoT Core acts as a pub-sub (publish-subscribe) system, enabling devices to exchange messages and communicate with each other.
+Applications can also communicate with devices, even when they are not connected.
+
+Amazon Elastic Transcoder -
+Amazon Elastic Transcoder is a service provided by Amazon Web Services (AWS) that is used to convert media files stored in Amazon S3 into formats required by consumer playback devices, such as phones, tablets, and PCs.
+
+AWS AppSync -
+AWS AppSync is a service provided by Amazon Web Services that allows you to build a backend for your mobile and web applications. It enables you to store and synchronize data in real-time. Appsync leverages a technology called GraphQL, which is developed by Facebook.
+
+AWS Amplify -
+AWS Amplify is a set of tools and services provided by Amazon Web Services (AWS) that simplifies the development and deployment of scalable, full stack web and mobile applications. It offers a comprehensive suite of features to manage various aspects of application development, including authentication, storage, APIs, CI/CD, pub/sub, analytics, and even machine learning monitoring. Amplify allows you to source your code from AWS, GitHub, or other repositories.
+
+AWS Device Farm -
+AWS Device Farm is a fully managed service provided by Amazon Web Services (AWS) that allows you to test your web and mobile applications against real desktop browsers, mobile devices, and tablets. It run test concurrently on multiple devices.
+
+AWS Backup -
+AWS Backup is a fully managed service provided by Amazon Web Services (AWS) that allows you to efficiently manage and automate backups across various AWS services. It offers on-demand and scheduled backups, as well as support for point-in-time recovery (PITR). With AWS Backup, you can define the retention periods for your backups, set up lifecycle management, and create backup policies.
+
+Disaster Recovery Strategies -
+Disaster recovery strategies are plans and procedures put in place to ensure the availability and recovery of data and applications in the event of a disaster. There are different strategies available, each with varying costs and levels of readiness. Let's explore the different strategies:
+
+1. Backup and Restore
+Data is backed up into the cloud.
+In case of a disaster, the data is restored to another location.
+The application is not running during this process. Cost is minimal as only data backup is involved.
+2. Pilot Light
+Core functions of the application, such as the database, are running in the cloud.
+Minimal setup is required.
+The application servers are not fully scaled.
+In the event of a disaster, the database type may need to be upgraded and application servers started.
+3. Warm Standby
+Full version of the application is available in the cloud, but at a minimum size.
+In the event of a disaster, the size of the app needs to be increased.
+4. Multi-site/Hot-Site
+Full version of the application is available at full size, ready to be used regardless of any disaster.
+Maximum level of readiness and availability. Highest cost among all the strategies.
+
+AWS Elastic Disaster Recovery (DRS) -
+AWS Elastic Disaster Recovery (DRS) is a service provided by AWS that allows you to quickly and easily recover your physical, virtual, and cloud-based servers into AWS for disaster recovery purposes.
+Key Features:
+Protection for Critical Databases and Enterprise Apps: Elastic Disaster Recovery allows you to protect your most critical databases such as Oracle, MySQL, and SQL Server, as well as enterprise applications like SAP. This ensures that your data is safeguarded in case of any potential attacks or disasters.
+
+Continuous Block-Level Replication: The service enables continuous block-level replication of your servers from your corporate data center to the cloud. This means that all data written to disk, including operating systems, applications, and databases, is replicated in real-time.
+
+AWS Replication Agent: To facilitate the replication process, an AWS replication agent is installed on your corporate data center. This agent ensures that the disks are continuously replicated to a staging environment in AWS, using low-cost EC2 instances and EBS volumes.
+
+Fast Failover: In the event of a disaster striking your data center, you can perform a failover within minutes from the staging environment to production. This involves creating larger EC2 instances and better EBS volumes to support the recovery process.
+
+Failback Capability: Once your corporate data center or any other location is back online, you can perform a failback operation. This means that the system can be seamlessly transitioned back to your corporate data center, allowing you to resume normal operations.
+
+DataSync -
+DataSync is a service provided by AWS that allows you to efficiently move large amounts of data from on-premises to AWS. It also enables you to synchronize data into Amazon S3, Amazon EFS, or Amazon FSx for Windows.
+Replication tasks can be scheduled regularly, such as every hour, every day, or every week.
+
+AWS Application Discovery Service -
+AWS Application Discovery Service helps in planning your migration by scanning your servers and gathering information about server utilization data and dependency mapping. This information is crucial for understanding how to migrate and what to migrate first.
+Types of Migration:
+Agentless Discovery Connector:
+Provides information about virtual machines, configuration, and performance history (e.g., CPU, memory, disk usage).
+
+Application Discovery Agent:
+Requires running an agent within your virtual machines.
+Provides more updates and detailed information, including system configuration, performance processes, and network connections between systems (useful for dependency mapping).
+
+AWS Migration Hub
+The result data from the Application Discovery Service can be viewed within the AWS Migration Hub.
+AWS Migration Hub helps map out what needs to be moved and how the components are interconnected.
+
+AWS Application Migration Service (MGN)
+The AWS Application Migration Service, also known as MGN, is used to migrate from on-premises to AWS.
+MGN enables rehosting, also known as lift and shift, where you convert physical, virtual, or servers from other clouds to run natively on AWS.
+
+AWS Migration Evaluator -
+The AWS Migration Evaluator is a service provided by AWS that helps organizations build a data-driven business case for migrating to AWS. The service allows you to assess your current infrastructure and workloads, define a target state in AWS, and develop a migration plan.
+
+AWS Fault Injection Simulator (FIS) -
+AWS Fault Injection Simulator (FIS) is a tool that allows you to run fault injection experiments on AWS workloads.
+Based on Chaos engineering which is a practice that involves intentionally creating disruptive events in an application to test its resilience and identify hidden bugs and performance bottlenecks.
+The goal is to simulate real-world scenarios and see how the entire application stack reacts to these disasters.
+The main purpose of fault injection is to ensure that your application is robust and can handle unexpected failures. By intentionally creating chaos within your infrastructure, you can uncover weaknesses and improve the overall reliability of your system.
+
+AWS Step Functions -
+AWS Step Functions is a serverless service that allows you to build visual workflows for orchestration, primarily of Lambda functions. With Step Functions, you can design a graph that represents the workflow and define what should happen at each step, including actions to take in case of success or failure. This enables you to create complex workflows within AWS.
+
+AWS Ground Station -
+AWS Ground Station is a fully managed service that allows you to control satellite communication, process data, and scale your satellite operations. It provides a global network of satellite ground stations near AWS regions, making it easier for you to access and download data from your satellites onto your AWS cloud. It can send satellite data to S3 bucket, EC2 instance.
+
+Amazon Pinpoint -
+Amazon Pinpoint is a scalable two-way(inbound/outbound) marketing communication service provided by Amazon. It allows you to send various types of messages, such as email, SMS, push notifications, voice, and in-app messaging. One of the main use cases for Pinpoint is SMS messaging, where customers can receive SMS messages sent from Pinpoint.
+Pinpoint allows you to segment your audience and personalize messages with the right content for each customer. You can create groups and segments to target specific subsets of your audience.
+Pinpoint is designed to handle billions of messages per day, ensuring that your marketing campaigns can reach a large number of recipients.
+Pinpoint allows you to receive replies from customers and tracks various events, such as text success, text delivered, and replies. These events can be delivered to other AWS services like Amazon SNS, Kinesis Data Firehose, and CloudWatch Logs, enabling you to build automation on top of Pinpoint.
+
+Comparison with Amazon SNS and Amazon SES
+Amazon SNS: With Amazon SNS, you have to manage each message's audience, content, and delivery schedule within your application. This can be a lot of work and may not be very scalable for full-blown marketing communications. In contrast, Pinpoint provides a higher level of abstraction by allowing you to create message templates, delivery schedules, highly targeted segments, and full campaigns within the Pinpoint service.
+
+Amazon SES: Amazon Simple Email Service (SES) is primarily focused on sending transactional and bulk email messages. While it provides some level of personalization and segmentation, Pinpoint offers more advanced features for marketing communications, including support for SMS, push notifications, voice, and in-app messaging.
+
+So, Pinpoint is next evolution of SNS and SES.
