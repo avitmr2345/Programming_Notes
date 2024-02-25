@@ -1545,3 +1545,6 @@ Amazon SNS: With Amazon SNS, you have to manage each message's audience, content
 Amazon SES: Amazon Simple Email Service (SES) is primarily focused on sending transactional and bulk email messages. While it provides some level of personalization and segmentation, Pinpoint offers more advanced features for marketing communications, including support for SMS, push notifications, voice, and in-app messaging.
 
 So, Pinpoint is next evolution of SNS and SES.
+
+--> AWS Architecting & Ecosystem
+Get an overview of all the videos if needed.
