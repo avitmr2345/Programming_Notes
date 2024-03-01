@@ -1,7 +1,7 @@
 								CSS
 Combining Selectors -
 Multiple selectors - h1, p {}
-Chile selector - div > p {} (Select the child of div which is p)
+Child selector - div > p {} (Select the direct child of div which is p and not grandchildren)
 Heirarchical selectors - li a {} (Selects the child anchor tags which are inside parent tag list)
 Combined selectors - h1#title {} (Select the h1 with the id title)
 Adjacent sibling - h3 + ul (Select all the unordered list immediately after the h3)
