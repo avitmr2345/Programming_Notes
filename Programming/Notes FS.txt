@@ -158,7 +158,7 @@ for (key in obj){
 var x = Math.random();  //random generates number from 0 to 0.9999.
 x * Number till you want random numbers (Math.floor(x.random * 6)) + 1;
 
-debugger; (shift+enter used to move to next line in console and on next line provide the provide that you want to debug.)
+debugger; (shift+enter used to move to next line in console and on next line provide what you want to debug)
 
 								DOM
 Document Object Model catalogs the webpage into individual objects that we can select and manipulate & is used to make the website interactive. Browser convert HTML into DOM which associate the elements in tree structure.
@@ -275,11 +275,20 @@ morgan is used to log the requests that come in your server and it belongs to lo
 
 								 EJS
 Embedded JS is templating language that can inject what the user put inside the input tag and put in the .ejs file to give dynamacity to the website like the user put his name and we can greet him like "Hello Avish".
-We use res.render(file.ejs, {js object}); to inject the data. Refresh memory by seeing the EJS tags online.Static files are stored in public folder and res.render is relative to views folder.
-Partials is used to reduce the repeated code like header and footer for a website that have various page with same header & footer.
+We use res.render(file.ejs, {js object}); to inject the data. Static files are stored in public folder and res.render is relative to views folder. Partials is used to reduce the repeated code like header and footer for a website that have various page with same header & footer.
+
+EJS tags -
+<%= variable %>			-> JS Output
+<% console.log("hello") %>	-> JS Execute
+<%- <h1>Hello</h1> %>		-> Render HTML
+<%% %%>				-> Show <% or %>
+<%# This is a comment %>	-> Comment
+<%- include("header.ejs") %>	-> Insert another EJS file
 
 								 API
-An Application Programming Interface is a set of rules and protocols that define how different software can interact with each other and bridges the communication between different pieces of software.
+An Application Programming Interface is a set of rules and protocols that define how different software can interact with each other and bridges the communication between different pieces of software. In other words, if you want to interact with a computer or system to retrieve information or perform a function, an API helps you communicate what you want to that system so it can understand and fulfill the request.
+You can think of an API as a mediator between the users or clients and the resources or web services they want to get. It’s also a way for an organization to share resources and information while maintaining security, control, and authentication—determining who gets access to what.
+
 Endpoint is a specific URL or route that we can send a request to in order to access a particular resource or perform a specific action or we can say it is the destination where your API request is sent to interact with the server.
 Path & Query Parameters - You can use API path and parameters in order to narrow down on a specific piece of data you want from an external server. QP are for filtering and searching while PP are for identifying a resource by some specific parameter.
 Authentication - Verifying the identity of a user, process, or device, often as a prerequisite to allowing access to resources in an 
