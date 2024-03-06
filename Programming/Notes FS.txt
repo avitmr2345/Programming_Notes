@@ -321,7 +321,7 @@ Template literals and String Interpolation-
 const name = "Avish"; const ex = "!";
 <h1>Hello {name}</h1>; or <h1>Hello {'${name} ${ex}'}</h1>
 
-ReactDOM.render(<h1 style={{ color: "red" }}Hello</h1>, document.getElementById("root"));	//inline styles
+ReactDOM.render(<h1 style={{ color: "red" } / JS Object}Hello</h1>, document.getElementById("root"));	//inline styles
 
 Import and Export-
 export default pi;	//pi is passed as default when we import
@@ -347,7 +347,7 @@ function Card(props) {
 		<h2>{props.age}</h2>)
 }
 
-Map -Creates a new array by doing something with each item in an array.
+Map -  Creates a new array by doing something with each item in an array.
 var numbers = [3, 56, 2, 48, 5];
 function double(x) {
 	return x * 2;
@@ -374,13 +374,13 @@ const obj = {
 	sound: "meow",
 	feeding: {food: 100g, water: 200mL}
 }
-const {name, sound} = obj; //we should same the same name defined in the obj to destructure.
+const {name, sound} = obj; //we should match the same name defined in the obj to destructure.
 const {name: catName, sound: catSound} = obj; //it destructure and also rename the name & sound defined in the obj.
 const {name = "Fluffy", sound = "Purr"} = obj; //it sets the default value if value is not defined in the obj when we destructure.
-const {feeding: {food, water}} = obj; //it destructure the nested object in the obj and this extensive destructuring.
+const {feeding: {food, water}} = obj; //it destructure the nested object in the obj and this is extensive destructuring.
 
 React State-
-Let an ice cube is the your UI and when the temperature is -10 degrees then we see ice but when the temperature rise to 30 degress the ice is going to turn into water.
+Let an ice cube is your UI and when the temperature is -10 degrees then we see ice but when the temperature rise to 30 degress the ice is going to turn into water.
 When we have a UI that is dependent upon the value of a state variable, this kind of programming is known as declarative programming. Imperative programming is when we specify an element to imperatively do something different.
 
 React Hooks-
