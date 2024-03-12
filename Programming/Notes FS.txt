@@ -319,7 +319,7 @@ Use <script src="" type="text/JSX"></script> to specify that we are using a JSX 
 
 Template literals and String Interpolation-
 const name = "Avish"; const ex = "!";
-<h1>Hello {name}</h1>; or <h1>Hello {'${name} ${ex}'}</h1>
+<h1>Hello {name}</h1>; or <h1>Hello {`${name} ${ex}`}</h1>
 
 ReactDOM.render(<h1 style={{ color: "red" } / JS Object}Hello</h1>, document.getElementById("root"));	//inline styles
 
@@ -485,7 +485,12 @@ const arr1 = ["Lemon"];
 const arr2 = ["Tomato", ...arr1];	//add the arr1 into arr2.
 const name = { Name: "Avish" };
 const user = { ...name, id: 1 };
-return { (...prevValue, [name]: value ) };	//JS set object key by variable which is name(check React40 if got confused)
+setContact(prevValue => {
+	return {
+		...prevValue,
+		[name]: value		Basically simple name: value create & return a new key-value pair but we need to tap into the state of 						the variable name. So, to tap into the state name we used [name]: value. 
+	       };
+});
 
 Component Tree code-
 Just go through the below three files which are-
