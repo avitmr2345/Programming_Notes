@@ -314,6 +314,9 @@ Commands-npx create-react-app my-app or npm init react-app my-app, npm start
 
 JSX is a JavaScript Extension Syntax used in React to easily write HTML and JavaScript together.
 const jsx = <h1>This is JSX</h1>   or  ReactDOM.render(<h1>Hello</h1>,document.getElementById("root"));	//render(what to show, where to show)
+New syntax - 
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
 But the browser does not understand this JSX because it's not valid JavaScript code. This is because we're assigning an HTML tag to a variable that is not a string but just HTML code. So to convert it to browser understandable JavaScript code, we use Babel which is a JavaScript compiler/transpiler which is present in "react" package.
 Use <script src="" type="text/JSX"></script> to specify that we are using a JSX file.
 
@@ -380,11 +383,24 @@ const {name = "Fluffy", sound = "Purr"} = obj; //it sets the default value if va
 const {feeding: {food, water}} = obj; //it destructure the nested object in the obj and this is extensive destructuring.
 
 React State-
+In React, state refers to the data that can change over time in your application. It's used to store information about the component's dynamic behavior. When the state of a component changes, React will automatically re-render the component to reflect the updated state.
+State is typically used for things like:
+User input (e.g., form fields)
+The result of an API call (e.g., fetched data)
+The visibility of UI elements (e.g., showing or hiding components)
+Other dynamic UI changes (e.g., a counter)
+
 Let an ice cube is your UI and when the temperature is -10 degrees then we see ice but when the temperature rise to 30 degress the ice is going to turn into water.
 When we have a UI that is dependent upon the value of a state variable, this kind of programming is known as declarative programming. Imperative programming is when we specify an element to imperatively do something different.
 
 React Hooks-
-Hooks is a way of being able to make our website interactive and actually have changeable state. But one of the rules for using hooks is that you must use a hook inside a functional React component.
+Hooks allows functional components to have side effects, manage state, and use other React features (that were previously available only in class components). Hooks is a way of being able to make our website interactive and actually have changeable state. But one of the rules for using hooks is that you must use a hook inside a functional React component.
+
+The most common hooks are:
+
+useState:
+The useState hook is used to add state to functional components. It returns an array with two values: the current state and a function to update that state.
+
 function App() {
 	const [count, setCount] = useState(0);	//sets count = 0 where 0 is the initial state and setCount is used to update the state.
 	function increase() {
@@ -398,6 +414,14 @@ function App() {
 		</div>
 	);
 }
+
+useEffect:
+The useEffect hook is used to perform side effects in functional components (such as data fetching, subscriptions, or manually changing the DOM). It runs after the render is complete.
+
+ useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => response.json());
+  }, []); // Empty array means it only runs once after the initial render
 
 React Forms and event handlers-
 We get an event passed whenever any of the event handlers(onClick, onSubmit etc.) gets triggered. When the input element triggers the function that's stored in the onChange it passes over an object and that object corresponds to the event that triggered this onChange. target is the element that triggered the event.
