@@ -8,7 +8,7 @@ Adjacent sibling - h3 + ul (Select all the unordered list immediately after the 
 
 
 CSS Box Model -
-Height & Width - Specify the HTML tags height and width.
+Height & Width (Content) - Specify the HTML tags height and width.
 Padding - It is the space between the occupied tag space and the border.
 Border - It is the border of the HTML tag.
 Margin - It is to give extra space on the HTML page without changing any property or size of the HTML tags.
@@ -16,7 +16,7 @@ Margin - It is to give extra space on the HTML page without changing any propert
 
 CSS Display Property -
 Block elements are those elements which takes an entire line and block other elements to occur right next to it.
-Eg - p,heading tag, list, div tag and form tag.
+Eg - p, heading tag, list, div tag and form tag.
 Inline display elements are those elements which only takes up as much space they needs to fit the height and width. We can't specify width in
 this. Eg - span, anchor tag.
 Inline-block elements are those elements in which we can specify width as well as use them inline.
@@ -324,7 +324,7 @@ Template literals and String Interpolation-
 const name = "Avish"; const ex = "!";
 <h1>Hello {name}</h1>; or <h1>Hello {`${name} ${ex}`}</h1>
 
-ReactDOM.render(<h1 style={{ color: "red" } / JS Object}Hello</h1>, document.getElementById("root"));	//inline styles
+ReactDOM.render(<h1 style={{ color: "red" } / JS Object}>Hello</h1>, document.getElementById("root"));	//inline styles
 
 Import and Export-
 export default pi;	//pi is passed as default when we import
@@ -515,92 +515,3 @@ setContact(prevValue => {
 		[name]: value		Basically simple name: value create & return a new key-value pair but we need to tap into the state of 						the variable name. So, to tap into the state name we used [name]: value. 
 	       };
 });
-
-Component Tree code-
-Just go through the below three files which are-
-1. App.jsx and the content inside it is -
-import React, { useState } from "react";
-import ToDoItem from "./ToDoItem";
-function App() {
-  const [items, setItems] = useState([]);
-  function addItem(inputText) {
-    setItems(prevItems => {
-      return [...prevItems, inputText];
-    });
-  }
-  function deleteItem(id) {
-    setItems(prevItems => {
-      return prevItems.filter((item, index) => {
-        return index !== id;
-      });
-    });
-  }
-  return (
-    <div className="container">
-      <div className="heading">
-        <h1>To-Do List</h1>
-      </div>
-      <InputArea onAdd={addItem} />
-      <div>
-        <ul>
-          {items.map((todoItem, index) => (
-            <ToDoItem
-              key={index}
-              id={index}
-              text={todoItem}
-              onChecked={deleteItem}
-            />
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-export default App;
-2. InputArea.jsx and the content inside it is -
-import React, { useState } from "react";
-function InputArea(props) {
-  const [inputText, setInputText] = useState("");
-  function handleChange(event) {
-    const newValue = event.target.value;
-    setInputText(newValue);
-  }
-  return (
-    <div className="form">
-      <input onChange={handleChange} type="text" value={inputText} />
-      <button
-        onClick={() => {
-          props.onAdd(inputText);
-          setInputText("");
-        }}
-      >
-        <span>Add</span>
-      </button>
-    </div>
-  );
-}
-export default InputArea;
-3. ToDoItem.jsx and the content inside it is -
-import React from "react";
-function ToDoItem(props) {
-  return (
-    <div
-      onClick={() => {
-        props.onChecked(props.id);
-      }}
-    >
-      <li>{props.text}</li>
-    </div>
-  );
-}
-export default ToDoItem;
--->Explanation
-In this set of files, the parent component is App.jsx. It serves as the main component that orchestrates the behavior of the application. It includes and manages the state for the ToDoItem components, renders the InputArea component for adding new to-do items, and renders a list of ToDoItem components based on the state.
-Here's why App.jsx is considered the parent component:
-State Management: It uses the useState hook to manage the state of the to-do items (items array).
-
-Child Components Integration: It includes and renders child components such as InputArea and ToDoItem. The InputArea component is responsible for handling user input and triggering the addition of new items, while the ToDoItem component is responsible for displaying individual to-do items.
-
-Data Flow: It passes down state (items array) and functions (addItem and deleteItem) as props to its child components (InputArea and ToDoItem), allowing them to interact with and modify the state.
-
-In a React application, the parent component is typically the one that manages the overall state and orchestrates the behavior of its child components, and in this case, that role is performed by App.jsx.
