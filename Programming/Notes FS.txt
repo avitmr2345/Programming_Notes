@@ -350,6 +350,52 @@ function Card(props) {
 		<h2>{props.age}</h2>)
 }
 
+Context API -
+The Context API in React is a feature that allows you to share data between components without having to pass props manually at every level. It helps manage global state and allows components to access values directly from a central store, making it especially useful for situations where many components need to access the same data, such as user authentication, theme settings, language preferences, etc.
+
+Eg.
+import React, { createContext, useState, useContext } from 'react';
+
+// Create a Context
+const ThemeContext = createContext();
+
+const App = () => {
+  const [theme, setTheme] = useState('light');
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <Header />
+      <Main />
+    </ThemeContext.Provider>
+  );
+};
+
+const Header = () => {
+  const { theme, setTheme } = useContext(ThemeContext);
+  return (
+    <header>
+      <h1>Current Theme: {theme}</h1>
+      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+        Toggle Theme
+      </button>
+    </header>
+  );
+};
+
+const Main = () => {
+  const { theme } = useContext(ThemeContext);
+  return <main className={theme}>Main Content</main>;
+};
+
+export default App;
+
+In this example:
+ThemeContext.Provider wraps the App component, providing the theme data to all nested components.
+The Header and Main components can access and modify the theme without needing to pass props through intermediate components.
+
+Why Use Context API?
+Global State Management, Cleaner Code, Better Component Organization.
+
 Map -  Creates a new array by doing something with each item in an array.
 var numbers = [3, 56, 2, 48, 5];
 function double(x) {
