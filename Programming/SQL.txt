@@ -10,7 +10,7 @@ CREATE TABLE cats (
 SHOW tables;
 SHOW COLUMNS FROM cats; or DESC cats;
 DROP TABLE cats;
-DROP TABLE IF EXIST table1, table2;
+DROP TABLE IF EXISTS table1, table2;
 INSERT INTO cats (name, age) 
 VALUES 
   ('Meatball', 5), 
@@ -130,27 +130,43 @@ CREATE TABLE orders (
     FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
 );
 SELECT * FROM customers, orders;(cross join)
+
 SELECT * FROM customers JOIN orders ON orders.customer_id = customers.id;
+
 SELECT first_name, last_name, SUM(amount) AS total FROM customers JOIN orders ON orders.customer_id = customers.id GROUP BY first_name , last_name ORDER BY total;
+
 SELECT first_name, last_name, order_date, amount FROM customers LEFT JOIN orders ON orders.customer_id = customers.id;
+
 SELECT first_name, last_name, IFNULL(SUM(amount), 0) AS money_spent FROM customers LEFT JOIN orders ON customers.id = orders.customer_id GROUP BY first_name , last_name;
+
 SELECT first_name, last_name, order_date, amount FROM customers RIGHT JOIN orders ON customers.id = orders.customer_id;
+
 CREATE VIEW full_reviews AS SELECT title, released_year, genre, rating, first_name, last_name FROM reviews
 JOIN series ON series.id = reviews.series_id JOIN reviewers ON reviewers.id = reviews.reviewer_id;
+
 CREATE OR REPLACE VIEW ordered_series AS SELECT * FROM series ORDER BY released_year DESC;
+
 ALTER VIEW ordered_series AS SELECT * FROM series ORDER BY released_year;
+
 DROP VIEW ordered_series;
+
 SELECT title, AVG(rating), COUNT(rating) AS review_count FROM full_reviews GROUP BY title HAVING COUNT(rating) > 1;
+
 SELECT released_year, genre, AVG(rating) FROM full_reviews GROUP BY released_year, genre WITH ROLLUP;
+
 SELECT @@GLOBAL.sql_mode;
 SELECT @@SESSION.sql_mode;
 SET GLOBAL sql_mode = 'modes';
 SET SESSION sql_mode = 'modes';
+
 SELECT emp_no, department, salary, AVG(salary) OVER() FROM employees;
+
 SELECT emp_no, department, salary, SUM(salary) OVER(PARTITION BY department) AS dept_payroll, SUM(salary) OVER() AS total_payroll
 FROM employees;
+
 SELECT emp_no, department, salary, SUM(salary) OVER(PARTITION BY department ORDER BY salary) AS rolling_dept_salary,
 SUM(salary) OVER(PARTITION BY department) AS total_dept_salary FROM employees;
+
 SELECT emp_no, department, salary,
     ROW_NUMBER() OVER(PARTITION BY department ORDER BY SALARY DESC) as dept_row_number,
     RANK() OVER(PARTITION BY department ORDER BY SALARY DESC) as dept_salary_rank,
@@ -158,10 +174,14 @@ SELECT emp_no, department, salary,
     DENSE_RANK() OVER(ORDER BY salary DESC) as overall_dense_rank,
     ROW_NUMBER() OVER(ORDER BY salary DESC) as overall_num
 FROM employees ORDER BY overall_rank;
+
 SELECT emp_no, department, salary, NTILE(4) OVER(PARTITION BY department ORDER BY salary DESC) AS dept_salary_quartile,
 NTILE(4) OVER(ORDER BY salary DESC) AS salary_quartile FROM employees;
+
 SELECT emp_no, department, salary, FIRST_VALUE(emp_no) OVER(PARTITION BY department ORDER BY salary DESC) as highest_paid_dept,
 FIRST_VALUE(emp_no) OVER(ORDER BY salary DESC) as highest_paid_overall FROM employees;
+
 SELECT emp_no, department, salary, salary - LAG(salary) OVER(ORDER BY salary DESC) as salary_diff FROM employees;
+
 SELECT emp_no, department, salary, salary - LEAD(salary) OVER(PARTITION BY department ORDER BY salary DESC) as dept_salary_diff
 FROM employees;
