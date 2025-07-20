@@ -1,7 +1,10 @@
 git init
 git clone url						// it creates the repository on the device or we can say it copies the repo to device
 git add . (or filename)
+
+A commit in Git saves a snapshot of your tracked files. Git optimizes storage by saving deltas (changes) instead of full copies.
 git commit -m "Message"
+
 git push urlname branch				
 git push -u origin main // push my local main to the remote origin/main, and -u option set origin/main as the upstream branch for local main
 git push origin master -f				// force push
@@ -18,14 +21,24 @@ git reset --hard log_id
 git stash						// temporarily save uncommitted changes
 git stash pop						// restore stashed changes
 git stash clear
+git diff file.txt					// it check the difference of current version and last saved point
+
+Branches are simply pointers to a specific commit -- nothing more.There is no storage / memory overhead with making many branches, it's easier to logically divide up your work than have big beefy branches. When we start mixing branches and commits, we will see how these two features combine. A branch essentially says "I want to include the work of this commit and all parent commits."
+Merging combines changes from one branch into another. It creates a special commit with two parents, preserving both histories. Common use case: merge a feature branch back into main.
 git branch branchName 					// creates a branch
 git checkout branchName 				// to change branch
 git switch branchName					// new command and alternative of checkout
 git checkout -b [yourbranchname]			// creates a new branch AND check it out at the same time
 git merge branchName
 git mergetool						// resolve merge conflicts
-git diff file.txt					// it check the difference of current version and last saved point
 git cherry-pick <commit>				// apply a specific commit to current branch
+
+The second way of combining work between branches is rebasing (first was merging). Rebasing essentially takes a set of commits, "copies" them, and plops them down somewhere else.
+Rebase moves your commits on top of another branch. It replays your changes to create a clean, linear history. Useful for tidying up before merging.
+git checkout feature-x					// switch to your branch
+git rebase main						// reapply feature-x commits onto main
+Pick and squash- It is to simply merge many commits into single commits.
+git rebase -i commit_id					// i means interactive environment
 
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
@@ -34,9 +47,6 @@ git checkout main
 git reset --hard upstream/main				// resets the main branch of origin to the main branch of upstream
              or
 git pull upstream main
-
-Pick and squash- It is to simply merge many commits into single commits
-git rebase -i commit_id					// reapply commits on top of another branch, -i means interactive environment
 
 git config --global credential.helper 'cache --timeout=90000000000000000000000'
 				or
