@@ -1,36 +1,42 @@
-git clone url (it creates the repository on the device or we can say it copies the repo to device)
-git remote -v ( lets you view all remote repositories)
-git remote add origin(urlname) url (it attach the url with the project on your device)
 git init
-git status 
-git checkout -- filename (discard changes in working directory)
+git clone url						// it creates the repository on the device or we can say it copies the repo to device
 git add . (or filename)
 git commit -m "Message"
-git restore --staged filename or git rm --cached -r .   (it unstage files)
-git log 
+git push urlname branch				
+git push -u origin main // push my local main to the remote origin/main, and -u option set origin/main as the upstream branch for local main
+git push origin master -f				// force push
+git pull
+git remote -v						// lets you view remote repo URLs
+git remote add origin(urlname) url (it attach the url with the project on your device)
+git status
+git log
+git checkout -- filename				// discard changes in working directory
+git checkout file.txt					// it rolls back this file to the previous version
+git restore --staged filename or git rm --cached -r .	// it unstage files
 git revert log_id
 git reset --hard log_id
-git push urlname branch
-git push origin master -f (force push)
-git stash 
-git stash pop 
+git stash						// temporarily save uncommitted changes
+git stash pop						// restore stashed changes
 git stash clear
-git branch branchName //creates a branch
-git checkout branchName //to change branch
+git branch branchName 					// creates a branch
+git checkout branchName 				// to change branch
+git switch branchName					// new command and alternative of checkout
+git checkout -b [yourbranchname]			// creates a new branch AND check it out at the same time
 git merge branchName
-git diff file.txt (it check the difference of current version and last saved point)
-git checkout file.txt (it rolls back this file to the previous version)
+git mergetool						// resolve merge conflicts
+git diff file.txt					// it check the difference of current version and last saved point
+git cherry-pick <commit>				// apply a specific commit to current branch
 
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
-git fecth --all --prune (it fecthes all the branches and prune is to fetch the deleted changes or commits too to your fork)
+git fecth --all --prune			// it fecthes all the branches and prune is to fetch the deleted changes or commits too to your fork
 git checkout main 
-git reset --hard upstream/main (resets the main branch of origin to the main branch of upstream)
+git reset --hard upstream/main				// resets the main branch of origin to the main branch of upstream
              or
 git pull upstream main
 
 Pick and squash- It is to simply merge many commits into single commits
-git rebase -i commit_id (i means interactive environment)
+git rebase -i commit_id					// reapply commits on top of another branch, -i means interactive environment
 
 git config --global credential.helper 'cache --timeout=90000000000000000000000'
 				or
