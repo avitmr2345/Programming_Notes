@@ -41,8 +41,9 @@ Rebase moves your commits on top of another branch. It replays your changes to c
 git checkout feature-x					// switch to your branch
 git rebase main						// reapply feature-x commits onto main
 Pick and squash- It is to simply merge many commits into single commits.
-git rebase -i commit_id					// i means interactive environment
+git rebase -i commit_id/HEAD~2					// i means interactive environment
 
+--> HEAD
 HEAD always points to the most recent commit which is reflected in the working tree. Normally HEAD points to a branch name (like main). When you commit, the status of main is altered and this change is visible through HEAD.
 Detaching HEAD just means attaching it to a commit instead of a branch. This is what it looks like beforehand:
 HEAD -> main -> C1 (they both point to commit C1)
@@ -71,6 +72,11 @@ git reset --hard HEAD~3
 Option 2: Check out a different branch, then force-move the original
 git checkout other-branch
 git branch -f main HEAD~3
+
+--> Cherry-pick
+It's a way for developers to say "I want this work here and that work there" in precise, eloquent, flexible ways.
+git cherry-pick <Commit1> <Commit2> <...> or git cherry-pick C2 C4;
+It's a very straightforward way of saying that you would like to copy a series of commits below your current location (HEAD).
 
 -->
 upstream is the name of the url from where you forked the project.
