@@ -16,12 +16,15 @@ git log
 git checkout -- filename				// discard changes in working directory
 git checkout file.txt					// it rolls back this file to the previous version
 git restore --staged filename or git rm --cached -r .	// it unstage files
-git revert log_id
-git reset --hard log_id
 git stash						// temporarily save uncommitted changes
 git stash pop						// restore stashed changes
 git stash clear
 git diff file.txt					// it check the difference of current version and last saved point
+
+While git reset works great for local branches on your own machine, its method of "rewriting history" doesn't work for remote branches that others are using. In order to reverse changes and share those reversed changes with others, we need to use git revert.
+Eg. git reset HEAD~1 or git reset --hard log_id
+Eg. gir revert HEAD
+A new commit plopped down below the commit we wanted to reverse using revert command. That's because the new commit C2' introduces changes -- it just happens to introduce changes that exactly reverses the commit of C2. With reverting, you can push out your changes to share with others.
 
 Branches are simply pointers to a specific commit -- nothing more.There is no storage / memory overhead with making many branches, it's easier to logically divide up your work than have big beefy branches. When we start mixing branches and commits, we will see how these two features combine. A branch essentially says "I want to include the work of this commit and all parent commits."
 Merging combines changes from one branch into another. It creates a special commit with two parents, preserving both histories. Common use case: merge a feature branch back into main.
@@ -40,6 +43,36 @@ git rebase main						// reapply feature-x commits onto main
 Pick and squash- It is to simply merge many commits into single commits.
 git rebase -i commit_id					// i means interactive environment
 
+HEAD always points to the most recent commit which is reflected in the working tree. Normally HEAD points to a branch name (like main). When you commit, the status of main is altered and this change is visible through HEAD.
+Detaching HEAD just means attaching it to a commit instead of a branch. This is what it looks like beforehand:
+HEAD -> main -> C1 (they both point to commit C1)
+After git checkout C1:
+HEAD -> C1
+
+--> Relative Refs
+Specifying commits by their hash isn't the most convenient thing ever, which is why Git has Relative Refs. With relative refs, you can start somewhere memorable (like the branch bugFix or HEAD) and work from there.
+Relative commits are powerful, but we will introduce two simple ones here:
+Moving upwards one commit at a time with ^
+Moving upwards a number of times with ~num
+Eg. git checkout main^					// C0<---C1<---C2(main), this command put HEAD on C1
+So saying main^ is equivalent to "the first parent of main" and main^^ is the "grandparent of main".
+Eg. git checkout HEAD~4
+
+--> Branch forcing
+You can directly reassign a branch to a commit with the -f option. So something like:
+git branch -f main HEAD~3				// moves (by force) the main branch to three parents behind HEAD.
+
+Note: In a real git environment git branch -f command is not allowed for your current branch. So you can use these:
+
+Option 1: Use git reset
+If you want to move the current branch (like main) to a new commit, use:
+git reset --hard HEAD~3
+
+Option 2: Check out a different branch, then force-move the original
+git checkout other-branch
+git branch -f main HEAD~3
+
+-->
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
 git fecth --all --prune			// it fecthes all the branches and prune is to fetch the deleted changes or commits too to your fork
