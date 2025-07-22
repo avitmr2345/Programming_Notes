@@ -102,6 +102,12 @@ git commit -m "New work"
 git checkout v1.0
 git commit -m "Trying to change this"
 
+--> Git describe
+It tells you where you are in the commit history relative to the nearest tag. Super helpful when debugging or working on unfamiliar commits.
+Eg. git describe or git describe <ref>(xyz commit, tag or branch)	// uses current commit if no <ref> is provided
+Output format: <tag>_<numCommits>_g<hash>				// v1.0_3_g4f9a12d
+Where tag is the closest ancestor tag in history, numCommits is how many commits away that tag is, and <hash> is the hash of the commit being described.
+
 -->
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
