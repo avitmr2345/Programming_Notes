@@ -46,7 +46,7 @@ git rebase main						// reapply feature-x commits onto main
 The above commands explanation, let's say I am working on a feature on a different branch and after testing that feature I want to merge that branch to the main branch below it. So to do that we have to checkout on feature branch and then do git rebase main which will add the feature branch below the last commit that was done by main branch. Another eg. -
 Let's say we have this C0<---C1(main)<---C2(newImage)<---C3(caption*) and we want to change the order of the newImage and caption. We can do using git rebase -i HEAD~2 which create new branch with the result that we wanted.
 
-git rebase caption main means: "Take the changes in the caption branch and reapply them on top of the main branch."
+git rebase caption main means: "Take the changes in the caption branch and reapply them on top of the main branch". Simply it mean, apply the changes in main branch below caption branch.
 
 Pick and squash- It is to simply merge many commits into single commits.
 git rebase -i commit_id/HEAD~2					// i means interactive environment
@@ -107,6 +107,19 @@ It tells you where you are in the commit history relative to the nearest tag. Su
 Eg. git describe or git describe <ref>(xyz commit, tag or branch)	// uses current commit if no <ref> is provided
 Output format: <tag>_<numCommits>_g<hash>				// v1.0_3_g4f9a12d
 Where tag is the closest ancestor tag in history, numCommits is how many commits away that tag is, and <hash> is the hash of the commit being described.
+
+--> Specifying Parents
+Like the ~ modifier, the ^ modifier also accepts an optional number after it.
+
+Rather than specifying the number of generations to go back (what ~ takes), the modifier on ^ specifies which parent reference to follow from a merge commit. Remember that merge commits have multiple parents, so the path to choose is ambiguous.
+
+Git will normally follow the "first" parent (directly above the merge commit) upwards from a merge commit, but specifying a number with ^ changes this default behavior.
+git checkout main^					// first parent of `main` (usually the branch you merged *into*)
+git checkout main^2					// second parent (the branch that was *merged in*)
+
+git checkout HEAD~; git checkout HEAD^2; git checkout HEAD~2
+These modifiers can be changed together like this for the above command:
+git checkout HEAD~^2~2;
 
 -->
 upstream is the name of the url from where you forked the project.
