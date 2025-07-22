@@ -31,6 +31,12 @@ To be clear: Remote branches are on your local repository, not on the remote rep
 
 Checking out a remote branch (like git checkout origin/main) puts you in detached HEAD mode — you can't commit directly on it as they are readonly. We have to work elsewhere on a branch, and then share the work with remote repo.
 
+--> Fetch
+git fetch is used to update remote tracking branches (like origin/main) to match the current state of the remote repository — but it doesn't change your working directory or local branches.
+git fetch						// Updates all remote branches
+git fetch origin					// Updates branches from the 'origin' remote (origin/...)
+git fetch upstream					// Only fetch from upstream
+
 --> Reset and Revert
 While git reset works great for local branches on your own machine, its method of "rewriting history" doesn't work for remote branches that others are using. In order to reverse changes and share those reversed changes with others, we need to use git revert.
 
