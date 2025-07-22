@@ -86,6 +86,22 @@ It's a way for developers to say "I want this work here and that work there" in 
 git cherry-pick <Commit1> <Commit2> <...> or git cherry-pick C2 C4;
 It's a very straightforward way of saying that you would like to copy a series of commits below your current location (HEAD).
 
+--> Git Tag
+A tag in Git is like a label you stick on a specific commit to mark it as important — usually for releases, milestones, or versioning (e.g. v1.0.0).
+Eg. git tag v1.0.0 C1					// if C1/commit not specified then tag is set on current checkout branch.
+
+Tags are stable, read-only markers for commits. You can’t commit on them, but you can check them out, archive, or share them. A tag doesn't replace or block the branch — it just marks a specific commit on that branch as important. Think of a tag as a “sticky note” on a specific page of a book. You can still keep writing more pages (committing on the branch),but the sticky note (tag) tells you:
+“This was version 1.0 — don’t forget it.”
+
+We can still commit on the main branch after tagging but can't if we chekout on tag v1.0:
+✅ Committing on a branch that has a tag pointing to it
+git checkout main
+git commit -m "New work"
+
+❌ Committing while checked out directly on a tag (detached HEAD)
+git checkout v1.0
+git commit -m "Trying to change this"
+
 -->
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
