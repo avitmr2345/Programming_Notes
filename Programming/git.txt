@@ -21,15 +21,28 @@ git stash pop						// restore stashed changes
 git stash clear
 git diff file.txt					// it check the difference of current version and last saved point
 
+--> Git Remote
+A Git remote is just a copy of your repository on another machine, often on the internet (like GitHub). It allows your local Git repo to communicate with others, typically for collaboration or backup.
+
+When we do git clone, we see a new branch in our local repository called origin/main. This type of branch is called a remote branch. Remote branches reflect the state of remote repositories (since you last talked to those remote repositories). These branches help compare your local work with the public version of the project.
+
+origin/main → origin is the remote name (default after cloning), main is the branch.
+To be clear: Remote branches are on your local repository, not on the remote repository (GitHub).
+
+Checking out a remote branch (like git checkout origin/main) puts you in detached HEAD mode — you can't commit directly on it as they are readonly. We have to work elsewhere on a branch, and then share the work with remote repo.
+
 --> Reset and Revert
 While git reset works great for local branches on your own machine, its method of "rewriting history" doesn't work for remote branches that others are using. In order to reverse changes and share those reversed changes with others, we need to use git revert.
+
 Eg. git reset HEAD~1 or git reset --hard log_id
 Eg. gir revert HEAD
+
 A new commit plopped down below the commit we wanted to reverse using revert command. That's because the new commit C2' introduces changes -- it just happens to introduce changes that exactly reverses the commit of C2. With reverting, you can push out your changes to share with others.
 
 --> Branching
 Branches are simply pointers to a specific commit -- nothing more.There is no storage / memory overhead with making many branches, it's easier to logically divide up your work than have big beefy branches. When we start mixing branches and commits, we will see how these two features combine. A branch essentially says "I want to include the work of this commit and all parent commits."
 Merging combines changes from one branch into another. It creates a special commit with two parents, preserving both histories. Common use case: merge a feature branch back into main.
+
 git branch branchName 					// creates a branch
 git checkout branchName 				// to change branch
 git switch branchName					// new command and alternative of checkout
@@ -41,8 +54,10 @@ git cherry-pick <commit>				// apply a specific commit to current branch
 --> Rebase
 The second way of combining work between branches is rebasing (first was merging). Rebasing essentially takes a set of commits, "copies" them, and plops them down somewhere else.
 Rebase moves your commits on top of another branch. It replays your changes to create a clean, linear history. Useful for tidying up before merging.
+
 git checkout feature-x					// switch to your branch
 git rebase main						// reapply feature-x commits onto main
+
 The above commands explanation, let's say I am working on a feature on a different branch and after testing that feature I want to merge that branch to the main branch below it. So to do that we have to checkout on feature branch and then do git rebase main which will add the feature branch below the last commit that was done by main branch. Another eg. -
 Let's say we have this C0<---C1(main)<---C2(newImage)<---C3(caption*) and we want to change the order of the newImage and caption. We can do using git rebase -i HEAD~2 which create new branch with the result that we wanted.
 
@@ -60,6 +75,7 @@ HEAD -> C1
 
 --> Relative Refs
 Specifying commits by their hash isn't the most convenient thing ever, which is why Git has Relative Refs. With relative refs, you can start somewhere memorable (like the branch bugFix or HEAD) and work from there.
+
 Relative commits are powerful, but we will introduce two simple ones here:
 Moving upwards one commit at a time with ^
 Moving upwards a number of times with ~num
@@ -72,7 +88,6 @@ You can directly reassign a branch to a commit with the -f option. So something 
 git branch -f main HEAD~3				// moves (by force) the main branch to three parents behind HEAD.
 
 Note: In a real git environment git branch -f command is not allowed for your current branch. So you can use these:
-
 Option 1: Use git reset
 If you want to move the current branch (like main) to a new commit, use:
 git reset --hard HEAD~3
