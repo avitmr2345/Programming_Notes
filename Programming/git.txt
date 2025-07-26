@@ -142,6 +142,43 @@ git fetch						// Updates all remote branches
 git fetch origin					// Updates branches from the 'origin' remote i.e. origin/...
 git fetch upstream					// Only fetch from upstream i.e. upstream/...
 
+--> Pull
+Since fetching + merging is a common workflow, Git provides a shortcut:
+git pull
+
+--> Push
+Once you've fetched and integrated remote changes locally, you’ll likely want to share your own updates with others. That’s where git push comes in. Running git push without arguments behaves differently based on the push.default setting. In most modern setups, it's set to upstream, which pushes to the branch your current branch is tracking. You can check it using:
+git config --get push.default
+
+What git push Does:
+Sends your commits to a remote branch.
+Updates the remote repo so others can fetch or pull your changes.
+Essentially, it's how you publish your work.
+
+Example:
+git push origin main					// pushes your current branch to the main branch on the origin remote.
+
+--> Diverged Work
+Sometimes your local branch falls behind the remote because others have pushed new commits. If you try to git push, Git will reject it due to a divergence in commit history.
+
+Why This Happens:
+Your work is based on an outdated version.
+Git doesn't know how to safely combine your changes with the newer remote history.
+So it forces you to update your branch first.
+
+How to Fix It:
+Option 1: Rebase (Clean History)
+git fetch; git rebase origin/main; git push;
+Re-applies your changes on top of the latest remote commits.
+
+Option 2: Merge (Preserves History)
+git fetch; git merge origin/main; git push;
+Merges the latest changes from remote into your branch, creating a merge commit.
+
+Shortcut:
+git pull --rebase; git push;
+Equivalent to fetch + rebase + push, all in fewer steps.
+
 -->
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
