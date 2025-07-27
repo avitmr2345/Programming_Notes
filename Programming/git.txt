@@ -193,6 +193,29 @@ git pull origin main     # Update local main with latest changes
 git merge feature-xyz    # Merge feature into main
 git push origin main     # Push updated main to remote
 
+--> Merge vs Rebase – Why Prefer Rebase?
+To update your branch with remote changes, you can either:
+git merge origin/main
+git rebase origin/main
+Both work, but many developers prefer rebase. Here's why:
+
+Rebase Pros:
+Creates a clean, linear history — no messy merge commits.
+Easier to read with tools like git log or GitHub PRs.
+
+Rebase Cons:
+Rewrites history: Commits appear in a different order than they were created.
+Can be confusing if misused in shared branches.
+
+Merge Pros:
+Preserves true history (no changes to commit order).
+Safer for public/shared branches.
+
+Bottom Line:
+Rebase = Clean, simple history.
+Merge = Accurate, detailed history.
+Use whichever fits your team’s style — it's mostly preference!
+
 -->
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
