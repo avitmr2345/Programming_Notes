@@ -189,6 +189,16 @@ You can't fetch into a checked-out branch — Git will block it to prevent data 
 Since fetching + merging is a common workflow, Git provides a shortcut:
 git pull
 
+git pull origin foo
+# Same as:
+git fetch origin foo
+git merge origin/foo
+
+git pull origin bar:bugFix
+# Same as:
+git fetch origin bar:bugFix
+git merge bugFix
+
 --> Push
 Once you've fetched and integrated remote changes locally, you’ll likely want to share your own updates with others. That’s where git push comes in. Running git push without arguments behaves differently based on the push.default setting. In most modern setups, it's set to upstream, which pushes to the branch your current branch is tracking. You can check it using:
 git config --get push.default
