@@ -179,6 +179,20 @@ Shortcut:
 git pull --rebase; git push;
 Equivalent to fetch + rebase + push, all in fewer steps.
 
+--> Merging Feature Branches
+When working on a project, developers usually:
+1. Create and work on a feature branch.
+git checkout -b feature-xyz
+
+2. Push the feature branch to remote for collaboration or backup.
+git push origin feature-xyz
+
+3. Once done, switch to main, pull latest changes, and merge the feature.
+git checkout main
+git pull origin main     # Update local main with latest changes
+git merge feature-xyz    # Merge feature into main
+git push origin main     # Push updated main to remote
+
 -->
 upstream is the name of the url from where you forked the project.
 To maintain the upstream main branch with the fork main branch if something was merged in the upstream -
