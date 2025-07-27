@@ -170,6 +170,21 @@ git fetch						// Updates all remote branches
 git fetch origin					// Updates branches from the 'origin' remote i.e. origin/...
 git fetch upstream					// Only fetch from upstream i.e. upstream/...
 
+Just like git push, you can use the <place> and <source>:<destination> syntax with git fetch — but it works in the opposite direction (downloading, not uploading).
+
+Basic Fetch:
+git fetch origin foo
+Downloads commits from remote foo branch.
+Stores them in local origin/foo (not your local foo branch).
+Git does this to avoid overwriting your local work.
+
+Colon Refspec (Advanced):
+git fetch origin <remote-branch>:<local-branch>		// Downloads commits from a remote branch into a specific local branch.
+
+Example:
+git fetch origin feature:new-feature			// Fetches origin/feature into a local branch named new-feature.
+You can't fetch into a checked-out branch — Git will block it to prevent data loss.
+
 --> Pull
 Since fetching + merging is a common workflow, Git provides a shortcut:
 git pull
