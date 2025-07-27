@@ -213,6 +213,21 @@ git push origin <source>:<destination>
 Example:
 git push origin main:newBranch				// if remote destination branch doesn't exist, Git will create it.
 
+--> Oddities of <source>
+Git allows you to specify "nothing" as a <source> by using an empty value before the colon (:). This leads to some unique behaviors:
+
+git push origin :side
+No source, pushing "nothing" to side on remote.
+Result: Deletes the side branch from the remote.
+
+git fetch origin :bugFix
+No source = nothing fetched.
+Destination bugFix is created locally as a new empty branch.
+
+Summary:
+:<destination> → special syntax where no source is given.
+Useful for deleting remote branches or creating new local ones.
+
 --> Diverged Work
 Sometimes your local branch falls behind the remote because others have pushed new commits. If you try to git push, Git will reject it due to a divergence in commit history.
 
