@@ -1,0 +1,636 @@
+							  Spring Boot Quick Start
+
+>> Spring Boot
+Spring Boot is an extension of the Spring framework that simplifies the process of building production-ready applications. It provides a set of conventions and defaults to streamline configuration and setup, allowing developers to focus on building features rather than dealing with boilerplate code.
+
+Key Features :
+Auto-Configuration: Automatically configures your application based on the dependencies present on the classpath, reducing the need for manual configuration.
+
+Standalone Applications: Spring Boot applications can run as standalone Java applications, simplifying deployment.
+
+Embedded Servers: It includes embedded servers like Tomcat, Jetty, or Undertow, which means you don't need to deploy your application to an external server.
+
+Production-Ready Features: Built-in features like health checks, metrics, and externalized configuration make it easier to create robust applications ready for production.
+
+Microservices Ready: Spring Boot is a popular choice for building microservices due to its lightweight nature and easy integration with Spring Cloud for distributed systems.
+
+Convention Over Configuration: It follows a convention-over-configuration approach, minimizing the amount of configuration required.
+
+>> Maven
+Maven is a build automation and project management tool primarily used for Java projects. It simplifies the process of managing project dependencies, building projects, and deploying applications. Maven need project coordinates to uniquely identify a project which are GAV (Group ID- name of group or company, Artifact ID- name of the project, Version)
+
+Key Features :
+Project Object Model (POM): Maven uses a POM file (pom.xml) to manage project configuration, including dependencies, plugins, and project metadata.
+
+Dependency Management: It allows you to declare project dependencies in the POM file, automatically downloading the required libraries from repositories (like Maven Central) and managing their versions.
+
+Build Lifecycle: Maven has a defined lifecycle with phases (like compile, test, package, and install), which simplifies the build process by providing a consistent way to manage project builds.
+
+Plugins: Maven’s functionality can be extended using plugins. These can handle tasks such as compiling code, running tests, generating documentation, and deploying applications.
+
+Convention over Configuration: Maven follows a set of conventions that minimize the need for custom configuration, making it easier to manage projects.
+
+>> Spring Boot Starters
+Spring Boot starters are a set of convenient dependency descriptors you can include in your application to easily add functionality or simply we can say, a collection of maven dependencies and it also make sure you have compatible versions. They simplify the process of adding new features by bundling commonly used libraries and their configurations.
+
+Benefits of Using Starters:
+Simplified Dependency Management: You don’t have to manage versions for each library.
+Quick Setup: Quickly get started with pre-configured libraries.
+Best Practices: Bundles commonly used libraries that follow Spring’s conventions.
+
+>> Spring Boot Starter Parent 
+Spring Boot Starter Parent is a special starter that provides a foundational structure for your application. It helps simplify dependency management and project configuration. It is a special starter that provides Maven defaults like encoding, java version etc.
+
+Key Features:
+Dependency Management: It manages versions of commonly used dependencies, so you don’t have to specify versions in your pom.xml. This ensures compatibility between different libraries.
+Default Plugins: It provides default Maven plugins, which simplifies the build process. It configures the spring-boot-maven-plugin for you.
+Configuration: It sets up sensible defaults for Spring Boot applications, making it easier to get started.
+
+>> Spring Boot Actuator
+Spring Boot Actuator is an essential tool for monitoring and managing your Spring Boot applications. It exposes various endpoints that give insights into the application's health, metrics, environment, and more.
+
+Key Features:
+Health Checks: Provides an endpoint to check the health of your application, including database connectivity, service availability, and other custom health indicators.
+Metrics: Gathers application metrics, such as memory usage, garbage collection, and request statistics, which can be accessed via an endpoint.
+Environment Information: Exposes information about the application’s environment, including configuration properties and active profiles.
+Application Info: Provides details about the application, such as version and description, which can be customized.
+Custom Endpoints: You can create your own endpoints to expose additional functionality.
+
+>> Running Spring Boot from command line
+Firstly we will create the jar file for our application using mvnw package command and then use one of the below method.
+1. java -jar myapp.jar
+2. mvnw spring-boot:run
+
+>> Spring Boot properties
+Spring Boot have 1000+ properties. They are divided into the following categories-
+Core, Web, Security, Data, Actuator, Integration, DevTools, Testing.
+
+								Spring Core
+
+>> IoC
+Inversion of Control means that the control of object creation and management is transferred from the application code to the Spring container. This contrasts with traditional programming, where the application directly creates and manages its dependencies.
+
+Spring Container
+The Spring container is responsible for instantiating, configuring, and managing the objects (beans) in a Spring application. When requested, it determines which object to provide based on the configuration. Functions of the Spring Container:
+Object Creation and Management: Uses IoC to create and manage objects.
+Dependency Injection: Injects dependencies into objects as needed.
+
+There are different types of containers in Spring:
+BeanFactory: The simplest container, which provides basic support for DI.
+ApplicationContext: A more advanced container that builds on BeanFactory, adding features such as event propagation, declarative mechanisms to create a bean, and internationalization.
+
+Configuring the Spring Container
+There are three main approaches to configure the Spring container: XML Configuration, Java Annotations, Java Source Code
+
+>> Dependency Injection
+In Spring, it allows objects to receive their dependencies from an external source (the Spring container), rather than creating them internally. This promotes loose coupling and easier testing.
+
+Types of Dependency Injection
+Constructor Injection:
+Dependencies are provided through a class constructor.
+Ensures that the class is always in a valid state.
+Use this when you have required dependicies.
+
+Setter Injection:
+Dependencies are provided through setter methods after the object is constructed.
+Use this when you have optional dependencies.
+If dependency is not provided, your app can provide reasonable default logic.
+
+Spring Autowiring
+A feature in Spring that automatically injects dependencies.
+Spring looks for a class that matches the required type (either a class or an interface).
+
+How Autowiring Works:
+Spring scans for components or class annotated with @Component.
+It checks if there are any implementations of the required interface.
+If a match is found, Spring automatically injects that implementation.
+
+@Component annotation marks the class as a Spring Bean. A Spring Bean is just a regular Java class that is managed by Spring. It also make the bean available for dependency injection. @Autowired tells Spring to inject a dependency.
+
+Development process for Constructor Injection-
+1. Define the dependency interface and class
+2. Create Rest controller
+3. Create a constructor for injection
+4. Add @GetMapping
+
+>> Component Scanning
+By default, Spring Boot starts component scanning from same package as your main Spring Boot Application and also scans sub packages. It will not scan outside the main application directory which is in my case is com.myfirst_springapp.springapp .
+If we want to also scan the components in other directory then we have to mention them explicitly like this-
+@SpringBootApplication(
+	scanBasePackages={"com.myfirst_springapp.springapp",
+			  "com.xxxx.xxx",
+			  "com.xx.xxxxx"})
+@SpringBootApplication is composed of @EnableAutoConfiguration, @ComponentScan and @Configuration which enables auto-configuration, component scanning and able to register extra beans with @Bean or import other configuration classes.
+
+>> Development process for Setter Injection-
+1. Create setter method in your class for injection
+2. Configure the dependency injection with @Autowired annotation
+
+>> Development process for Field Injection-
+1. Configure the dependency injection with @Autowired annotation
+@Autowired
+private Coach myCoach;
+But don't use this because it makes the code harder to Unit test.
+
+>> Qualifier
+If we have multiple implementation of the Coach interface then Spring will get confused to choose the bean to implement.
+So we can use @Qualifier annotation and give bean id:trackCoach which is same as classname but first letter lowercase, like this-
+public DemoController(@Qualifier("trackCoach") Coach theCoach) {}; //same for the setter injection before the Coach theCoach
+
+>> Primary
+Alternative of Qualifier in which we specify the primary coach which will get implemented. If we use both Primary and Qualifier annotaion then the Qualifier annotation have higher priority.
+
+>> Lazy Initialization
+By default, when your application starts, all beans are initialized, @Component etc. Spring will create an instance of each and make them available.
+So, instead of creating all beans up front, we can specify lazy initialization.
+A bean will only be initailized when it is needed for DI, or it is explicitly requested.
+
+To set the global configuration for lazy initialization-
+spring.main.lazy-initialization=true
+This will make all beans lazy including DemoController and once we access REST endpoint /dailyworkout spring will determine dependencies for DemoController. Then for dependency resolution spring creates instance of implentaion class first and then creates instance of DemoController and injects the implementation class.
+
+>> Bean scope & Bean Lifecycle
+Scope refers to the lifecycle of a bean. Default scope in Spring  is singleton i.e. Spring Container creates only one instance of the bean. We can change it to prototype in which we can create a new bean instance for each request. For "prototype" scoped beans, Spring does not call the destroy method. Prototype beans are lazy by default. There is no need to use the @Lazy annotation for prototype scopes beans.
+
+Lifecycle-
+Container started, Bean instantiated, Dependencies injected, Internal Spring Processing, My Custom init method which is defined by @PostConstruct, Bean Ready to use, Container shutdown, My Custom destroy method defined by @PreDestroy.
+
+>> Configuring Beans with Java Source Code
+Development Process -
+1. Create @Configuration class
+2. Define @Bean method to configure the bean
+3. Inject the bean into our controller
+The default bean id is the method name but we can change it using like this @Bean("name") and inject name in our controller.
+
+							   Hibernate JPA CRUD
+
+>> Hibernate
+A framework for persisting/saving and retrieving Java objects in a database. We can also say it connects your Java app to a database for fetching and storing data. It is a vendor implementation of JPA Spec.
+It handles all of low-level SQL and provides the Object-to-Relational Mapping(ORM).
+In ORM, the developer defines mapping between Java class and database table.
+
+JPA
+Jakarta Persistence API is the standard API for ORM. It is only a specification which defines a set of interfaces and it requires an implementation to be usable.
+By having a standard API, we are not locked to one vendor's implementation like Hibernate or EclipseLink because it maintains portable, flexible code by coding to JPA spec (interfaces).
+
+Saving a Java object with JPA-
+Student student = new Student("Avish", "Tomar");
+entityManager.persist(student);
+where,
+entityManager is a special JPA helper object
+
+Retrieving a Java object with JPA-
+int id = 1;
+Student student = entityManager.find(Student.class, id);
+
+Querying for Java objects-
+TypedQuery<Student> theQuery = entityManager.createQuery("from Student", student.class);
+List<Student> student = theQuery.getResultList();
+Returns a list of Student objects from the database.
+
+Hiberanate/JPA uses JDBC for all database communications. Hibernate/JPA is just another layer of abstraction on top of JDBC. Hibernate does low-level work for you and after that it all goes through the standard JDBC API in the background.
+
+>> Setting Up Spring Boot project
+In Spring Boot, Hibernate is the default implementation of JPA.
+EntityManager is main component for creating queries etc. and it is from JPA.
+Add dependencies in your Spring app during initialization- MySQLDriver, SpringDateJPA.
+Spring Boot will automatically configure your data source for you. Based on entries from Maven pom file, it will add JDBC driver and Spring Data (ORM).
+Based of configs, Spring Boot will automatically create the beans: DataSource, EntityManager. You can then inject these into your app, for example your DAO.          
+
+CommandLineRunner is from the Spring framework and it's a hook that allow to execute code after Spring Beans have been loaded.
+
+>> JPA development process
+1. Annotate Java Class
+2. Develop Java Code to perform database operation
+
+Entity class is a Java class that is mapped to a database table. It must be annotated with @Entity. Must have a public or protected no-argument constructor and can have other constructors.
+
+>> Saving a Java object
+Data Access Object(DAO) is responsible for interfacing with database.
+Our app will communicate with DAO and DAO will talk to database.
+
+DAO needs a JPA Entity Manager which is the main component for saving/retrieving entities.
+JPA Entity Manager needs a Data Source. Data source defines database connection info. They both are automatically created by Spring Boot based on the file: application.properties (JDBC URL, user id, password).
+We autowire/inject the JPA Entity Manager into our Student DAO
+
+@Transactional annotation automatically begin and end a transaction for your JPA code. It handles transaction management.
+@Repository annotation is applied to DAO implementaion. It will automatically register the DAO implementation using component scanning and provides translation of JDBC related exception.
+
+Steps:
+1. Define DAO interface
+2. Define DAO implementation and inject entity manager
+3. Update main app
+
+>> Querying objects with JPA
+JPA uses JPQL for retrieving objects and it is based on entity name and entity fields.
+TypedQuery<Student> theQuery = entityManager.createQuery("FROM Student WHERE lastName='Tomar'", Student.class);
+List<Student> student = theQuery.getResultList();
+where, Student is the name of JPA Entity(the class name), lastName is field of JPA entity.
+
+JPQL named parameters are prefixed with a colon ':' and it acts as a placeholder.
+
+>> Updating objects with JPA
+Updating last name for all students-
+int numOfRowUpdated = entityManager.createQuery("UPDATE Student SET lastName ='Tomar'").executeUpdate();
+
+>> Create DB table using Java code
+Note: It is not recommended for production level project but it is useful for DB integration testing.
+JPA/Hibernate provides an option to automatically create database tables using annotation provided on the Java code in entity/Student.java file.
+spring.jpa.hibernate.ddl-auto=create
+
+							       REST CRUD APIs
+
+>> JSON Data Binding
+Data Binding is the process of converting JSON data to a Java POJO. Spring uses the Jackson Project behind the scenes which handles data binding between JSON and POJO. By default, Jackson will call appropriate gette/setter method.
+When converting JSON to POJO, Jackson will call setter methods on POJO and when converting POJO to JSON, Jackson will call getter methods on POJO.
+When building Spring REST app, it will automatically handle Jackson Integration. JSON data being passed to REST controller is converted to POJO. Java object being returned from REST controller is converted to JSON.
+
+>> Exception Handling
+Development process:
+1. Create a custom error response class (basically entity class)
+2. Create a custom exception class
+3. Update REST service to throw exception
+4. Add an exception handler method using @Exception Handler
+
+Exception handler will return a ResponseEntity which is a wrapper for the HTTP response object. ResponseEntity provide fine-grained control to specify: HTTP status code, HTTP headers and Response body.
+public ResponseEntity<EmployeeErrorResponse> handleException(EmployeeNotFoundException exception)
+where, EmployeeErrorResponse is the type of response body and EmployeeNotFoundException is the exception type to handle.
+
+>> Global Exception Handling
+@ControllerAdvice which is similar to an interceptor/filter.
+We use this annotation to pre-process requests to controllers and post-process responses to handle exceptions.
+
+>> Service Layer
+The service layer sits between Rest controller and DAO(which help accessing data from database).
+It provides intermediate layer for custom business logic.
+It also helps integrate data from mulitple sources(DAO/repositories). For eg. we can have Employee DAO, Skills DAO and Payroll DAO and Service will handle the data from these sources, or we can say it provide controller with a single view of the data that we integrated from these multiple backend data sources.
+We simply use this to delegate the calls from the service to the DAO. It is best practice to use service layer with DAO.
+
+@Service annotation is applied to service implementations.
+Spring will automatically register the service implementation usign component scanning.
+It's the service layer responsibility to manage transaction boundaries(@Transactional). So apply @Transactional on service methods and remove @Transactional from DAO methods.
+
+Steps:
+1. Define Service interface
+2. Define Service implementation and inject the DAO.
+
+1. Create a folder in the main app called service. Create service interface in this file StudentService.java
+
+public interface StudentService {
+    List<Student> findAll();
+}
+
+2. Create implementation class of the interface in same folder called StudentServiceImpl.java
+@Service
+public class StudentServiceImpl implements StudentService {
+	private StudentDAO studentDAO;
+
+	@Autowired
+	public StudentServiceImpl(StudentDAO theStudentDAO) {
+		studentDAO = theStudentDAO;
+	}
+
+	@Override
+	public List<Student> findAll() {
+	return studentDAO.findAll();
+	}
+}
+
+I have created this in the main application file but if we implement this using Service then -
+Create a Rest controller StudentRestController.java
+@RestController
+@RequestMapping("/api")
+public class StudentRestController {
+	private StudentService studentService;
+
+	@Autowired
+	public StudentRestController(StudentService theStudentService) {
+	studentService = theStudentService;
+	}
+
+	@GetMapping("/students")
+	public List<Student> findAll() {
+		return studentService.findAll();
+	}
+}
+
+@PostMapping for post request and @RequestBody is to bind the JSON data to the Student object.
+@PostMapping("/students")
+public Student addStudent(@RequestBody Student theStudent) {
+	theStudent.setId(0);
+	Student dbStudent = studentService.save(theStudent);
+	return dbStudent;
+}
+
+>> Spring Data JPA
+Prior to this we have used the JPA API for DAO but we have to repeat code again for every new entity we create. So, we use Spring Data JPA to minimize the code for DAO.
+We just tell Spring that create a DAO and just plug in my entity type and primary key. Spring will give us CRUD implementation like findAll(), findById(), save(), deleteById() and others for free.
+Default endpoint is the entity name in lowercase with an extra "s" in end.
+Spring Data JPA provides the interface JpaRepository and it exposes methods (some by inheritance from parents). JpaRepository automatically provides @Transactioal functionality.
+It also provides some advanced features:
+Extending and adding custom queries with JPQL.
+Query Domain Specific Language(Query DSL).
+Defining custom methods(low-level coding).
+
+>> Spring Data REST
+Prior to this we have created REST API for each and every entity but we have to repeat the code for each new entity. So, we use Spring Data REST to minimize the code.
+We just tell Spring that create a REST API and use my existing JpaRepository and it gives all of the basic REST API CRUD implementation like GET, POST, PUT, DELETE for free.
+Spring Data REST leverages the existing JpaRepository. It scans our project for JpaRepository and expose REST API for each entity tupe for our JpaRepository.
+Spring Data REST endpoints are HATEOS compliant (Hypermedia as the Engine of Application State). Hypermedia-driven sites provide information to access REST interfaces. Think of it as meta-data for REST data. HATEOS uses Hypertext Application Language(HAL) data format.
+It also provides advanced features:
+Pagination, sorting and searching.
+Extending and adding custom queries with JPQL.
+Query DSL.
+
+>> Pagination and to expose the custom endpoint for JpaRepository-
+@RepositoryRestResource(path="members")
+public interface StudentRepository extends JpaRepository<Student, Integer> {
+
+}
+
+spring.data.rest.base-path=/magic-api
+spring.data.rest.default-page-size=3
+
+								REST API Security
+
+>> Spring Security Model
+Spring Security defines a framework for security implemented using Servlet filters in the background. Two methods of securing an app: declarative and programmatic.
+Servlet filters are used to pre-process/ post-process web requests. Servlet filters can route web requests based on security logic.
+Spring Security filters intercept the request to your resource or API endpoint and pre-process them and see if the user is authenticated and authorized or not. Spring Security will look at our application security configuration and also look at the user, passoword and roles.
+
+Declarative Security-
+Defines application's security constraints in configuration. It provides seperation of concerns between application code and security.
+
+Programmatic Security-
+Spring Security provides an API for custom application coding. Provides greater customization for specific app requirements.
+
+>> Basic configuration
+Development Process-
+1. Create Spring Security Configuration
+2. Add user, password and roles
+
+In spring security, passwords are stored using a specific format-
+{id}encodedPassword, where id is the encoding algorithm id like noop or bcrypt. The id tells Spring Security how the passwords are stored.
+
+>> Restricting URLs based on Roles
+requestMatchers(add HTTP method to match on, add path to match on).hasRole(give authorized role)	//hasAnyRole(give , delimited list)
+Eg. requestMatchers(HttpMehtod.GET, "magic-api/employees/**").hasRole()  // ** is to match on all sub-paths
+
+CSRF
+Spring Security can protect against CSRF attacks.
+Embed additional authentication data/token into all HTML forms. On subsequent requests, web app will verify token before processing. Primary use case is traditional web applications.
+When to use-
+Spring security team recommends to use CSRF protection for any normal browser web requests. Traditional web apps with HTML form to add/modify data.
+If building a REST API for non browser clients, you may want to disable CSRF protection. In general, not required for stateless REST APIs that use POST, PUT, DELETE and/or PATCH.
+
+>> JDBC database authentication with plain-text
+Spring Security can read user account info from the database. By default, you have to follow Spring Security's predefined table schemas 'users' and 'authorities'. If we follow these table schemas then Spring Security includes all of the JDBC code to actually read information from the database.
+The users table have username, password and enabled fields. The authorities table(it is same as roles) have username and authority fields.
+We can also customize the table schemas if you have custom tables specific to your project. You will be responsible for developing the code to access the data (JDBC, JPA/Hibernate etc).
+
+Development Process-
+Develop SQL script to set up database tables
+Add database support to POM file
+Create JDBC properties to access the MySQL database
+Update Spring Security Configuration to use JDBC.
+
+>> JDBC database authentication with bcrypt encryption
+Bcrypt perform one-way encrypted hashing which means it can encrypt but not decrypt. Bcrypt adds a random salt to the password for additional protection. It also includes support to defeat brute force attacks.
+We can encrypt plain text password using bcrypt with a website utility(www.luv2code.com/generate-bcrypt-password) or write Java code to perform the encryption.
+
+Development process-
+Run SQL script that contains encrypted passwords to modify DDL for password field, length should be 68 where {bcrypt} and encodedPass contains 8 and 60 chars.
+
+Login process-
+Retrieve password from DB from the user. Read the encoding algo id {bcrypt etc}. In case of bcrypt, encrypt plaintext password from login form(using salt from DB password). Compare password from login form with password from DB. If there is a match login otherwise do not login.
+
+>> Customize the table schemas if you have custom tables
+You have to tell Spring how to query your custom tables and provide query to find user, authorities/roles by user name.
+Development process-
+1. Create our custom tables with SQL
+2. Update Spring Security configuration-
+Provide query to find user by username
+Provide query to find authorities/ roles by username
+
+So, create your table and then modify the Spring Security configuration (userDetailsManager in the security folder)
+@Bean
+public UserDetailsManager userDetailsManager(DataSource datasource) {
+                JdbcUserDetailsManager theUserDetailsManager = new JdbcUserDetailsManager(datasource);
+
+		theUserDetailsManager.setUserByUsernameQuery("select user_id, pw, active from members where user_id=?");
+
+		theUserDetailsManager.setAuthoritiesByUsernameQuery("select user_id, role from roles where user_id=?");
+
+		return theUserDetailsManager
+        }
+where "?" is the parameter placeholder. This parameter value will be the username from login page.
+
+								   Spring MVC
+
+>> Spring MVC with Thymeleaf
+Thymeleaf is a Java templating engine commonly used to generate the HTML views for web apps. It is a seperate project unrelated to spring.io. You can create Java apps with Thymeleaf. No need for Spring.
+However, it is a general purpose templating engine. Can use Thymeleaf outside of web apps.
+Development Process-
+1. Add Thymeleaf to POM file
+2. Develop Spring MVC Controller
+3. Create Thymeleaf template
+
+>> Spring MVC Validation
+Java have a standard Bean Validation API. Defines a metadata model and API for entity validation. Spring Boot and Thymeleaf also support the Bean Validation API. Some validation annotations are @NotNull, @Min, @Max, @Size, @Pattern, @Future, @Past and others.
+
+Development Process-
+1. Create Customer class and add validation rules
+2. Add Controller code to show HTML form
+3. Develop HTML form and add validation support
+4. Perform validation in the Controller class
+5. Create confirmation page
+
+@InitBinder annotation works as a pre-processor. It will pre-process each web request coming to our controller and method annotated with @InitBinder is executed. @StringTrimmerEditor is defined in Spring API which removes leading, trailing whitespaces and also set to null if String only have whitespaces.
+
+								  Spring MVC CRUD
+
+Add custom method to JPA Repository
+public List<Employee> findAllByOrderByLastNameAsc();
+
+Spring Data JPA will parse the method name and looks for a specific format and pattern like findAllBy and OrderByLastNameAsc. Then creates appropriate query behind the scenes.
+
+Big picture of Spring MVC CRUD app -
+
+		Web Browser -----> Employee Controller <-----> Employee Service <-----> Employee DAO <-----> Database
+					   |
+					   |
+			    <-----    Thymeleaf Page
+
+							   Aspect-Oriented Programming
+
+>> Business Problem
+Suppose we have to add logging statements before the start of our DAO method and then we have to add security code to make sure user is authorized before running DAO methods. Then boss says add these to all our layers i.e. Controller, Service and DAO. So, in order to do this we have to add logging and security to all these layers. And after that he says replicate it accross entire system.
+If we want to change the logging code or security code we have to update all layers or classes.
+
+The solution is AOP i.e. Programming technique based on concept of an Aspect. Aspect encapsulates cross-cutting logic or cross-cutting concerns. So, its like infrastructure code that all application will need. Aspect/class can be reused at multiple locations like between Account Controller and Account Service , Account Service and Account DAO etc. and many other Controllers, Services and DAO's.
+
+Benefits of AOP:
+1. Code for Aspect is defined in a single class which promotes code reuse and easier to change.
+2. Reduces code complexity.
+3. Configurable i.e. apply aspects selectively to different parts of app which doesn't need to change main app code.
+
+AOP use cases:
+Most common - Logging, security, transactions
+Audit logging - who, what, when, where for a method that's called
+Exception handling to log exception and notify team via SMS/email
+API Management like how many times has a method called by user and analytics like what are peak times, average load and who is top user
+
+>> Comparing Spring AOP and AspectJ
+AOP Terminology
+Aspect: module of code for a cross-cutting concern(logging, security...)
+Advice: what action is taken and when it should be applied
+Join Point: when to apply code during program execution
+Pointcut: a predicate expression for where advice should be applied
+
+Advice Types
+Before advice: run before the method
+After finally advice: run after the method (finally)
+After returning advice: run after the method (success execution) 
+After throwing advice: run after method (if exception thrown)
+Around advice: run before and after method
+
+Weaving:
+Connecting aspects to target objects to create an advised object
+Different types of weaving - Compile time, load time or run time
+Regarding performance: run time weaving is the slowest
+
+AOP Frameworks:
+1. Spring AOP
+Spring provides AOP support out of the box. 
+Spring uses AOP in the background for security, transactions, caching etc.
+Uses run-time weaving of aspects. So, Spring makes use of the proxy pattern(the main application will talk to a proxy, all the aspects are processed, and then it makes it to the actual target object) to advise an object.
+
+Advantages:
+Simpler to use than AspectJ.
+Uses Proxy pattern.
+Can migrate to AspectJ when using @Aspect annotation.
+
+Disadvantages:
+Only support method-level join points.
+Can only apply aspects to beans created by Spring app context.
+Minor performance cost for aspect execution(run-time weaving)
+
+2. AspectJ
+Original AOP framework which provides complete support for AOP.
+Rich support for join points: method level, constructor level, field level and code weaving: compile time, post compile time, load time.
+
+Advantages:
+Support all join points.
+Works with any POJO not just beans from app context.
+Faster performance than Spring AOP.
+Complete AOP support.
+
+Disadvantages:
+Compile time weaving requires extra compilation step.
+AspectJ pointcut syntax can become complex.
+
+>> @Before Advice
+The Proxy pattern figure is demonstrated for my future reference:
+				
+			Main App <----> AOP Proxy <---- Logging Aspect ----> Target Object (AccountDAO)
+The Main App calls the tartet object and in the background we create an aspect(i.e logging aspect in this example) using the @Before and we're gonna monitor in on the conversaton b/w the main app and target object.
+
+Development process-
+Add the dependency for Spring Boot AOP starter.
+Create target object AccountDAO
+Create main app
+Create an aspect with @Before advice
+
+@Aspect // it tells this class in an aspect
+@Component
+public class MyDemoLoggingAspect {
+
+	@Before("execution(public void addAccount())") //it's a pointcut expression that tells to run this method before
+	public void beforeAddAccountAdvice() {
+	...
+	}
+
+}
+
+Best practices: Aspect and Advices
+Keep the code small and fast.
+Don't perform expensive/slow operations.
+Get in and out as QUICKLY as possible because you are in a spy network(i.e. you are spying basically)
+
+>> Pointcut Expressions
+Pointcut: a predicate expression for where advice should be applied
+Spring AOP uses AspectJ's pointcut expression language. They have a log of different pointcuts, we will start with execution pointcuts which applies to execution of methods.
+
+Match on Method name-
+Modifiers: SpringAOP only support public, Return type: void, boolean and others, Declaring type: the class name, Method name to match, Parameter type to match, Throws pattern: Exception type to match.
+The pattern is optional if it has "?"
+
+execution(modifiers-pattern? return-type-pattern declaring-type-pattern? method-name-pattern(param-pattern) throws-pattern?)
+
+Some eg. -
+@Before("execution(public void com.aop.aopdemo.dao.AccountDAO.addAccount())") // com.aop.aopdemo.dao is the declaring type
+@Before("execution(public void add*())")
+@Before("execution(public * add*())")
+
+Match on Parameters-
+() - matches a method with no arguments
+(*) - matches a method with one argument of any type
+(..) - matches a method with 0 or more arguments of any type
+
+Eg. for Matching all method in a given package
+@Before("execution(*(return type) com.aop.aopdemo.dao(package).*(class).*(method)(..))")
+
+
+>> Pointcut Declaration
+We use this to reuse a pointcut expression to apply to multiple advices.
+Eg. @Pointcut("execution(* com.aop.aopdemo.dao.*.*(..))")
+    private void forDAOPackage() {}		// the method name is to reference this Pointcut
+
+>> Combining Pointcuts
+To apply multiple pointcut expressions to single advice we combine pointcut expressions using &&, ||, ! etc.
+Eg. All methods	in a package except getter/setter methods
+@Pointcut("execution(* com.aop.aopdemo.dao.*.*(..))")
+    private void forDAOPackage() {};
+
+@Pointcut("execution(* com.aop.aopdemo.dao.*.get*(..))")
+    private void getter() {};
+
+@Pointcut("execution(* com.aop.aopdemo.dao.*.set*(..))")
+    private void setter() {};
+
+@Pointcut("forDAOPackage() && !(getter() || setter())")
+    private void forDAOPackageNoGetterSetter() {};	// use this pointcut in advice @Before("forDAOPackageNoGetterSetter()")
+
+>> Ordering Aspects
+To control order-
+Place advices in seperate Aspects
+Control order on Aspects using the @Order annotation
+Eg. @Order(1)  // Lower number have high precedence. Range: Integer.MIN_VALUE to Integer.MAX_VALUE and doesn't need to be consecutive. 
+    public class MyAspect {
+    };
+
+>> @AfterThrowing Advice
+Sequence Diagram -
+
+		Main App ---findAccounts()--> AOP Proxy ---findAccounts()--> AccountDAO ---exception--> @AfterThrowing Advice
+			 <----exception------           <--------------------exception-----------------
+
+Main app makes a call find accounts, goes into our AOP Proxy, which delegates that call to the AccountDAO find accounts. If there is an exception it'll call the after throwing advice. So we post process or just read the advice. After that the exception is still propogated back to AOP Proxy. From AOP Proxy the exception is propogated back to main application.
+
+Exception Propogation -
+At this point, we are only intercepting the exception (reading it). However, the exception is still propogated to calling program.
+If you want to stop the exception propogation then use @Around advice.
+
+>> Around Advice
+Sequence Diagram -
+
+		Main App ---getFortune()--> AOP Proxy ---getFortune()--> @Around Advice ---call target method--> Fortune Service
+           		 <-----result------           <-----result------                <---------result--------
+
+When using @Around Advice you will get a proceeding join point which is a handle to target method. Your code can use the proceeding join point to execute target method.
+
+Handle Exception -
+For an exception thrown from proceeding join point you can handle/ swallow/ stop the exception. Or you can simply rethrow the exception.
+
+Eg. When the target method makes an exception then we can handle the exception in @Around advice. The main program will never know exception happened.
+In case of we just log the exception in @Around advice and then rethrow the expection back to proxy and then back to the main application.
