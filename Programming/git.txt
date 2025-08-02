@@ -13,13 +13,12 @@ git remote -v						// lets you view remote repo URLs
 git remote add origin(urlname) url (it attach the url with the project on your device)
 git status
 git log
-git checkout -- filename				// discard changes in working directory
-git checkout file.txt					// it rolls back this file to the previous version
-git restore --staged filename or git rm --cached -r .	// it unstage files
 git stash						// temporarily save uncommitted changes
 git stash pop						// restore stashed changes
 git stash clear
 git diff file.txt					// it check the difference of current version and last saved point
+git restore --staged filename or git rm --cached -r .	// it unstage files
+git checkout [--] filename or git restore filename      // discard changes in working directory
 
 --> Git Remote
 A Git remote is just a copy of your repository on another machine, often on the internet (like GitHub). It allows your local Git repo to communicate with others, typically for collaboration or backup.
